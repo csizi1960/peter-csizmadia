@@ -1,0 +1,71 @@
+                        Csizmadia Peter
+                  Hivatkozasi lista 2003
+
+[1] P. Csizmadia, T. Csorgo, B. Lukacs:
+    "New analytic solutions of the non-relativistic hydrodynamical equations",
+    Physics Letters B443 (1998) 21-25, nucl-th/9805006
+
+    1. S.V. Akkelin, Yu.M. Sinyukov, nucl-th/0310036
+
+    2. T. Csorgo, J. Zimanyi, Acta Phys.Hung.New Ser.Heavy Ion Phys.17 (2003)
+	281-293, nucl-th/0206051
+    3. T. Csorgo, A. Ster, Acta Phys.Hung.New Ser.Heavy Ion Phys.17 (2003)
+	295-312, nucl-th/0207016
+    4. T. Csorgo, F. Grassi, Y. Hama, T. Kodama, Phys.Lett.B565 (2003) 107-115,
+	nucl-th/0305059
+    5. T. Csorgo, S.V. Akkelin, Y. Hama, B. Lukacs, Yu.M. Sinyukov,
+	Phys.Rev.C67 (2003) 034904, hep-ph/0108067
+    6. T. Csorgo, L.P. Csernai, Y. Hama, T. Kodama, nucl-th/0306004
+
+[2] P. Csizmadia, P. Levai, S. E. Vance, T. S. Biro, M. Gyulassy, J. Zimanyi:
+    "Strange hyperon and antihyperon production from quark and string-rope
+    matter", Journal of Physics G25 (1999) 321-330, hep-ph/9809456
+
+    1. Z.W. Lin, D. Molnar, Phys.Rev.C68 (2003) 044901, nucl-th/0304045
+
+[3] P. Csizmadia, P. Levai: "phi, Omega and rho production from deconfined
+    matter in relativistic heavy ion collisions at CERN SPS",
+    Physical Review C61 (2000) 031903, hep-ph/9909544
+
+    1. E.L. Bratkovskaya, W. Cassing, H. Stocker,
+	Phys.Rev.C67 (2003) 054905, nucl-th/0301083
+    2. L.W. Chen, V. Greco, C.M. Ko, S.H. Lee, W. Liu, nucl-th/0308006
+
+    3. V. Greco, C.M. Ko, P. Levai, Phys.Rev.Lett.90 (2003) 202302,
+	nucl-th/0301093
+
+[4] P. Levai, T. S. Biro, P. Csizmadia, T. Csorgo, J. Zimanyi:
+    "The production of charm mesons from quark matter at CERN SPS and RHIC",
+    Journal of Physics G27 (2001) 703-706, nucl-th/0011023
+
+    1. M. van Leeuwen, S. V. Afanasiev et al. (NA49),
+	Nucl.Phys.A715 (2003) 161-170, nucl-ex/0208014
+
+[5] S. Cheng, S. Pratt, P. Csizmadia, Y. Nara, D. Molnar, M. Gyulassy,
+      S. E. Vance, B. Zhang: "The effect of finite-range interactions in
+      classical transport theory", Physical Review C65} (2002) 024901
+
+    1. D. Molnar, M. Gyulassy,
+	Acta Phys.Hung.New Ser.Heavy Ion Phys.18 (2003) 69-78, nucl-th/0204062
+
+[6] P. Csizmadia and P. Levai:
+    "The MICOR hadronization model with final state interactions",
+    Journal of Physics G28 (2002) 1997-2000
+
+    1. D. Molnar, S.A. Voloshin, Phys.Rev.Lett.91 (2003) 092301, nucl-th/0302014
+
+    2. V. Greco, C.M. Ko, P. Levai, Phys.Rev.C68 (2003) 034904, nucl-th/0305024
+
+[7] Y. Nara, S.E. Vance, P. Csizmadia: "A study of parton energy loss in
+    Au+Au collisions at RHIC using transport theory",
+    Physics Letters B531 (2002) 209-215, nucl-th/0109018
+
+    1. S.A. Bass, B. Muller, D.K. Srivastava,
+	Phys.Lett.B551 (2003) 277-283, nucl-th/0207042
+    2. S.A. Bass, Pramana 60 (2003) 593-612, nucl-th/0202010
+    3. E. Iancu, Raju Venugopalan,
+	QGP3 (Eds. R.C. Hwa and X.N.Wang) p. 249-3363, hep-ph/0303204
+
+    4. A. Krasnitz, Y. Nara, R. Venugopalan, Braz.J.Phys.33 (2003) 223-230
+    5. A. Krasnitz, Y. Nara, R. Venugopalan, Nucl.Phys.A717 (2003) 268-290,
+	hep-ph/0209269

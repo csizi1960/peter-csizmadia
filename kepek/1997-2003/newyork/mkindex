@@ -1,0 +1,205 @@
+#!/usr/bin/perl -w
+
+use Image::Magick;
+
+open(INDEXHTML, ">index.html");
+
+# make the first part of index.html
+begin_indexhtml();
+
+# make initial empty image
+my $p = new Image::Magick;
+my $indexwidth=620;
+my $indexheight=322;
+$p->Set(size=>"$indexwidth"."x"."$indexheight");
+$p->Read("xc:#202020");
+print INDEXHTML <<EOF;
+<img SRC="index.jpg" WIDTH="$indexwidth" HEIGHT="$indexheight" BORDER=0 USEMAP="#imgmap" ALT="Click for large image">
+<script LANGUAGE="JavaScript1.1">
+<!--
+picLinks = new Array(); picW = new Array(); picH = new Array();
+picTitle = new Array(); picNote = new Array();
+EOF
+
+# create image object for thumbnails
+my $q = new Image::Magick;
+
+my $absIndex = 0;
+my @picL;
+my @picT;
+my @picR;
+my @picB;
+my @picLinks;
+my @picSetI;
+
+# New York
+my $yoff = 0;
+my $dytxt = 10;
+$p->Annotate(fill=>"#ffffff",geometry=>"200x16+0+".($yoff+$dytxt),
+	align=>Center, text=>"New York\n2000-2001");
+$p->Annotate(fill=>"#ffffff",geometry=>"200x16+381+".($yoff+$dytxt),
+	align=>Center, text=>"Washington");
+addpics(0, 0, $yoff, 0,
+	"2001ny-cars.jpg", "99x80+0+27+27+Night traffic+#ffffff",
+	"2001ny-ViewFromEmpStBldg.jpg", "75x107+99+0+27+Night view from the Empire State Building+#ffffff",
+	"2000ny-glowing.jpg", "82x98+174+0+27+Stars on trees+#ffffff",
+	"2000ny-grantstomb.jpg", "87x57+256+0+27+Grant's Tomb+#ffffff",
+	"2001ny-belvedere.jpg", "38x57+343+0+27+Belvedere Castle+#ffffff+Central Park",
+	"2001washington-capitol+dick+whouse.jpg", "70x72+381+16+27+Capitol, Big Dick, White House+#ffffff",
+	"2001washington-statues.jpg","76x66+451+16+27+Statues+#000000+Washington"
+);
+
+# New York after September 11, 2001
+$yoff += 80 + 27;
+$dytxt = 12;
+$p->Annotate(fill=>"#ffffff",geometry=>"200x16+0+".($yoff+$dytxt+4),
+	align=>Center,
+	text=>"Before and after 9/11");
+addpics(1, 0, $yoff, 0,
+	"2001ny+1998-BrooklynBridge.jpg", "66x76+0+16+16+Brooklyn Bridge+#000000",
+	"2000ny-tmssq.jpg", "83x60+66+16+16+January 2000+#ffffff",
+	"2001ny-tmssq.jpg", "66x75+149+0+16+October 2001+#ffffff",
+	"2001ny-lovaskocsi.jpg", "84x59+215+16+16+Coach+#000000",
+	"2001ny-dntown.jpg", "85x62+299+16+16+Downtown+#ffffff",
+	"2001ny-dntownwtc.jpg", "75x66+384+16+16+The Center+#ffffff",
+	"2001ny-wtc.jpg", "82x61+459+21+16+Zone+#ffffff",
+	"2001ny-wtcpics.jpg", "77x65+541+17+16+Trade+#ffffff",
+	"2001ny-tostand.jpg", "71x70+272+82+82+To stand or not to stand+#000000",
+	"2001ny-warisnottheanswer.jpg", "110x70+343+82+82+`War is not the answer'+#ffffff+October 7, 2001",
+	"2001ny-nomercy.jpg", "83x60+453+82+82+No mercy+#ffffff",
+	"2001ny-afghankebab.jpg", "84x100+536+82+82+Afghan Kebab+#ff9999"
+);
+
+$yoff += 92;
+$p->Annotate(fill=>"#ffffff",geometry=>"200x16+0+".($yoff+$dytxt+4),
+	align=>Center, text=>"Nature");
+addpics(2, 0, $yoff, 0,
+	"2001washington-rainbow.jpg", "91x55+0+16+18+Rainbow+#ffffff+Washington",
+	"2001potomac-greatfalls.jpg", "85x59+91+16+18+Great Falls+#000000+Potomac",
+	"2001ny+washingon-squirrels.jpg", "77x65+176+0+18+Squirrels+#ffffff+New York (Central Park), Washington",
+	"2001ny-squirreljumps.jpg", "92x54+176+65+67+Jump+#ffffff+Central Park"
+);
+
+print INDEXHTML <<EOF;
+//-->
+</script>
+EOF
+
+addImageMap();
+
+# save final image
+$p->Write('index.jpg');
+
+# 
+end_indexhtml();
+
+close(INDEXHTML);
+
+##########################################################
+## add pictures in an array to index.jpg and index.html ##
+##########################################################
+
+sub addpics {
+	my $set = $_[0];
+	my $xoff = $_[1];
+	my $yoff = $_[2];
+	my $annotate = $_[3];
+	shift;
+	shift;
+	shift;
+	shift;
+	my @pics = @_;
+	printf(INDEXHTML "picLinks[%d] = new Array(); ".
+			 "picW[%d] = new Array(); ".
+			 "picH[%d] = new Array();\n", $set, $set, $set);
+	printf(INDEXHTML "picTitle[%d] = new Array(); ".
+			 "picNote[%d] = new Array();\n", $set, $set);
+	for(my $i = 0; $i < @pics; $i += 2) {
+		my $count = $i/2;
+		my $f = $pics[$i];
+		my @g = split(/\+/, $pics[$i+1]);
+		my $x = $xoff + $g[1];
+		my $y = $yoff + $g[2];
+		my $title = $g[4];
+		my $textcolor = $g[5];
+		my $note = ($#g >= 6)? $g[6] : "";
+		my $gcomp = $g[0]."+".$x."+".$y;
+		my $gtxt = $g[0]."+".$x."+".($yoff+$g[3]+$dytxt);
+		my ($w, $h) = split(/x/, $g[0]);
+		my $err = $q->Read($f); die "$err" if "$err";
+		my $width = $q->Get("width");
+		my $height = $q->Get("height");
+		$q->Scale(width=>$w, height=>$h);
+		$p->Composite(composite=>Over,geometry=>"$gcomp",image=>$q);
+		$p->Annotate(fill=>$textcolor, geometry=>$gtxt, align=>Left,
+			     pointsize=>15, text=>($count + 1));
+		if($annotate) {
+			my $gl = $g[0]."+".($xoff+$g[1])."+".($yoff+$g[4]);
+			$p->Annotate(fill=>"#c0c0ff", geometry=>$gl,
+				     pointsize=>12, align=>Center, text=>$g[3]);
+		}
+		undef @$q;
+		$picL[$absIndex] = $x;
+		$picT[$absIndex] = $y;
+		$picR[$absIndex] = $x + $w;
+		$picB[$absIndex] = $y + $h;
+		$picLinks[$absIndex] = $f;
+		$picSetI[$absIndex] = $set;
+		++$absIndex;
+		printf(INDEXHTML "picLinks[%d][%d] = \"%s\"; ", $set, $count, $f);
+		printf(INDEXHTML "picW[%d][%d] = %d; ", $set, $count, $width);
+		printf(INDEXHTML "picH[%d][%d] = %d;\n", $set, $count, $height);
+		printf(INDEXHTML "picTitle[%d][%d] = \"%s\"; ", $set, $count, $title);
+		printf(INDEXHTML "picNote[%d][%d] = \"%s\"\n", $set, $count, $note);
+	}
+}
+
+sub addImageMap {
+	printf(INDEXHTML "<map NAME=\"imgmap\">\n");
+	my $k = 0;
+	my $prevset = 0;
+	for(my $i = 0; $i < @picL; ++$i) {
+		my $set = $picSetI[$i];
+		if($set != $prevset) {
+			$prevset = $set;
+			$k = 0;
+		}
+		printf(INDEXHTML "<area COORDS=\"%d,%d,%d,%d\" HREF=\"%s\"\n".
+		"      onClick=\"return show(true, %d, %d)\">\n",
+			$picL[$i], $picT[$i], $picR[$i], $picB[$i],
+			$picLinks[$i], $set, $k);
+		++$k;
+	}
+	printf(INDEXHTML "</map>\n");
+}
+
+##########################################################
+################# first part of index.html ###############
+##########################################################
+
+sub begin_indexhtml {
+	print INDEXHTML <<EOF;
+<html>
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<title>New York &amp; Washington</title>
+<script LANGUAGE="JavaScript1.1" SRC="show.js"></script>
+</head>
+<body BGCOLOR="#202020" TEXT="#ffffff" LINK="#8080ff" VLINK="#7820d8" ALINK="#c0c0ff">
+
+<center>
+EOF
+}
+
+##########################################################
+##################### end of index.html ##################
+##########################################################
+
+sub end_indexhtml() {
+	print INDEXHTML <<EOF;
+</center>
+
+</body>
+</html>
+EOF
+}

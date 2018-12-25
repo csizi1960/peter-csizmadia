@@ -1,0 +1,124 @@
+#!/usr/bin/perl -w
+#
+# freget, Tue Nov 9 1999, Peter Csizmadia <cspeter@rmki.kfki.hu>
+#
+use strict;
+use Net::FTP;
+use IO::Seekable;
+
+if($#ARGV < 0) {
+	print <<EOF;
+freget [login\@]host:path [localfile]
+examples:
+  freget cspeter\@sunserv:log/access_log
+  freget sunserv:log/access_log sunserv.log
+  freget sunserv:log/access_log sunserv.log.gz
+  freget sunserv:log/access_log sunserv.log.bz2
+EOF
+	exit 0
+}
+
+my $lfile;
+if($#ARGV > 0) {
+	$lfile = $ARGV[1];
+}
+
+#
+# determine username, host, directory, and filename from an URL string
+#
+sub loginhostdirfile {
+	my($url) = @_;
+	my $login="";
+	my $host="";
+	if($url =~ /ftp:\/\//) {
+		$url = substr($url, 6);
+	}
+	if($url =~ /@/) {
+		($login,$host) = split /@/,$url;
+	} else {
+		$host=$url;
+	}
+	my $path="";
+	my $i1 = index($host, ":");
+	my $i2 = index($host, "/");
+	if($i1 >= 0 && ($i2 < 0 || $i1 < $i2)) {
+		$path = substr($host, $i1+1);
+		$host = substr($host, 0, $i1);
+	} else {
+		$path = substr($host, $i2);
+		$host = substr($host, 0, $i2);
+	}
+	my $i = rindex($path, "/");
+	my $dir = "";
+	my $file = "";
+	if($i >= 0) {
+		$dir = substr($path, 0, $i);
+		$file = substr($path, $i+1);
+	} else {
+		$file = $path;
+	}
+	return ($login, $host, $dir, $file);
+}
+
+my ($login, $host, $rdir, $rfile) = loginhostdirfile($ARGV[0]);
+my $gzipped = 0;
+my $bzipped = 0;
+if(!$lfile) {
+	$lfile = $rfile;
+} else {
+	if($lfile =~ /\.gz$/) {
+		$gzipped = 1;
+		if(-e $lfile) {
+			printf(STDERR "gunzipping: $lfile ->");
+			system("gunzip $lfile");
+			$lfile = substr($lfile, 0, length($lfile)-3);
+			printf(STDERR " $lfile\n");
+		} else {
+			$lfile = substr($lfile, 0, length($lfile)-3);
+		}
+	} elsif($lfile =~ /\.bz2$/) {
+		$bzipped = 1;
+		if(-e $lfile) {
+			printf(STDERR "bunzipping: $lfile ->");
+			system("bunzip2 $lfile");
+			$lfile = substr($lfile, 0, length($lfile)-4);
+			printf(STDERR " $lfile\n");
+		} else {
+			$lfile = substr($lfile, 0, length($lfile)-4);
+		}
+	}
+}
+
+my $where=0;
+if(-e $lfile) {
+	open(F, $lfile) or die "cannot open local file $lfile";
+	seek(F, 0, SEEK_END);
+	$where=tell(F);
+	close(F);
+}
+
+printf(STDERR "opening ftp connection to $host\n");
+my $ftp = Net::FTP->new($host);
+if($login) {
+	$ftp->login($login) or die "cannot login";
+} else {
+	$ftp->login() or die "cannot login";
+}
+$ftp->binary();
+if($rdir) {
+	printf(STDERR "cd $rdir\n");
+	$ftp->cwd($rdir) or die "cannot change directory";
+}
+printf(STDERR "get $rfile $lfile $where\n");
+$ftp->get($rfile, $lfile, $where) or die "cannot get file";
+$ftp->quit;
+
+if($gzipped) {
+	printf(STDERR "gzipping: $lfile ->");
+	system("gzip -9 $lfile");
+	printf(STDERR " %s.gz\n", $lfile);
+} elsif($bzipped) {
+	printf(STDERR "bzipping: $lfile ->");
+	system("bzip2 $lfile");
+	printf(STDERR " %s.bz2\n", $lfile);
+}

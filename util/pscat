@@ -1,0 +1,62 @@
+#!/usr/bin/perl -w
+#
+# pscat, Sat Dec 13 2008, Peter Csizmadia
+#
+# @since Tue Oct 2 2001
+#
+# WARNING! This script is a simple hack, use at your own risk.
+# If it does not work and you have ghostscript, then try
+#    gs -q -dNOPAUSE -dBATCH -sOutputFile=out.ps -sDEVICE=pswrite in1.ps in2.ps
+#
+use strict;
+
+if($#ARGV < 0) {
+	printf("Usage: pscat postscript1.ps postscript2.ps ...\n".
+	       "Warning! This script is a simple hack, use at your own risk.\n");
+	exit 0;
+}
+if($#ARGV == 0) {
+	while(<>) {
+		print;
+	}
+	exit 0;
+}
+
+@ARGV = map {
+	/\.(gz|Z)$/ ? "gunzip < $_ |" :
+	/\.bz2$/ ? "bunzip2 < $_ |" :
+	/\.lzma$/ ? "unlzma < $_ |" : $_
+} @ARGV;
+
+my $eofLineNumber = -1;
+my $absVisibleCount = 0;
+my $absRealCount = 0;
+my $hasend = 0;
+for(my $i = 0; $i <= $#ARGV; ++$i) {
+	my $file = $ARGV[$i];
+	open(IN, $file) or die "$file: cannot open";
+	my ($tmp, $visibleCount, $realCount);
+	while(<IN>) {
+		next if /^\%\%EOF$/;
+		if(/^\%\%Page: /) {
+			($tmp, $visibleCount, $realCount) = split(/ /);
+			if(!($visibleCount =~ /[0123456789]+/)
+			   || !($realCount =~ /[0123456789]+/)) {
+				my $s;
+				chomp($s = $_);
+				printf(STDERR "WARNING: \"%s\": suspicious".
+					" line left unchanged\n", $s);
+			} else {
+				my $x = $absVisibleCount + $visibleCount;
+				my $y = $absRealCount + $realCount;
+				my $s = "%%Page: ".$x." ".$y;
+				s/^.*$/$s/;
+			}
+		}
+		print;
+	}
+	$absVisibleCount += $visibleCount;
+	$absRealCount += $realCount;
+	close(IN) or die "$file: cannot close";
+}
+printf("%%%%EOF\n");

@@ -1,0 +1,39 @@
+#!/bin/sh -e
+# RealAudio RAM to WAV conversion, 2008.04.20.
+
+gain="$1"
+url="$2"
+if [ -z "$TMPDIR" ]; then
+	TMPDIR="/tmp"
+fi
+myname=`basename $0`
+if [ -z "$myname" ]; then
+	myname="ram2wav"
+fi
+tmpfile="$TMPDIR/ram2wav$$.tmp"
+if [ -z "$gain" -o -z "$url" ]; then
+	cat <<EOF
+RealAudio RAM to WAV converter.
+Usage: $myname <gain in dB> <url>
+If gain is nonzero, then sound is amplified by the specified amount.
+
+Example:
+$myname 7 http://somewhere/realaudiofile.ram
+EOF
+	exit 0
+fi
+
+ramname=`basename "$url"`
+wavname=`echo $ramname | sed 's/\.ram$/\.wav/'`
+if [ "$ramname" = "$wavname" ]; then
+	wavname="${ramname}.wav"
+fi
+if (echo $url | grep '^http:\|^ftp:' >/dev/null); then
+	wget "$url" -O "$tmpfile"
+	rtspaddr=`grep '^rtsp:' "$tmpfile" | head -1`
+	rm -f "$tmpfile"
+else
+	rtspaddr=`grep '^rtsp:' "$url" | head -1`
+fi
+echo "mplayer -af volume=$gain -vc null -vo null -ao \"pcm:fast:waveheader:file=$wavname\" \"$rtspaddr\""
+exec mplayer -af volume=$gain -vc null -vo null -ao "pcm:fast:waveheader:file=$wavname" "$rtspaddr"

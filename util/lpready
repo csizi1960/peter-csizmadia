@@ -1,0 +1,31 @@
+#!/bin/sh -e
+# lists printers and enables disabled printers - Peter Csizmadia, 2008.02.08
+
+CUPSENABLE=""
+
+for p in /sbin /usr/sbin /usr/local/sbin; do
+	if [ -x "$p/cupsenable" ]; then
+		CUPSENABLE="$p/cupsenable"
+	fi
+done
+
+for p in `grep '^[a-zA-Z].*[:|]' /etc/printcap 2>/dev/null|sed 's/[:|].*//'`
+do
+	if LANG=en_US lpq -P $p 2>/dev/null|grep ' not ready' >/dev/null; then
+		if [ -n "$CUPSENABLE" ]; then
+			echo sudo /usr/sbin/cupsenable $p
+			sudo $CUPSENABLE $p
+			if [ "$?" != "0" ]; then
+				cat <<EOF
+An error occured. Check whether you a member of the wheel group and whether
+the sudo settings are correct (see visudo or /etc/sudoers):
+%wheel  ALL=(ALL) SETENV: ALL
+%wheel  ALL=NOPASSWD: $CUPSENABLE $p
+EOF
+			fi
+		else
+			echo "$tmp is not ready and cupsenable not found"
+		fi
+	fi
+	LANG=en_US lpq -P $p | head -1
+done

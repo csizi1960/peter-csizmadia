@@ -1,0 +1,52 @@
+/*** DIV BAR ***/
+ul.mainlevel-divbar {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+ul.mainlevel-divbar li {
+	display: inline;
+	margin: 0;
+	border-left: 1px solid #B3B3B3;
+	background: none;
+	padding: 0 0.8em;
+}
+
+ul.mainlevel-divbar li.first {
+	border-left: none;
+}
+
+ul.mainlevel-divbar a:link,
+ul.mainlevel-divbar a:visited {
+	text-decoration: none !important;
+}
+
+ul.mainlevel-divbar a:hover {
+	text-decoration: underline !important;
+}
+
+
+/*
+ul.mainlevel-divbar a:link,
+ul.mainlevel-divbar a:visited {
+	font-weight: normal;
+	text-decoration: none;
+	height: 1em;
+	color: #000;
+	padding: 5px;
+}
+
+ul.mainlevel-divbar a:hover {
+	background: url(../images/header_tabmenu_hover.png) repeat-x center left;
+	color: #000;
+}
+
+ul.mainlevel-divbar li.mainlevel_first-divbar {
+	border: none;
+}
+
+ul.sublevel-divbar {
+	display: none;
+}
+*/

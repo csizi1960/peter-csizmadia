@@ -1,0 +1,121 @@
+#!/usr/bin/perl -w
+#
+# latex2utf8txt, Jun 18 2005 Peter Csizmadia
+#
+
+use strict;
+
+if($#ARGV < 0) {
+	print <<EOF;
+Usage: latex2utf8txt file.tex
+EOF
+	exit 0;
+}
+
+#my $outenc = shift @ARGV;
+
+my $paragraph = "";
+
+sub convert {
+	my $s = shift;
+	$_ = $s;
+	s/\\DeclareFontFamily\{\w+\}\{\w+\}\{\w*\}//g;
+	s/\\DeclareFontShape\{\w+\}\{\w+\}\{\w*\}\{\w*\}\{[^\}]*\}\{[^\}]*\}//g;
+	s/\\DeclareMathAlphabet\{[^\}]*\}\{[^\}]*\}\{[^\}]*\}\{[^\}]*\}\{[^\}]*\}//g;
+	s/\\catchline\{[^\}]*\}\{[^\}]*\}\{[^\}]*\}\{[^\}]*\}\{[^\}]*\}//g;
+	s/\\(markboth)\{(.*)\}\{(.*)\}$/$2\n$3/g;
+	s/\\(title|author|address)\{(.*)\}$/$2/g;
+	s/\\keywords\{([^\}]*)\}/$1/g;
+	s/\\(section|subsection|subsubsection)\{(.*)\}$/$2/g;
+	s/\\epsfig\{[^\}]*\}//g;
+	s/\\psfig\{[^\}]*\}//g;
+	s/\{(\\bf|\\it) (\w+)\}/$2/g;
+	s/^``(\w)/"$1/g;
+	s/ ``(\w)/ "$1/g;
+	s/([\w\.])''$/$1"/g;
+	s/([\w\.])'' /$1" /g;
+	# incomplete
+	s/\{\\'a\}|\\'a/á/g;
+	s/\{\\'A\}|\\'A/Á/g;
+	s/\{\\`a\}|\\`a/à/g;
+	s/\{\\`A\}|\\`A/À/g;
+	s/\{\\^a\}|\\^a/â/g;
+	s/\{\\^A\}|\\^A/Â/g;
+	s/\{\\'e\}|\\'e/é/g;
+	s/\{\\'E\}|\\'E/É/g;
+	s/\{\\`e\}|\\`e/è/g;
+	s/\{\\`E\}|\\`E/È/g;
+	s/\{\\^e\}|\\^e/ê/g;
+	s/\{\\^E\}|\\^E/Ê/g;
+	s/\{\\'\\i\}|\\'\\i/í/g;
+	s/\{\\'I\}|\\'I/Í/g;
+	s/\{\\`\\i\}|\\`\\i/ì/g;
+	s/\{\\`I\}|\\`I/Ì/g;
+	s/\{\\^\\i\}|\\^\\i/î/g;
+	s/\{\\^I\}|\\^I/Î/g;
+	s/\{\\'o\}|\\'o/ó/g;
+	s/\{\\'O\}|\\'O/Ó/g;
+	s/\{\\`o\}|\\`o/ò/g;
+	s/\{\\`O\}|\\`O/Ò/g;
+	s/\{\\"o\}|\\"o/ö/g;
+	s/\{\\"O\}|\\"O/Ö/g;
+	s/\{\\~o\}|\\~o/õ/g;
+	s/\{\\~O\}|\\~O/Õ/g;
+	s/\{\\^o\}|\\^o/ô/g;
+	s/\{\\^O\}|\\^O/Ô/g;
+	s/\{\\H o\}|\\H o/ő/g;
+	s/\{\\H O\}|\\H O/Ő/g;
+	s/\{\\'u\}|\\'u/ú/g;
+	s/\{\\'U\}|\\'U/Ú/g;
+	s/\{\\`u\}|\\`u/ù/g;
+	s/\{\\`U\}|\\`U/Ù/g;
+	s/\{\\"u\}|\\"u/ü/g;
+	s/\{\\"U\}|\\"U/Ü/g;
+	s/\{\\^u\}|\\^u/û/g;
+	s/\{\\^U\}|\\^U/Û/g;
+	s/\{\\H u\}|\\H u/ű/g;
+	s/\{\\H U\}|\\H U/Ű/g;
+	return $_;
+}
+
+while(<>) {
+	chomp;
+	s/^\\documentclass\{.*//;
+	s/^\\usepackage\{.*\}//;
+	s/^\\def\\.*//;
+	s/^\\maketitle$//;
+	s/^\\begin\{abstract\}$//;
+	s/^\\end\{abstract\}$//;
+	s/^\\begin\{document\}$//;
+	s/^\\end\{document\}$//;
+	s/^%.*//g;
+	s/^[ \t]+//g;
+	s/[ \t]+$//g;
+	if(/^$/) {
+		if(!($paragraph eq "")) {
+			printf("%s\n\n", convert($paragraph));
+			$paragraph = "";
+		}
+	} elsif(/^\\begin\{[a-z]+\}$/ || /^\\end\{[a-z]+\}$/) {
+		my $line = $_;
+		if(!($paragraph eq "")) {
+			printf("%s\n", convert($paragraph));
+			$paragraph = "";
+		}
+		printf("%s\n", $line);
+	} elsif(/^\\item / || /^\\bibitem\{/) {
+		my $line = $_;
+		if(!($paragraph eq "")) {
+			printf("%s\n", convert($paragraph));
+			$paragraph = "";
+		}
+		$paragraph = $line;
+	} elsif($paragraph eq "") {
+		$paragraph = $_;
+	} else {
+		$paragraph .= " ".$_;
+	}
+}
+if(!($paragraph eq "")) {
+	printf("%s\n", convert($paragraph));
+}

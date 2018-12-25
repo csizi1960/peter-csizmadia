@@ -1,0 +1,534 @@
+#
+# ~/.zshrc, Jun 6 2009 Peter Csizmadia
+# (derived from: /etc/zshrc version 2.4 (17.06.94) of DESY UNIX Group.)
+#
+
+# . /mount/share/lib/skel/.zshrc_default
+
+umask 022
+
+#####################################################
+# ENVIRONMENT VARIABLES                             #
+#####################################################
+
+PROMPT='%m%~%# ' # default prompt
+
+export LESSCHARSET=latin1
+
+##### special path parameters
+if [ "$UID" = "0" ]; then
+	for d in /sbin /usr/sbin /usr/local/sbin; do
+		if [ -d $d ]; then path=($d $path[@]); fi
+	done
+fi
+for d in /opt/gnome/bin; do
+	if [ -d $d ]; then path=($d $path[@]); fi
+done
+for x in /opt/mozilla/mozilla /opt/mozilla/bin/mozilla\
+ /opt/OpenOffice.org/program/soffice\
+ /usr/local/firefox/firefox; do
+	if [ -x $x ]; then
+		d=`dirname $x`
+		path=($d $path[@])
+	fi
+done
+if [ -d "$HOME/bin" ]; then path=("$HOME/bin" $path[@]); fi
+if [ -d "$HOME/man" ]; then manpath=("$HOME/man" $manpath[@]); fi
+if [ -n "$ZSH_VERSION" ]; then
+	typeset -U path manpath
+
+	##### path parameters which are NOT special in zsh
+	ld_library_path=("$HOME/lib" ${(s(:))LD_LIBRARY_PATH})
+	typeset -U ld_library_path
+	export LD_LIBRARY_PATH=${(j(:))ld_library_path}
+	for d in "/usr/freeware/lib32" "/usr/lib32" "$HOME/lib32"; do
+		# /usr/lib32 must be *before* /usr/freeware/lib32 on
+		# IRIX 6.5.21, otherwise sysmgr fails to run ("unresolvable
+		# symbol in /usr/lib32/libwebviewer.so).
+		if [ -d "$d" ]; then
+			ld_library_path=("$d" ${(s(:))LD_LIBRARYN32_PATH})
+			typeset -U ld_library_path
+			export LD_LIBRARYN32_PATH=${(j(:))ld_library_path}
+		fi
+	done
+elif [ -z "$LD_LIBRARYN32_PATH" ]; then
+	for d in "/usr/freeware/lib32" "/usr/lib32" "$HOME/lib32"; do
+		# /usr/lib32 must be *before* /usr/freeware/lib32 on
+		# IRIX 6.5.21, otherwise sysmgr fails to run ("unresolvable
+		# symbol in /usr/lib32/libwebviewer.so).
+		if [ -d "$d" ]; then
+			if [ -z "$LD_LIBRARYN32_PATH" ]; then
+				LD_LIBRARYN32_PATH="$d"
+			else
+				LD_LIBRARYN32_PATH="$d:$LD_LIBRARYN32_PATH"
+			fi
+			export LD_LIBRARYN32_PATH
+		fi
+	done
+
+fi
+if [ "$HOME" != "$PWD" ]; then
+	if [ -d "$PWD/bin" ]; then path=($PWD/bin $path[@]); fi
+	if [ -d "$PWD/man" ]; then path=($PWD/man $path[@]); fi
+	if [ -d "$PWD/lib" ]; then
+		if [ -n "$ZSH_VERSION" ]; then
+			ld_library_path=("$PWD/lib" ${(s(:))LD_LIBRARY_PATH})
+			typeset -U ld_library_path
+			export LD_LIBRARY_PATH=${(j(:))ld_library_path}
+		else
+			export LD_LIBRARY_PATH="$PWD/lib:$LD_LIBRARY_PATH"
+		fi
+	fi
+fi
+
+#####################################################
+# COMPLETION                                        #
+#####################################################
+
+if [ -n "$ZSH_VERSION" ]; then
+	# Completion functions
+	_compdir=/usr/share/zsh/$ZSH_VERSION/functions/Completion
+	[[ -z $fpath[(r)$_compdir] ]] && fpath=($fpath $_compdir)
+	autoload -U compinit
+	compinit
+
+	if [ -n "$LS_COLORS" ]; then
+		### Color completion. and menu selection
+		zmodload -i zsh/complist
+		zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+	fi
+fi
+
+#####################################################
+# OPTIONS                                           #
+#####################################################
+
+##### completion
+setopt autolist automenu listtypes nolistbeep recexact
+##### filename and parameter expansion
+setopt globdots extendedglob rcquotes
+##### files
+if [ -n "$ZSH_VERSION" ]; then
+	setopt clobber
+fi
+##### change directory
+setopt autocd cdablevars
+##### directory stack
+setopt autopushd pushdignoredups pushdminus pushdsilent pushdtohome
+##### jobs
+setopt longlistjobs notify nohup
+if [ -n "$ZSH_VERSION" ]; then
+	setopt nobgnice
+fi
+##### history
+setopt appendhistory histignoredups histignorespace histnostore
+##### mail
+setopt mailwarning
+##### exit
+setopt ignoreeof
+##### misc
+setopt kshoptionprint
+
+#####################################################
+# KEY BINDINGS                                      #
+#####################################################
+##### emacs keymap with the compiled in set of meta key bindings
+#     C-a beginning-of-line, C-e end-of-line
+#     C-k kill-line, C-u kill-whole-line
+#     C-y yank
+#     M-f forward-word, M-b backward-word, M-s emacs-forward-word
+#     M-u up-case-word, M-l down-case-word
+#     M-d delete-word
+#     M-h run-help
+#     ESC ? which-command
+#     C-x u undo
+bindkey -e
+##### completion, spell
+if [ -n "$ZSH_VERSION" ]; then
+	bindkey '\t'     expand-or-complete-prefix # TAB
+fi
+bindkey '\e[24~' spell-word                # F12 - xterm, rxvt, kvt
+bindkey '\e[012q' spell-word               # F12 - IRIX winterm
+##### help
+bindkey '\eOP'   run-help  # F1 - xterm
+bindkey '\e[11~' run-help  # F1 - rxvt, kvt
+bindkey '\e[[A'  run-help  # F1 - linux console
+bindkey '\e[001q' run-help # F1 - IRIX winterm
+##### Insert/Delete
+bindkey '\e[2~'  overwrite-mode # Ins
+bindkey '\e[3~'  delete-char-or-list # Del
+# commented out because KDE2 terminal does not like this setting:
+#if [ -n "$DISPLAY" -a "$COLORTERM" != "rxvt-xpm" ]; then
+#	bindkey '^?'     delete-char-or-list # Del
+#fi
+##### history
+bindkey '\e[H'   beginning-of-buffer-or-history # Home in xterm
+bindkey '\e[^@'  beginning-of-buffer-or-history # Home
+bindkey '\e[1~'  beginning-of-buffer-or-history # Home in linux console
+bindkey '\e[7~'  beginning-of-buffer-or-history # Home in kvt
+bindkey '\e[F'   end-of-buffer-or-history       # End in xterm
+bindkey '\e[e'   end-of-buffer-or-history       # End
+bindkey '\e[4~'  end-of-buffer-or-history       # End in linux console
+bindkey '\e[8~'  end-of-buffer-or-history       # End in kvt
+bindkey '\e[5~'  history-search-backward        # PageUp
+bindkey '\e[6~'  history-search-forward         # PageDown
+bindkey '\eOA'   up-line-or-history   # Cursor Up    (KDE2 terminal needs this)
+bindkey '\eOB'   down-line-or-history # Cursor Down  (KDE2 terminal needs this)
+bindkey '\eOC'   forward-char         # Cursor Right (KDE2 terminal needs this)
+bindkey '\eOD'   backward-char        # Cursor Left  (KDE2 terminal needs this)
+
+stty intr '^c' susp '^z'
+
+#####################################################
+# COMPLEX KEYBINDINGS                               #
+#####################################################
+
+# F2: up-history beginning-of-line forward-word kill-word
+bindkey -s '\eOQ'    "^P^A\ef\ed" # F2 - xterm
+bindkey -s '\e[12~'  "^P^A\ef\ed" # F2 - rxvt, kvt
+bindkey -s '\e[[B'   "^P^A\ef\ed" # F2 - linux console
+bindkey -s '\e[002q' "^P^A\ef\ed" # F2 - IRIX winterm
+
+# F9: make
+smart-make() {
+	wd="`pwd`"
+	d=$wd
+	until [ -r GNUmakefile -o -r makefile -o -r Makefile -o -r build.xml ]
+	do
+		if [ "$d" = "/" ]; then
+			break
+		fi
+		cd ..
+		d="`pwd`"
+	done
+	if [ -r GNUmakefile -o -r makefile -o -r Makefile ]; then
+		echo "Running make in directory $d"
+		make
+	elif [ -r build.xml ]; then
+		echo "Running ant in directory $d"
+		ant
+	fi
+	cd $wd
+}
+bindkey -s '\e[20~'  "smart-make\n" # F9 - xterm, rxvt, kvt
+bindkey -s '\e[009q' "smart-make\n" # F9 - IRIX winterm
+
+#####################################################
+# USER SPECIFIC FUNCTIONS AND ALIASES               #
+#####################################################
+
+# remove the brain-damaged precmd() in SuSE linux
+precmd() { }
+
+if [ -n "$DISPLAY" ]; then preexec() { print -nP "]2;${1}" } fi
+
+if [ -n "$OSTYPE" -a -z "${OSTYPE:#linux*}" ]; then alias ls='ls --color'; fi
+
+if alias less >/dev/null; then unalias less; fi
+tmp=`which less 2>/dev/null`
+if [ "$?" = "0" ]; then
+	tmp="${tmp##less is }"
+	alias less="$tmp -i" # case insensitive search in less
+	export PAGER="$tmp -isr"
+	zless() {
+		if [ $? = 0 ]; then
+			if [ "${1##*.gz}" = "" -o "${1##*.Z}" = "" ]; then
+				gzip -cd "$1" | less -i
+			elif [ "${1##*.bz2}" = "" ]; then
+				bzip2 -cd "$1" | less -i
+			elif [ "${1##*.lzma}" = "" ]; then
+				lzma -cd "$1" | less -i
+			else
+				less -i "$@"
+			fi
+		fi
+	}
+fi
+if which vim 2>/dev/null >/dev/null; then
+	alias vi=vim
+	alias v='gvim -R'
+fi
+if [ -d /afs ]; then
+	_kinit() {
+		# use kinit from the krb5-client package rather than the
+		# one in the $JAVA_HOME/bin directory of JDK 1.5.
+		for i in /usr/kerberos/bin/kinit /usr/bin/kinit; do
+			if [ -x $i ]; then
+				echo $i $1
+				$i $1
+				return
+			fi
+		done
+		echo kinit $1
+		kinit $1
+	}
+	afslogin() {
+		if (echo $1 | grep '@' >/dev/null); then
+			user=`echo $1 | sed 's/@.*$//'`
+			realm=`echo $1 | sed 's/^.*@//'`
+		else
+			user=$USER
+			realm=$1
+		fi
+		realm_uc=`echo $realm | tr '[:lower:]' '[:upper:]'`
+		_kinit ${user}@${realm_uc}
+		if [ "$?" = "0" ]; then
+			realm_lc=`echo $realm | tr '[:upper:]' '[:lower:]'`
+			echo aklog -c $realm_lc
+			aklog -c $realm_lc
+		fi
+	}
+fi
+
+# Set the TERM environmental variable to a known terminal type if the original
+# value is unknown. For example, "setTermForUnknown xterm dtterm xterm-debian"
+# sets TERM=xterm if the original value was dtterm or xterm-debian.
+function setTermForUnknown() {
+	t=$1
+	shift
+	for i in $*; do
+		if [ "$TERM" = "$i" ]; then
+			TERM=$t
+			return
+		fi
+	done
+}
+
+setTermForUnknown xterm xterm-debian
+
+resolve_symlinks() {
+	p="$1"
+	while [ -L "$p" ]; do # Resolve symlinks
+		ls=`/bin/ls -ld "$p"`
+		link=`/usr/bin/expr "$ls" : '.*-> \(.*\)$'`
+		if /usr/bin/expr "$link" : '/' > /dev/null; then
+			p="$link"
+		else
+			p=`/usr/bin/dirname "$p"`/"$link"
+		fi
+	done
+	echo $p
+}
+
+classpath_add() { # add files to CLASSPATH
+	tmp=($@ ${(s(:))CLASSPATH})
+	export CLASSPATH=${(j(:))tmp}
+	unset tmp
+}
+# functions to switch easily between JDK versions
+if [ -z "$SWING_JAR" ]; then SWING_JAR=$HOME/lib/swing.jar; fi
+if [ -z "$JDK11HOME" ]; then JDK11HOME=/usr/jdk118; fi
+if [ -z "$IBMJDK13HOME" ]; then IBMJDK13HOME=/opt/IBMJava2-13; fi
+addJDKToPath() {
+	if [ -d $1/bin ]; then
+		path=("$1/bin" $path[@]);
+	elif [ -d $1/jre/bin ]; then
+		path=("$1/jre/bin" $path[@])
+	fi
+}
+removeJDKFromPath() {
+	path=(${path%%*jdk*/bin})
+	path=(${path%%*JDK*/bin})
+	path=(${path%%*/jre/bin})
+	path=(${path%%*[Jj]ava*/bin})
+	tmp=(${(s(:))CLASSPATH}) # make array from colon-separated list
+	tmp=(${tmp%%*/*jdk*/lib/classes.zip}) # remove JDK 1.1 classes.zip
+	tmp=(${tmp%%*/*JDK*/lib/classes.zip}) # remove JDK 1.1 classes.zip
+	tmp=(${tmp%%*/swing.jar}) # remove Swing 1.1
+	tmp=(${tmp%.}) # remove .
+	export CLASSPATH=${(j(:))tmp}
+	unset tmp
+}
+set_JAVA_HOME() {
+	export JAVA_HOME=$1
+	if functions JAVA_HOME_changed >/dev/null # JAVA_HOME_changed may be
+	then                                      # defined in ~/.zshenv
+		JAVA_HOME_changed
+	fi
+}
+jdk11() { # remove JDK (any version), then add JDK 1.1 to PATH and CLASSPATH
+	removeJDKFromPath
+	addJDKToPath "$JDK11HOME"
+	classpath_add "." "$JDK11HOME/lib/classes.zip" "$SWING_JAR"
+	set_JAVA_HOME "$JDK11HOME"
+}
+_find_JDK_in() {
+	jRoot="$1"
+	jSubdir="$2"
+	jVer="$3"
+	jMarketingVer="$4"
+	d=(${jRoot}/(${jSubdir}${jVer}*/)#)
+	if [ -z "$d[2]" -a -n "$jMarketingVer" ]; then
+		d=(${jRoot}/(${jSubdir}${jMarketingVer}-*-${jVer}*/)#)
+		if [ -z "$d[2]" ]; then
+			d=(${jRoot}/(${jSubdir}${jMarketingVer}_64/)#)
+		fi
+		if [ -z "$d[2]" ]; then
+			d=(${jRoot}/(${jSubdir}${jMarketingVer}/)#)
+		fi
+	fi
+	for i in 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21; do
+		if [ -n "$d[$i]" -a -x "$d[$i]/bin/java" ]; then
+			javabin=`resolve_symlinks $d[$i]/bin/java`
+			if [ "$javabin" = "/usr/bin/gij" ]; then # gcj
+				gcjdir=($d) # is not fully compatible
+					# with sun, use it only if
+					# nothing else found
+			else
+				echo "$d[1]" "$d[$i]"
+			fi
+		fi
+		if [ -n "$d[$i]" -a -x "$d[$i]/jre/bin/java" ]; then
+			echo "$d[1]" "$d[$i]jre"
+		fi
+	done
+	echo ""
+}
+
+_use_JDK_or_JRE_1_2_or_later() {
+	removeJDKFromPath
+	dir=("" "")
+	gcjdir=("" "")
+	jRoots=("/usr/local") # whatever Java installed locally
+	jRoots=($jRoots "/usr/java") # Sun JDK 1.4-1.6 default install root
+	jRoots=($jRoots "/usr/lib64/jvm") # /java-*, jre-* in OpenSuSE 10.3(64)
+	jRoots=($jRoots "/usr/lib/jvm")   # /java-* in Ubuntu 7.10(amd64)
+	jRoots=($jRoots "/opt/java")
+	for jRoot in $jRoots; do
+		# SuSE 10: Sun java is in /usr/java/jdk*, jre*, j2sdk* or j2re*
+		# Ubuntu 7: Sun java is in /usr/lib/jvm/java-*
+		if [ ! -d "$jRoot" ]; then
+			continue;
+		fi
+		for jSubdir in "jdk" "j2sdk" "java-" "jre" "jre-" "j2re"; do
+			dir=(`_find_JDK_in "$jRoot" "$jSubdir" "$1" "$2"`)
+			if [ -n "$dir[2]" ]; then
+				break;
+			fi
+		done
+		if [ -n "$dir[2]" ]; then
+			break;
+		fi
+	done
+	if [ -z "$dir[2]" ]; then
+		# Ubuntu 7: Blackdown java is in /usr/lib/j2se/
+		for jRoot in "/usr/lib/j2se"; do
+			if [ ! -d "$jRoot" ]; then
+				continue;
+			fi
+			dir=(`_find_JDK_in "$jRoot" "" "$1" "$2"`)
+			if [ -n "$dir[2]" ]; then
+				break;
+			fi
+		done
+	fi
+	if [ -z "$dir[2]" ]; then 
+		tmp=`echo /usr/lib/SunJava2-$1*` 2>/dev/null; tmp=${tmp% *}
+		if [ -n "$tmp" -a -x "$tmp/bin/javac" ]; then
+			if [ -f "$tmp" ]; then dir=(/usr/lib/(SunJava2-$1*/)#); fi
+		fi
+		if [ -n "$tmp" -a -x "$tmp/bin/java" ]; then
+			if [ -f "$tmp" ]; then dir=(/usr/lib/(SunJava2-$1*/)#); fi
+		fi
+	fi
+	if [ -z "$dir[2]" -a -n "$gcjdir[2]" ]; then
+		dir=$gcjdir # use gcj is no sun java found
+	fi
+ 	if [ -n "$dir[2]" ]; then
+		dir=(${dir[2]%/})
+		addJDKToPath "$dir"
+		classpath_add "."
+		set_JAVA_HOME "$dir"
+	else
+		echo java $1 not found >&2
+	fi
+}
+jdk12() { # remove JDK (any version), then add JDK 1.2 to PATH and CLASSPATH
+	_use_JDK_or_JRE_1_2_or_later 1.2 2
+}
+jdk13() { # remove JDK (any version), then add JDK 1.3 to PATH and CLASSPATH
+	_use_JDK_or_JRE_1_2_or_later 1.3 3
+}
+ibmjdk13() { # remove JDK (any version), then JDK 1.3 to PATH and CLASSPATH
+	removeJDKFromPath
+	addJDKToPath "$IBMJDK13HOME"
+	classpath_add "."
+	set_JAVA_HOME "$IBMJDK13HOME"
+}
+jdk14() { # remove JDK (any version), then add JDK 1.4 to PATH and CLASSPATH
+	_use_JDK_or_JRE_1_2_or_later 1.4 4
+}
+jdk15() { # remove JDK (any version), then add JDK 1.5 to PATH and CLASSPATH
+	_use_JDK_or_JRE_1_2_or_later 1.5 5
+}
+jdk16() { # remove JDK (any version), then add JDK 1.6 to PATH and CLASSPATH
+	_use_JDK_or_JRE_1_2_or_later 1.6 6
+}
+jdk17() { # remove JDK (any version), then add JDK 1.7 to PATH and CLASSPATH
+	_use_JDK_or_JRE_1_2_or_later 1.7 7
+}
+nojogl() {
+	classpath=(${(s(:))CLASSPATH}) # make array from colon-separated list
+	classpath=(${classpath%%*jogl*})
+	export CLASSPATH=${(j(:))classpath}
+	ld_library_path=(${(s(:))LD_LIBRARY_PATH})
+	ld_library_path=(${ld_library_path%%*jogl*})
+	export LD_LIBRARY_PATH=${(j(:))ld_library_path}
+}
+jogl() {
+	if [ -z "$JOGL_HOME" ]; then
+		echo "Please set JOGL_HOME" >&2
+		return
+	fi
+	nojogl
+	classpath=(${(s(:))CLASSPATH} $JOGL_HOME/lib/jogl.jar $JOGL_HOME/lib/gluegen-rt.jar)
+	export CLASSPATH=${(j(:))classpath}
+	ld_library_path=(${(s(:))LD_LIBRARY_PATH} $JOGL_HOME/lib)
+	export LD_LIBRARY_PATH=${(j(:))ld_library_path}
+}
+if [ -n "$SSH_CONNECTION" ]; then
+	argn() { shift $1 ; echo $1 ; }
+	IP_PREVIOUS_MACHINE=`argn 1 \`echo $SSH_CONNECTION\``
+	if [ -z "$REMOTE_IP_LIST" ]; then
+		REMOTE_IP_LIST=$IP_PREVIOUS_MACHINE
+	else
+		REMOTE_IP_LIST="$REMOTE_IP_LIST --> $IP_PREVIOUS_MACHINE"
+	fi
+	echo "ssh connection: $REMOTE_IP_LIST --> $HOST"
+fi
+if [ -n "$OSTYPE" -a -z "${OSTYPE:#linux*}" ]; then
+	jdk16 # default JDK version in Linux
+fi
+if ! which java 2>/dev/null >/dev/null; then
+	if [ -d /usr/java2/bin ]; then
+		addJDKToPath /usr/java2
+		classpath_add "."
+		set_JAVA_HOME /usr/java2
+	fi
+fi
+if which dmalloc 2>/dev/null >/dev/null; then # set dmalloc options
+	dmalloc() { eval `command dmalloc -b $*`; }
+fi
+
+if alias mv > /dev/null; then unalias mv; fi
+if alias cp > /dev/null; then unalias cp; fi
+if alias cd > /dev/null; then unalias cd; fi
+if alias rm > /dev/null; then unalias rm; fi
+alias l='ls -ltr'
+alias p='popd'
+alias x='exit'
+
+if functions _pspdf _description _files >/dev/null; then
+	# override the built-in gv completion of zsh 4.2.0
+	# to enable recognition of .ps.bz2 and .ps.lzma files
+	unfunction _pspdf
+	_pspdf() {
+		local expl ext
+		if [[ "$1" = '-z' ]]; then
+			ext='(|.gz|.bz2|lzma|.Z)'
+			shift
+		fi
+		_description files expl 'PostScript or PDF file'
+		_files "$@" "$expl[@]" -g "*.(#i)(pdf|ps|eps)$ext(-.)"
+	}
+fi

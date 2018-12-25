@@ -1,0 +1,54 @@
+#!/usr/bin/perl -w
+#
+# moveps, Mon Jan 3 2005, Peter Csizmadia
+# @since Mon Jan 3 2005
+#
+use strict;
+
+if($#ARGV < 2) {
+	print <<EOF;
+This script translates coordinates in a PostScript file.
+The BoundingBox and the arguments of the moveto command are changed.
+
+Usage: moveps dx dy postscript.ps
+
+Example: moveps -508 0 rk4-r2.eps >changed.eps
+EOF
+	exit 0;
+}
+
+my $dx = shift;
+my $dy = shift;
+
+while(<>) {
+	if(/ move/ || /^\%\%BoundingBox:/) {
+		chomp;
+		my @a = split(/[ \t]+/);
+		if(/^[ \t]+/) {
+			printf($&); # preserve indentation
+		}
+		if($a[0] eq "\%\%BoundingBox:") {
+			$a[1] += $dx;
+			$a[2] += $dy;
+			$a[3] += $dx;
+			$a[4] += $dy;
+		} else {
+			if($a[0] eq "") {
+				shift @a;
+			}
+			for(my $i = 2; $i <= $#a; ++$i) {
+				if($a[$i] eq "moveto") {
+					$a[$i - 2] += $dx;
+					$a[$i - 1] += $dy;
+				}
+			}
+		}
+		printf("%s", $a[0]);
+		for(my $i = 1; $i <= $#a; ++$i) {
+			printf(" %s", $a[$i]);
+		}
+		printf("\n");
+	} else {
+		print;
+	}
+}

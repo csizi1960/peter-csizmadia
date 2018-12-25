@@ -1,0 +1,59 @@
+<html>
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="Author" CONTENT="Peter Csizmadia">
+<title>The MICOR model</title>
+</head>
+<body BGCOLOR="#e0e0e0" TEXT="#224400" LINK="#0000FF" VLINK="#9E0061" ALINK="#FFFF00">
+
+The <b>MI</b>croscopical <b>CO</b>alescence <b>R</b>ehadronization model
+describes the creation of particles in 2-&gt;1 coalescence processes:
+<ul>
+<li>Meson resonances (1 spin: omega, rho, K<sup><small>*</small></sup>, phi)
+    from quarks (u, d, s) and antiquarks.</li>
+<li>Baryon resonances (3/2 spin: Delta, Sigma<sup><small>*</small></sup>, 
+    Xi<sup><small>*</small></sup>, Omega) from <em>diquarks</em> and quarks.
+    </li>
+<li>Antibaryon resonances from antidiquarks and antiquarks.</li>
+<li>Diquarks are created like the mesons, but from two quarks.
+    The <em>coalescence factor</em> of diquark creation is twice the
+    coalescence factor for the corresponding meson.
+    The factor 2 comes from the colors
+    (diquarks are colorful, mesons are colorless).</li>
+</ul>
+Lower mass hadrons (protons, pions, etc.) cannot be created in the
+coalescence model because quarks have (large)
+<em>constituent quark masses</em>.
+These hadrons are produced later, when the resonances decay.
+In the original version of MICOR, decays were simulated using the JETSET event
+generator. In later versions, our hadronic cascade program, GROMIT is used,
+which is also able to simulate final state interactions.
+
+<p>
+
+My applets related to the MICOR model:
+
+<ul>
+<li><a HREF="micorfactors.html">MICORFactors</a>:
+    coalescence factor calculation in function of temperature,
+    transverse velocity, and size of quark matter in longitudinal coordinate
+    rapidity. <strong>UNDER CONSTRUCTION</strong>
+    </li>
+<li>Time evolution of total particle numbers:
+    <ol>
+    <li><a HREF="rndcoalescence.html">RndCoalescence</a>
+	plays a randomly chosen coalescence process at each step
+	(Monte Carlo simulation)
+	</li>
+    <li><a HREF="coalescence.html">Coalescence</a>
+	does the same as the first but without random noise:
+	plays all the coalescence processes in parallel, changing all the
+	particle numbers with quantities that are proportional to the weights
+	of the processes the particles participate in
+	</li>
+    </ol>
+    </li>
+</ul>
+
+</body>
+</html>

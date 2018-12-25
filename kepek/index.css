@@ -1,0 +1,13 @@
+body {
+	font-family: verdana,arial,helvetica,sans-serif;
+	font-size: 12pt;
+	text-align: justify;
+	width: 620px;
+	background: url(cimg0027-Studlgrat-bg.jpg);
+	background-repeat: no-repeat;
+}
+
+td.mtrange {
+	font-size: 10pt;
+	vertical-align: top;
+}

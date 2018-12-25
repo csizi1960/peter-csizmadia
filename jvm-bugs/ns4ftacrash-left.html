@@ -1,0 +1,41 @@
+<html>
+<body>
+Follow the steps in order<br>
+to crash your Netscape 4.x browser:
+<ol>
+<li><a HREF="ns4ftacrash-1.html" TARGET="_top">Click here!</a><br>
+    (then <b>Back</b>)
+    </li>
+<li><a HREF="ns4ftacrash-2.html" TARGET="_blank">Click here!</a><br>
+    (new window opens, close this one)
+    </li>
+<li>Your browser crashed.</li>
+</ol>
+<a HREF="Empty.java" TARGET="_top">Empty.java</a>
+
+<p>
+<hr WIDTH="50%">
+<p>
+
+<small>
+<strong>Recipe for creating pages that crash Netscape:</strong>
+<ol>
+<li>You need at least 5 applets (no matter what kind, here we use the
+    <a HREF="Empty.java" TARGET="_top">most primitive applet one can
+    write</a>). Note that this number is platform-dependent:
+   <ul>
+   <li>4 is enough in Linux and Windows 98</li>
+   <li>5 is needed in IRIX 6.2 and SunOS 5.7</li>
+   <li>between 5 and 10 is needed in Windows NT</li>
+   </ul>
+   </li>
+<li>The applets must be in tables.</li>
+<li>The <tt>WIDTH</tt> parameter of the cells containing the applets must be
+    specified.</li>
+<li>The page must be a frame in a frameset.</li>
+</ol>
+You should know this recipe, to avoid it.
+</small>
+
+</body>
+</html>

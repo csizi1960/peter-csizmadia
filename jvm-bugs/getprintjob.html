@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>getPrintJob() does not work properly</title>
+</head>
+<body>
+
+getPrintJob() does not work properly.
+
+<p ALIGN=CENTER>
+<applet CODE="GetPrintJob" WIDTH=300 HEIGHT=100>
+</applet>
+</p>
+
+<p ALIGN=CENTER>
+<a HREF="GetPrintJob.java">GetPrintJob.java</a>
+</p>
+
+<table CELLSPACING=0 CELLPADDING=5 BORDER=1>
+<tr><th>System</th><th>Bug</th><th>Notes</th></tr>
+<tr VALIGN=TOP><td>Linux Mozilla 0.9.8 + Sun Java 1.4.0<br>
+	Windows MSIE 6 + Sun Java 1.4.0
+	</td>
+    <td>&quot;An applet would like to print&quot;<br>
+	is asked two or more times.</td>
+	</td>
+    <td><small>Once before the print dialog, then once<br>
+	(Linux) or twice (Windows) when &quot;Print&quot;<br>
+	is clicked.</small></td>
+    </tr>
+<tr VALIGN=TOP><td>Linux Mozilla 0.9.8 + Sun Java 1.4.0<br>
+	Windows MSIE 6 + Sun Java 1.4.0
+	</td>
+    <td>Applet freezes when user clicks &quot;Print&quot;,<br>
+	if getGraphics is called after getPrintJob.</td>
+    <td></td>
+    </tr>
+<tr VALIGN=TOP><td>Linux Mozilla 0.9.8 + Sun Java 1.3.1_02</td>
+    <td>Print dialog box has zero size.</td>
+	<td><small>In KDE and WindowMaker (GNOME)<br>
+	    but no bug in Sawfish (GNOME).</small></td>
+    </tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,182 @@
+#!/usr/bin/perl -w
+#
+# unbot, Tue Oct 09 2007, Peter Csizmadia
+#
+use strict;
+use Getopt::Long;
+use vars qw / $opt_h $opt_b /;
+
+GetOptions qw(-h -b=s);
+
+if($opt_h) {
+	print <<EOF;
+Unbot filters robots out of access log files.
+
+Usage: unbot [ access_log[.Z|.gz|.bz2]... ] [ -b robot_log[.Z|.gz|.bz2] ]
+
+The robotless log is written to the standard output.
+If -b is specified, the robot-related lines are written to the robot_log file.
+EOF
+	exit 0;
+}
+
+if($opt_b) {
+	if($opt_b =~ /\.Z$/) {
+		$opt_b = "| compress > ".$opt_b;
+	} elsif($opt_b =~ /\.gz$/) {
+		$opt_b = "| gzip -9 > ".$opt_b;
+	} elsif($opt_b =~ /\.bz2$/) {
+		$opt_b = "| bzip2 > ".$opt_b;
+	} else {
+		$opt_b = "> ".$opt_b;
+	}
+	open(BOTLOG, $opt_b) or die "cannot write robot logfile";
+}
+
+@ARGV = map {
+	/\.(gz|Z)$/ ? "gunzip < $_ |" :
+	/\.bz2$/ ? "bunzip2 < $_ |" : $_
+} @ARGV;
+
+sub botlog {
+	print BOTLOG if $opt_b;
+}
+
+while(<>) {
+	chomp;
+
+	# convert "%20" to spaces
+	my @L = split(/ /);
+	my $line = "";
+	for(my $i = 0; $i < @L; ++$i) {
+		$line .= ' ' if $i > 0;
+		my $s = $L[$i];
+		if($s =~ /^http:\/\// || $s =~ /^"http:\/\//) {
+			$line .= $s;
+		} else {
+			$s =~ s/%20/ /g;
+			if($s =~ /^"/ || length($s) == length($L[$i])) {
+				$line .= $s;
+			} else {
+				$line .= '"'.$s.'"';
+			}
+		}
+	}
+	$_ = $line."\n";
+
+	# skip robots
+	if(/"[a-zA-Z-]+bot"/) {botlog; next;}
+	if(/[a-zA-Z-]+bot[\/\d]/) {botlog; next;}
+	if(/"[a-zA-Z-]+BOT"/) {botlog; next;}
+	if(/^[a-z0-9]+\.(alexa\.com|excite\.com|inktomi\.com|inktomisearch\.com|search\..*yahoo\.com)/) {
+		botlog; next;
+	}
+	if(/AltaVista Intranet/) {botlog; next;}
+	if(/Aport/) {botlog; next;}
+	if(/Archive-/) {botlog; next;}
+	if(/"appie\//) {botlog; next;}
+	if(/Ask Jeeves/) {botlog; next;}
+	if(/AVSearch-/) {botlog; next;}
+	if(/Bjaaland\//) {botlog; next;}
+	if(/Bot[ \/-]/) {botlog; next;}
+	if(/bot [0123456789]/) {botlog; next;}
+	if(/\/[bB]ot\./) {botlog; next;}
+	if(/bot\.com\)/) {botlog; next;}
+	if(/bumblebee\@/) {botlog; next;}
+	if(/Cartographer /) {botlog; next;}
+	if(/\.crawl\./) {botlog; next;}
+	if(/DA /) {botlog; next;}
+	if(/davesengine\./) {botlog; next;}
+	if(/Digger\//) {botlog; next;}
+	if(/Digimarc WebReader/) {botlog; next;}
+	if(/Direct Hit Grabber/) {botlog; next;}
+	if(/DittoSpyder/) {botlog; next;}
+	if(/EchO\!\//) {botlog; next;}
+	if(/e-sense /) {botlog; next;}
+	if(/^epito.goliat.hu /) {botlog; next;}
+	if(/Firefly/) {botlog; next;}
+	if(/^gate2\.ks\.se/) {botlog; next;}
+	if(/"gazz\//) {botlog; next;}
+	if(/"gigaBaz/) {botlog; next;}
+	if(/G\.R\.A\.B\./) {botlog; next;}
+	if(/"griffon\//) {botlog; next;}
+	if(/Gulliver\//) {botlog; next;}
+	if(/Hubater /) {botlog; next;}
+	if(/InfoSeek /) {botlog; next;}
+	if(/Indy Library/) {botlog; next;}
+	if(/Iron33\//) {botlog; next;}
+	if(/larbin_/) {botlog; next;}
+	if(/libWeb\/clsHTTP/) {botlog; next;}
+	if(/Ultraseek/) {botlog; next;}
+	if(/"Jack"/) {botlog; next;}
+	if(/JennyBot\//) {botlog; next;}
+	if(/Katriona/) {botlog; next;}
+	if(/KukuVeKiki/) {botlog; next;}
+	if(/LEIA\//) {botlog; next;}
+	if(/libwww-perl/) {botlog; next;}
+	if(/LinkAlarm\//) {botlog; next;}
+	if(/Link[gG]uard[\/ ]/) {botlog; next;}
+	if(/Links Manager/) {botlog; next;}
+	if(/Links2Go /) {botlog; next;}
+	if(/LinkWalker/) {botlog; next;}
+	if(/lwp-trivial/) {botlog; next;}
+	if(/marvin\/infoseek/) {botlog; next;}
+	if(/Merc_ep-/) {botlog; next;}
+	if(/Mercator_/) {botlog; next;}
+	if(/Mercator-/) {botlog; next;}
+	if(/^mercator\.pa-x\.dec\.com/) {botlog; next;}
+	if(/moget\//) {botlog; next;}
+	if(/Mothra\/[1-9]/) {botlog; next;}
+	if(/MultiText\//) {botlog; next;}
+	if(/NetMechanic/) {botlog; next;}
+	if(/NetMind/) {botlog; next;}
+	if(/NG\/[1-9]/) {botlog; next;}
+	if(/^ng\d+.exabot.com /) {botlog; next;}
+	if(/Nobody\/.*libwww/) {botlog; next;}
+	if(/Compatible, HuRob/) {botlog; next;}
+	if(/0\/\(compatible; MSIE/) {botlog; next;}
+	if(/compatible; grub-client/) {botlog; next;}
+	if(/compatible;\+MSIE/) {botlog; next;}
+	if(/compatible; MuscatFerret/) {botlog; next;}
+	if(/compatible; EZResult/) {botlog; next;}
+	if(/compatible; T-H-U-N-D-E-R-S-T-O-N-E/) {botlog; next;}
+	if(/Cowbot-/) {botlog; next;}
+	if(/^crawl[-\.\d]/) {botlog; next;}
+	if(/Crawl\//) {botlog; next;}
+	if(/[cC]rawler/) {botlog; next;}
+	if(/"[cC]url\//) {botlog; next;}
+	if(/ia_archiver/) {botlog; next;}
+	if(/internetseer/) {botlog; next;}
+	if(/"larbin /) {botlog; next;}
+	if(/^livebot-/) {botlog; next;}
+	if(/msnbot/) {botlog; next;}
+	if(/Ocelli\/.*www.globalspec.com\/Ocelli/) {botlog; next;}
+	if(/PageDown/) {botlog; next;}
+	if(/^palatinus.sanomabp.hu /) {botlog; next;}
+	if(/Python-urllib/) {botlog; next;}
+	if(/RepoMonkey /) {botlog; next;}
+	if(/roach\.smo\./) {botlog; next;}
+	if(/[rR]obot[)@\/ ]/) {botlog; next;}
+	if(/^robot\./) {botlog; next;}
+	if(/Scooter[\/\-\.]/) {botlog; next;}
+	if(/ScoutAbout/) {botlog; next;}
+	if(/sherlock\/[1-9]/) {botlog; next;}
+	if(/Slurp.*slurp/) {botlog; next;}
+	if(/[sS]pider([1-9\/ "_@]|\b)/) {botlog; next;}
+	if(/Spinne\//) {botlog; next;}
+	if(/Teleport Pro\//) {botlog; next;}
+	if(/Xenu.*Link Sleuth/) {botlog; next;}
+	if(/^vizsla\.matav\.net/) {botlog; next;}
+	if(/WebFountain /) {botlog; next;}
+	if(/Webinator-maple/) {botlog; next;}
+	if(/webbase\/[1-9]/) {botlog; next;}
+	if(/WWWC\//) {botlog; next;}
+	if(/Xenu\'s Link Sleuth/) {botlog; next;}
+	if(/ZyBorg/) {botlog; next;}
+
+	print;
+}
+
+if($opt_b) {
+	close(BOTLOG);
+}

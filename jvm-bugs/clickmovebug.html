@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>Mouse DOWN/MOVE/DRAG bug in Windows</title>
+</head>
+<body>
+
+In most MS WINDOWS platforms, the mouse DOWN and UP events are immediately
+followed by MOVE and DRAG without reason.
+Unix platforms do not seem to have this bug.
+<p>
+<ul>
+<li>DOWN-&gt;DRAG, UP-&gt;MOVE in Netscape 2 and MSIE 3</li>
+<li>UP-&gt;MOVE in Netscape 4 and MSIE 4</li>
+</ul>
+<p>
+Click on the red canvas to test it.
+<!-- Java Console shows all the mouse events, the text area on the right shows
+only the ENTER, EXIT, DOWN, UP, and the buggy MOVE and DRAG events. -->
+<p>
+<center>
+<applet CODE="Clickmovebug" WIDTH=500 HEIGHT=200>
+<strong>(YOU CANNOT SEE A JAVA APPLET HERE)</strong>
+</applet>
+<p>
+<a HREF="Clickmovebug.java">Clickmovebug.java</a>
+</center>
+<p>
+<strong>Workaround:</strong> check mouse pointer position.<br>
+</body>
+</html>

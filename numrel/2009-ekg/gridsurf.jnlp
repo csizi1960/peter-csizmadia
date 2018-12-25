@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp>
+  <information>
+    <title>GridSurf</title>
+    <vendor>Peter Csizmadia</vendor>
+    <homepage href="."/>
+    <offline-allowed/>
+  </information>
+
+  <resources>
+    <j2se href="http://java.sun.com/products/autodl/j2se" version="1.5+"/>
+    <jar href="gridsurf.jar" main="true"/>
+    <property name="jnlp.packEnabled" value="true"/>
+    <property name="sun.java2d.noddraw" value="true"/>
+    <extension name="jogl" href="http://download.java.net/media/jogl/builds/archive/jsr-231-webstart-current/jogl.jnlp"/>
+  </resources>
+
+  <applet-desc main-class="gridsurf.GridSurfApplet" width="768" height="640"
+      name="GridSurf"/>
+</jnlp>

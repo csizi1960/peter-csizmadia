@@ -1,0 +1,31 @@
+\documentclass{article}[12pt]
+
+\usepackage[magyar]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage[colorlinks=true,
+filecolor=blue,linkcolor=blue,citecolor=blue,urlcolor=blue
+]{hyperref}
+
+\begin{document}
+
+\section{Besugárzás által gyorsított bomlás torzítása}
+
+Tegyük fel, hogy a mintában kezdetben $N_X(0)$ mennyiségben jelenlévő $X$
+izotóp bomlásából $Y$ izotóp keletkezik $T$ felezési idővel, azonban egy
+besugárzás hatására mindjárt az idők kezdetén $q N_X(0)$ mennyiségű izotóp
+elbomlik. Így $t$ idő elteltével $X$ izotóp mennyisége
+\begin{equation}
+N_X(t)\,\ =\,\ 2^{-t/T}(1-q)N_X(0),
+\end{equation}
+$Y$ mennyisége pedig
+\begin{eqnarray}
+N_Y(t) &=& N_Y(0) + N_X(0) - N_X(t)\\
+&=& N_Y(0) + (2^{t - T\log_2(1-q)\over T} - 1)N_X(t).
+\end{eqnarray}
+A minta $t$ életkorára egyenesillesztéssel kapott eredményben így a sugárzás
+$-T\log_2(1-q)$ eltérést okoz, amely láthatóan arányos a felezési idővel. Az
+eltérés tehát nagy mértékben függ az anyagtól, amelyet a kormeghatározáshoz
+használunk.
+
+\end{document}

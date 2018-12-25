@@ -1,0 +1,62 @@
+#!/usr/bin/perl -w
+#
+# rpmupdate, Thu May 9 2002, Peter Csizmadia
+#
+
+use strict;
+
+sub vercmp {
+	my $v1;
+	my $v2;
+	($v1, $v2) = @_;
+	my @v1 = split /\./, $v1;
+	my @v2 = split /\./, $v2;
+	for(my $i = 0; $i < length(@v1); ++$i) {
+		while(length($v1[$i]) < length($v2[$i])) {
+			$v1[$i] = "0".$v1[$i];
+		}
+		while(length($v2[$i]) < length($v1[$i])) {
+			$v2[$i] = "0".$v2[$i];
+		}
+		if(($v1[$i] cmp $v2[$i]) < 0) {
+			return -1;
+		} elsif(($v1[$i] cmp $v2[$i]) > 0) {
+			return 1;
+		}
+	}
+	return 1;
+}
+
+for my $i (glob("*.rpm")) {
+	my $pl = $i;
+	$pl =~ s/\.[^.]+\.rpm$//;
+	my $ps = $pl;
+	$ps =~ s/-[^-]+-[^-]+$//;
+	if(system("rpm -q $ps > /dev/null")) {
+		printf("skip %s\n", $pl);
+		next;
+	}
+	my $q = `rpm -q $ps`;
+	chomp $q;
+	if("$pl" eq "$q") {
+		printf("skip %s (already installed)\n", $pl);
+		next;
+	}
+	my $vp = $pl;
+	$vp =~ s/^$ps-//;
+	my $vq = $q;
+	$vq =~ s/^$ps-//;
+	my @vp = split /-/, $vp;
+	my @vq = split /-/, $vq;
+	if(vercmp($vp[0], $vq[0]) < 0 ||
+			(vercmp($vp[0], $vq[0]) == 0
+			 && vercmp($vp[1], $vq[1]) < 0)) {
+		printf("skip %s (older than installed)\n", $pl);
+		next;
+	}
+	printf("inst %s\n", $pl);
+	if(system("rpm -U $i > /dev/null")) {
+		exit 1;
+	}
+}
+exit 0;

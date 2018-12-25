@@ -1,0 +1,16 @@
+#!/bin/sh
+
+tmp_killscript="/tmp/lpstop$$-kill.tmp"
+
+cat <<EOF >"$tmp_killscript"
+lprm -
+killall -9 parallel
+EOF
+sudo sh -v "$tmp_killscript"
+rm -f "$tmp_killscript"
+cat <<EOF
+********************************************************
+***** PLEASE SWITCH OFF THE PRINTER, WAIT AT LEAST *****
+***** 30 SECONDS, THEN SWITCH IT ON AGAIN          *****
+********************************************************
+EOF

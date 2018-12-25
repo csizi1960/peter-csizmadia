@@ -1,0 +1,157 @@
+#!/usr/bin/perl -w
+#
+# substitute, 04/12/2000-07/08/2008, Peter Csizmadia
+#
+use strict;
+use File::stat;
+use Getopt::Std;
+use vars qw / $opt_p $opt_v $opt_m /;
+
+my $firstNlines = 0;
+for(my $i = @ARGV - 1; $i >= 0; --$i) {
+	if($ARGV[$i] =~ /^-\d+$/) {
+		$_ = $ARGV[$i];
+		s/-(\d+)/$1/;
+		$firstNlines = $_;
+		splice @ARGV, $i, 1;
+	}
+}
+getopts('pvm:');
+
+my $preserveTime = $opt_p;
+my $verbose = $opt_v;
+my $multiLine = $opt_m;
+if($multiLine) {
+	if(!($multiLine eq "x") && !($multiLine eq "i")) {
+		printf STDERR "unknown -m argument \"%s\"\n", $multiLine;
+		exit 1;
+	}
+}
+my $substcmd = "";
+my $regexp = "";
+my $regexp_end = "";
+my $replacement = "";
+if(!$multiLine && $#ARGV >= 1 && $ARGV[0] =~ /^s\/.*\/.*\//) {
+	$substcmd = $ARGV[0];
+}
+if(($multiLine && $#ARGV < 3)
+	|| (!$multiLine &&
+		(($substcmd && $#ARGV < 1)
+		 || (!$substcmd && $#ARGV < 2)))) {
+	print <<EOF;
+Usage:
+- replacing a pattern with a string:
+    substitute [-pv] [-N] "regexp" "replacement" files...
+- replacing lines from regexp to regexp_end, eXcluding the regexp_end line:
+    substitute [-pv] [-N] -m x "regexp" "regexp_end" "replacement_file" files...
+- replacing lines from regexp to regexp_end, Including the regexp_end line:
+    substitute [-pv] [-N] -m i "regexp" "regexp_end" "replacement_file" files...
+- advanced replacement with Perl's substitution operator:
+    substitute [-pv] [-N] 's/regexp/replacement/[g]' files...
+Options:
+-p  preserve modification times
+-v  verbose
+-N  (-1, -2, ...) replace in the first N lines only
+Examples:
+    substitute '#e0e0e0' '#ccffcc' *.html
+	- replaces "#e0e0e0" by "#ccffcc" in HTML files
+    substitute -1 ' - ' ': ' *.txt
+	- replaces " - " by ": " in the first line of each .txt file
+    substitute 's/c=(.*)psi0=/lambda=\$1sigma=/' *.in
+	- replaces "c=0.01 psi0=0.3" by "lambda=0.01 sigma=0.3" in .in files
+EOF
+exit 0;
+}
+if($substcmd) {
+	shift @ARGV;
+} else {
+	$regexp = shift @ARGV;
+	$regexp_end = $multiLine? shift @ARGV : "";
+	$replacement = shift @ARGV;
+}
+
+for(my $i = 0; $i <= $#ARGV; ++$i) {
+	my $filename = $ARGV[$i];
+	my $sb = stat($filename);
+	my $tmpfile = $filename.".substitute.tmp";
+	my $changed = 0;
+	open(IN, $filename) or die "$filename: cannot open";
+	open(OUT, "> $tmpfile") or die "$tmpfile: cannot open";
+	if($multiLine) {
+		my $lcount = 1;
+		my $copy = 1;
+		while(<IN>) {
+			my $line = $_;
+			if($firstNlines && $lcount > $firstNlines && $copy) {
+				print OUT;
+				++$lcount;
+				next;
+			}
+			if(/$regexp/) {
+				if($copy) {
+					open(IN2, $replacement) or die
+						"$replacement: cannot open";
+					while(<IN2>) {
+						print OUT;
+					}
+					close(IN2) or die
+						"$replacement: cannot close";
+					$copy = 0;
+					if($verbose) {
+						print "<$filename:$lcount-:$line";
+					}
+					$changed = 1;
+				}
+			} elsif(/$regexp_end/ && !$copy) {
+				if($verbose) {
+					print "<$filename:-$lcount:$line";
+				}
+				if($multiLine eq "x") {
+					print OUT;
+				}
+				$copy = 1;
+			} elsif($copy) {
+				print OUT;
+			}
+			++$lcount;
+		}
+	} else {
+		my $lcount = 1;
+		while(<IN>) {
+			my $line = $_;
+			if($firstNlines && $lcount > $firstNlines) {
+				print OUT;
+				++$lcount;
+				next;
+			}
+			my $matches = 0;
+			if($substcmd) {
+				$matches = eval $substcmd;
+			} else {
+				$matches = s/$regexp/$replacement/g;
+			}
+			if($matches && !($_ eq $line)) {
+				if($verbose) {
+					print "<$filename:$lcount:$line";
+					print ">$filename:$lcount:$_";
+				}
+				$changed = 1;
+			}
+			print OUT;
+			++$lcount;
+		}
+	}
+	close(OUT) or die "$tmpfile: cannot close";
+	close(IN) or die "$filename: cannot close";
+	if($changed) {
+		if(!$verbose) {
+			printf("%s\n", $filename);
+		}
+		rename($tmpfile, $filename) or die "$tmpfile: cannot rename";
+		if($preserveTime) {
+			utime $sb->atime, $sb->mtime, $filename;
+		}
+	} else {
+		unlink($tmpfile) or die "$tmpfile: cannot unlink";
+	}
+}

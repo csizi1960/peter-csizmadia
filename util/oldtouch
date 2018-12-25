@@ -1,0 +1,52 @@
+#!/bin/sh
+#
+# oldtouch, Jun 5 2004 - May 19 2009 Peter Csizmadia
+#
+
+if [ -z "$1" ]; then
+	cat <<EOF
+Usage: oldtouch files...
+EOF
+	exit 0
+fi
+
+is_svn_file() {
+	[ -f "$1" ] || return 1
+	[ -d "`dirname $1`/.svn" ] || return 1
+	return 0
+}
+
+touch_svn_file() {
+	field="Last Changed Date: "
+	svn diff "$1" 2>/dev/null >/dev/null || return 1
+	[ -z "`svn diff \"$1\"`" ] || return 1
+	svndate=`LANG=C svn info "$1" 2>/dev/null | grep "^$field"|sed "s/^$field//;s/ (.*)$//"`
+	[ -n "$svndate" ] || return 1
+	date=`LANG=C /bin/ls -l --time-style=full-iso $1 | awk '{print $6,$7,$8}'|sed 's/\.[0-9]\+ / /'`
+	[ "$svndate" != "$date" ] || return 1
+	echo "touch -d \"$svndate\" \"$1\""
+	touch -d "$svndate" "$1"
+}
+
+oldtouch() {
+	for d in "$@"; do
+		if [ -d "$d" ]; then
+			echo "`pwd`/$d"
+			(cd "$d"; oldtouch *)
+			r=`ls -1t $d|head -1`
+			if [ -n "$r" ]; then
+				r="$d/$r"
+				if [ "$d" -nt "$r" -o "$r" -nt "$d" ]; then
+					echo "touch -r \"$r\" \"$d\""
+					touch -r "$r" "$d"
+				fi
+			fi
+		elif (echo "$d"|grep '\.zip$' >/dev/null); then
+			zip -o "$d"
+		elif is_svn_file "$d"; then
+			touch_svn_file "$d"
+		fi
+	done
+}
+
+oldtouch "$@"

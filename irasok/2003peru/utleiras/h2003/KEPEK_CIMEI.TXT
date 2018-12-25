@@ -1,0 +1,28 @@
+p04-15-LaberintoHielo.jpg "Jeglabirintusban. Gleccser a Nevado Cajavilca alatt"
+
+p06-18-Huascaran-N+S.jpg "A Huascaran eszaki es deli csucsa."
+
+d08-21-toC1.jpg "A Huascaran eszaki es deli csucsa. Uton a C1 tabor fele."
+
+d09-28.jpg "Huascaran, normal ut. Egy hasadek feluton a C1 tabor es a nyereg
+  kozott."
+
+a20-30e-D+spaltni.jpg "Utban a nyereg fele (Dani)."
+
+d11-03-C2.jpg "Huascaran, C2 tabor."
+
+p07-10-Norte+A+D.jpg "Uton a Huascaran deli csucsara, hatterben az eszaki."
+
+p07-17-cumbre-P+A+D.jpg "A Huascaran csucsan."
+
+p07-13-Chopicalqui.jpg "Nevado Chopicalqui (6354m) a Huascaran-rol nezve."
+
+p07-27.jpg "Boltiv. Gleccser a Huascaran deli csucsa alatt."
+
+p15-11.jpg "Huayna Potosi. Ut a felso taborba."
+
+p15-24.jpg "Kilatas a Huayna Potosi csucsarol."
+
+p15-37.jpg "A Huayna Potosi alatt (Campo Argentino)."
+
+(p*.jpg Peter kepei, d*.jpg Dani kepei, a*.jpg Aurel kepe)

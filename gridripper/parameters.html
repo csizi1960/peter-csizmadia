@@ -1,0 +1,255 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>GridRipper Simulation Parameters</title>
+<style type="text/css">
+    body {font-family: verdana,arial,helvetica,sans-serif; font-size: 10pt;
+	  text-align: justify; width: 720px; margin-left: 56px;}
+    h1 {text-align: center;}
+    h2 {font-size: 12pt; text-align: left;}
+    th {font-size: 10pt; text-align: center; vertical-align: top;}
+    td {text-align: left; vertical-align: top;}
+    td.par_name { font-family: monospace; text-align: left; font-size: 10pt; }
+    td.par_meaning { text-align: left; font-size: 10pt; }
+    td.par_default { text-align: center; font-size: 10px; }
+    blockquote {margin-top: 0; margin-bottom: 0}
+    blockquote.example {
+	margin-top: 0; margin-bottom: 0; border: 1px dashed #333;
+	width: 500px; padding: 0px; white-space: nowrap; overflow: hidden;
+    }
+    pre {margin-top: 0; margin-bottom: 0}
+    div.abstractAndAuthor {margin-top: 9pt; margin-left: 9pt; font-size: 9pt; text-align: center;}
+    img {border: 0;}
+    ul {margin-top: 0; }
+</style>
+</head>
+<body bgcolor="#ffffff" text="#000000">
+
+<a name="physics"><h2>Physics</h2></a>
+
+<blockquote>
+<table cellpadding="4" cellspacing="0" border="0" style="width:600px; overflow:hidden">
+<tr><td class="par_name">pde</td>
+    <td class="par_meaning">Partial differential equation.<br>
+    Name of the PDE class and optional parameters separated by spaces.
+    </td></tr>
+<tr><td class="par_name"><a name="initCond">initCond</a></td>
+    <td class="par_meaning">Initial conditions.<br>
+    Name of the initial condition class and optional parameters separated by
+    spaces. Basic
+    <a href="c++/html/classgridripper_1_1amr1d_1_1FuncInitCond.html"><code>FuncInitCond</code></a>
+    implementations:
+    <ul>
+    <li><code>Zero</code> &mdash; Sets zero value everywhere for each field
+	    component.</li>
+    <li><code>UserDef</code> &mdash; User-defined initial condition. Its
+	    parameters are the specifications of the field components using
+	    mathematical formulas, in the following form:
+	    <code><i>f</i>=<i>formula1</i> <i>g</i>=<i>formula2</i> ...</code>.
+	    </li>
+    <li><a name="ODEShootInit"><code>ODEShootInit</code></a>
+	&mdash; Initial condition determined by an ordinary differential
+	equation (see the <a href="#ode">ode</a> parameter) which is solved
+	using shooting method.
+	</li>
+    <li><a name="ODERelaxInit"><code>ODERelaxInit</code></a>
+	&mdash; Initial condition determined by an ordinary differential
+	equation (see the <a href="#ode">ode</a> parameter) which is solved
+	using relaxation method.
+	</li>
+    <li><code>BData</code> &mdash; Uses a data file from a previous run.</li>
+    </ul>
+    Common parameters of FuncInitCond implementations:
+    <ul>
+    <li><code>interpolatedLevel=<i>l</i></code>
+	&mdash; Use this parameter to interpolate the initial condition on
+	refined meshes. An integer value <code><i>l</i>&ge;1</code>
+	specifies the minimum refinement level to initialize using
+	interpolation. If set to zero (<code>interpolatedLevel=0</code>),
+	then no interpolation is used; each level is initialized as precisely
+	as possible.
+	</li>
+    </ul>
+    Examples:
+    <blockquote class="example">
+    <pre>initCond=UserDef f=(0.1*r1+0.5*r2+r3)/(r1+r2+r3)
+initCond=BData kgm.bdata
+initCond=gr.fixmp.kerrhiggs.Hunch interpolatedLevel=1</pre>
+    </blockquote>
+    </td></tr>
+<tr><td class="par_name"><a name="ode">ode</a></td>
+    <td class="par_meaning">Initial state specified by an ordinary
+    differential equation.<br>
+    Use it with <code><a href="#initCond">initCond</a>=ODEShootInit</code>
+    or <code>ODERelaxInit</code>.<br>
+    Example:
+    <blockquote class="example">
+    <code>
+initCond=ODEShootInit<br>
+ode=gr.dynss.ekg.EKGODE a=7.162 b=3 c=0.08 d=100 psi=(rho&gt;a-b)*(rho&lt;a+b)?c*exp(d+d*b^2/((rho-a)^2-b^2)):0 psi_rho=(rho&gt;a-b)*(rho&lt;a+b)?-2*c*d*b^2*(rho-a)*exp(d+d*b^2/((rho-a)^2-b^2))/((rho-a)^2-b^2)^2:0
+    </code>
+    </blockquote>
+    </td></tr>
+<tr><td class="par_name">parameters.*</td>
+    <td class="par_meaning">Parameters of the PDE and the initial
+			    condition.
+    </td></tr>
+</table>
+</blockquote>
+
+<a name="basic"><h2>Basic simulation parameters</h2></a>
+
+<blockquote>
+<table cellpadding="4" cellspacing="0" border="0" style="width:600px">
+<tr><td class="par_name">resolution</td>
+    <td class="par_meaning">Grid resolution.<br>
+	Use <code>resolution=<em>N</em></code> to specify the resolution for
+	a unigrid, use
+	<code>resolution=<em>N</em>x2^<em>L</em></code> to specify
+	both the base grid resolution (<em>N</em>) and the maximum number of
+	refinement levels (<em>L</em>). Examples:
+	<blockquote class="example">
+	<pre>resolution=1024
+resolution=256x2^4</pre>
+	</blockquote>
+    </td></tr>
+<tr><td class="par_name">dtdx</td>
+    <td class="par_meaning">The &Delta;t/&Delta;x Courant factor.<br>
+	It can be constant or a function of time. Examples:
+	<blockquote class="example">
+	<pre>dtdx=1
+dtdx=t&lt;16.4? 1 : t&lt;17.58? 0.1 : 0.02</pre>
+	</blockquote>
+    </td></tr>
+<tr><td class="par_name">gridInt</td>
+    <td class="par_meaning">Integration method.<br>
+	<code>RK2</code> &mdash; Runge-Kutta 2nd order<br>
+	<code>RK4</code> &mdash; Runge-Kutta 4th order<br>
+	<code>ICN</code> &mdash; Iterated Crank-Nicholson<br>
+	<code>LW2</code> &mdash; Lax-Wendroff
+    </td></tr>
+<tr><td class="par_name">sigma</td>
+    <td class="par_meaning">The &sigma; factor of the numerical dissipation
+	term.<br>
+	It can be coordinate dependent. Examples:
+	<blockquote class="example">
+	<pre>sigma=0.01
+sigma=LStepSigma sigma0=0.02 sigma1=0.01 i=8</pre>
+	</blockquote>
+    </td></tr>
+<tr><td class="par_name">shoot.integrator</td>
+    <td class="par_meaning">Integration method for
+	<a href="#ODEShootInit">ODEShootInit.</a><br>
+	<code>RK2</code> &mdash; Runge-Kutta 2nd order<br>
+	<code>RK4</code> &mdash; Runge-Kutta 4th order
+    </td></tr>
+</table>
+</blockquote>
+
+<a name="AMR_spec"><h2>Special mesh refinement related parameters</h2></a>
+
+<blockquote>
+<table cellpadding="4" cellspacing="0" border="0" style="width:600px">
+<tr><td class="par_name">amError</td>
+    <td class="par_meaning">Error function for the mesh refinement
+	condition.<br>
+	Examples:
+	<blockquote class="example">
+	<pre>amError=ComponentError 0</pre>
+	</blockquote>
+    </td></tr>
+<tr><td class="par_name">errorTolerance</td>
+    <td class="par_meaning">Error tolerance for the mesh refinement
+	condition.<br>
+	Example:
+	<blockquote class="example">
+	<pre>errorTolerance=1e-12</pre>
+	</blockquote>
+    </td></tr>
+<tr><td class="par_name">errorCheckFreq</td>
+    <td class="par_meaning">Frequency of error checking.<br>
+	Example:
+	<blockquote class="example">
+	<pre>errorCheckFreq=8</pre>
+	</blockquote>
+    </td></tr>
+<tr><td class="par_name">regridFreq</td>
+    <td class="par_meaning">Maximum number of time steps without regridding.<br>
+	Example:
+	<blockquote class="example">
+	<pre>regridFreq=16</pre>
+	</blockquote>
+    </td></tr>
+<tr><td class="par_name">bufferZoneSize</td>
+    <td class="par_meaning">Buffer zone size.<br>
+	Example:
+	<blockquote class="example">
+	<pre>bufferZoneSize=2</pre>
+	</blockquote>
+    </td></tr>
+</table>
+</blockquote>
+
+<a name="output"><h2>Output file generation</h2></a>
+
+<blockquote>
+<table cellpadding="4" cellspacing="0" border="0" style="width:600px">
+<tr><td class="par_name">dtwrite</td>
+    <td class="par_meaning">Time difference for datafile writing.<br>
+	It can be a constant or a function of time. Examples:
+	<blockquote class="example">
+	<pre>dtwrite=0.1
+dtwrite=t&lt;1.6? 0.1 : t&lt;1.68? 0.01 : t&lt;1.688? 0.001 : 0.0001</pre>
+	</blockquote>
+    </td></tr>
+<tr><td class="par_name">tmax</td>
+    <td class="par_meaning">Output should end at this time.<br>
+	It can be a constant or a function of the initial time parameter,
+	<i>t</i><sub><small>0</small></sub>. Example:
+	<blockquote class="example">
+	<pre>tmax=t0+16</pre>
+	</blockquote>
+    </td></tr>
+</table>
+</blockquote>
+
+<a name="gui"><h2>Interactive monitoring &mdash; xgridripper</h2></a>
+
+<blockquote>
+<table cellpadding="4" cellspacing="0" border="0" style="width:600px">
+<tr><td class="par_name">displayedComponents</td>
+    <td class="par_meaning">Comma separated list of components and grid
+	functions to display.<br>
+	Example:
+	<blockquote class="example">
+	<pre>displayedComponents=g00,m,r,e,y,t_proper</pre>
+	</blockquote>
+    </td></tr>
+<tr><td class="par_name">memoryMax</td>
+    <td class="par_meaning">Maximum number of integration steps to memorize.<br>
+	The simulation can be backtracked by the specified number of steps.<br>
+    </td></tr>
+<tr><td class="par_name">memorySteps</td>
+    <td class="par_meaning">A value <em>n</em> means that each <em>n</em>-th
+	integration step is memorized and backtracking restores the time
+	<em>t</em>-<em>n</em>&Delta;<em>t</em>.
+    </td></tr>
+<tr><td class="par_name">delay</td>
+    <td class="par_meaning">Delay between time steps in milliseconds.<br>
+	Use it to slow down the simulation.
+    </td></tr>
+<tr><td class="par_name">breakpoints</td>
+    <td class="par_meaning">Comma separated list of times where the simulation
+	should pause automatically.
+    </td></tr>
+</table>
+</blockquote>
+
+<p>
+<hr width="50%">
+<p align="right">
+08 May 2009, P. Csizmadia
+</p>
+
+</body>
+</html>

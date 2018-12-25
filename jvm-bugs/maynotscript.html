@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>getApplets() + MAYSCRIPT bug</title>
+</head>
+<body>
+
+The first applet on this page has the <tt>MAYSCRIPT</tt> option specified,
+otherwise it does nothing.  The second applet calls the getApplets() method.
+The result is a stack trace in Netscape 4.6-4.7, you can see it in the Java
+Console.  Calling getApplet(String) would have the same result.
+
+<p ALIGN=CENTER>
+<applet CODE="Empty" MAYSCRIPT WIDTH=50 height=50></applet>
+</p>
+
+<p ALIGN=CENTER>
+<a HREF="Empty.java">Empty.java</a>
+</p>
+
+<p ALIGN=CENTER>
+<applet CODE="GetApplets" WIDTH=50 height=50></applet>
+</p>
+
+<p ALIGN=CENTER>
+<a HREF="GetApplets.java">GetApplets.java</a>
+</p>
+
+</body>
+</html>

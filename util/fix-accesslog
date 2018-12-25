@@ -1,0 +1,45 @@
+#!/usr/bin/perl -w
+#
+# fix-accesslog, Sat Feb 26 2000, Peter Csizmadia
+#
+use strict;
+
+@ARGV = map {
+	/\.(gz|Z)$/ ? "gunzip < $_ |" :
+	/\.bz2$/ ? "bunzip2 < $_ |" : $_
+} @ARGV;
+
+while(<>) {
+	chomp;
+	my @in = split / /;
+	my $in1 = join(' ', splice(@in, 0, 5));
+	my $in2;
+	if($in[0] =~ /^"/) {
+		my $i = 0;
+		for($i=1; $i<=$#in; ++$i) {
+			if($in[$i] =~ /"$/) {
+				last;
+			}
+		}
+		$in2 = join(' ', splice(@in, 0, $i+1));
+	} else {
+		$in2 = join(' ', splice(@in, 0, 3));
+	}
+	printf("%s %s %s", $in1, $in2, join(' ', splice(@in, 0, 2)));
+	if($#in >= 0) {
+		if($in[0] eq "-" || $in[0] =~ /^["]*http/ || $in[0] =~ /^["]*\//) {
+			printf(" %s", shift(@in));
+		} else {
+			printf(" -");
+		}
+	}
+	if($#in >= 0) {
+		my $browser = join(' ', @in);
+		if(/^"/) {
+			printf(" %s", $browser);
+		} else {
+			printf(" \"%s\"", $browser);
+		}
+	}
+	printf("\n");
+}

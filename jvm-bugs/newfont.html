@@ -1,0 +1,38 @@
+<html>
+<head>
+<title>Slow Font constructor in Netscape 4.06-4.61</title>
+</head>
+<body>
+The Font constructor is extremely slow in Netscape 4.06-4.61
+(java.version=1.1.5).
+<br>
+The following applet tests the Font creation speed of your browser.
+
+<p ALIGN=CENTER>
+<applet code=NewFont width=500 height=64>
+<strong>(YOU CANNOT SEE A JAVA APPLET HERE)</strong>
+</applet>
+</p>
+
+<p ALIGN=CENTER>
+<a HREF="NewFont.java">NewFont.java</a>
+</p>
+
+Test results for Intel P133/Linux:
+<table>
+<tr><th>Browser</th><th>Fonts per second</th></tr>
+<tr><td>Netscape 3.04</td><td ALIGN=RIGHT>2000</td></tr>
+<tr><td>Netscape 4.05</td><td ALIGN=RIGHT>450</td></tr>
+<tr><td>Netscape 4.06</td><td ALIGN=RIGHT>70</td></tr>
+</table>
+<p>
+
+This feature may cause animation to slow down noticably in
+Netscape 4.06 compared to 4.05 or any other previous version.
+<p>
+<strong>Workaround:</strong>
+Create fonts in advance,
+remove all constructors from <tt>paint()</tt>.
+
+</body>
+</html>

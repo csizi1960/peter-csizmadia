@@ -1,0 +1,78 @@
+                        Csizmadia Peter
+                  Hivatkozasi lista 2005
+
+Csizmadia P, Csörgő T, Lukács B
+New analytic solutions of the non-relativistic hydrodynamical equations
+Physics Letters B443 21-25 (1998)
+[nucl-th/9805006]
+	Molnár D, Huovinen P, Physics Review Letters 94 012302 (2005), nucl-th/0404065
+	********** Non-SCI:
+	Amelin NS, Lednicky R, Malinina LV, Pocheptsov TA, Sinyukov YM, nucl-th/0507040
+	********** Coauthor non-SCI:
+	Padula SS, Hama Y, Krein G, Panda PK, Csörgő T, nucl-th/0510064
+	Padula SS, Hama Y, Krein G, Panda PK, Csörgő T, nucl-th/0510068
+	Padula SS, Krein G, Csörgő T, Hama Y, Panda PK, nucl-th/0512084
+
+Csizmadia P, Lévai P, Vance SE, Biró TS, Gyulassy M, Zimányi J
+Strange hyperon and antihyperon production from quark and string-rope matter
+Journal of Physics G25 321-330 (1999)
+[hep-ph/9809456]
+	********** Non-SCI:
+	Molnár D, nucl-th/0512001
+	Sun X, Yang Z, nucl-th/0507074
+	********** Coauthor SCI:
+	Gyulassy M, McLerran L, Nuclear Physics A750 30-63 (2005), nucl-th/0405013
+	Csizmadia P, Lévai P, Acta Physica Hungarica A22 371-380 (2005), nucl-th/0407054
+
+Csizmadia P, Lévai P
+phi, Omega and rho production from deconfined matter in relativistic heavy ion collisions at CERN SPS
+Physics Review C61 031903 (2000)
+[hep-ph/9909544]
+	********** Coauthor SCI:
+	Csizmadia P, Lévai P, Acta Physica Hungarica A22 371-380 (2005), nucl-th/0407054
+
+Lévai P, Biró TS, Csizmadia P, Csörgő T, Zimányi J
+The production of charm mesons from quark matter at CERN SPS and RHIC
+Journal of Physics G27 703-706 (2001)
+[nucl-th/0011023]
+	********** Coauthor SCI:
+	Csizmadia P, Lévai P, Acta Physica Hungarica A22 371-380 (2005), nucl-th/0407054
+	********** Coauthor non-SCI:
+	Alt et al (NA49) C, nucl-ex/0507031
+
+Cheng S, Pratt S, Csizmadia P, Nara Y, Molnár D, Gyulassy M, Vance SE, Zhang B
+The effect of finite-range interactions in classical transport theory
+Physics Review C65 024901 (2002)
+[nucl-th/0107001]
+	Xu Z, Greiner C, Physics Review C71 064901 (2005), hep-ph/0406278
+	********** Coauthor SCI:
+	Pratt S, Pal S, Nuclear Physics A749 268-274 (2005), Physics Review C71 014905 (2005), nucl-th/0409038
+	Csizmadia P, Lévai P, Acta Physica Hungarica A22 371-380 (2005), nucl-th/0407054
+	Lin ZW, Ko CM, Li BA, Zhang B, Pal S, Physics Review C72 064901 (2005), nucl-th/0411110
+	Dumitru A, Nara Y, Physics Letters B621 89-85 (2005), hep-ph/0503121
+	********** Coauthor non-SCI:
+	Lisa MA, Pratt S, Soltz R, Wiedemann U, Submitted to Ann.Rev.Nucl.Part.Sci., nucl-ex/0505014
+
+Csizmadia and P Lévai P
+The MICOR hadronization model with final state interactions
+Journal of Physics G28 1997-2000 (2002)
+	Molnár D, Journal of Physics G31 S421-S428 (2005), nucl-th/0410041
+	********** Non-SCI:
+	Hong B, Ji CR, Min DP, hep-ph/0510187
+	********** Coauthor SCI:
+	Csizmadia P, Lévai P, Acta Physica Hungarica A22 371-380 (2005), nucl-th/0407054
+
+Nara Y, Vance SE, Csizmadia P
+A study of parton energy loss in Au+Au collisions at RHIC using transport theory
+Physics Letters B531 209-215 (2002)
+[nucl-th/0109018]
+	********** Coauthor SCI:
+	Dumitru A, Nara Y, Physics Letters B621 89-95 (2005), hep-ph/0503121
+
+Csizmadia P
+Testing a new mesh refinement code in the evolution of a spherically symmetric Klein-Gordon field
+Accepted for publication by Int. J. Mod. Phys. D
+[hep-th/0505036]
+	********** Non-SCI:
+	Lehner L, Liebling SL, Reula O, gr-qc/0510111
+

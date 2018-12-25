@@ -1,0 +1,61 @@
+                        Csizmadia Peter
+                  Hivatkozasi lista 2004
+
+[1] P. Csizmadia, T. Csorgo, B. Lukacs:
+    "New analytic solutions of the non-relativistic hydrodynamical equations",
+    Physics Letters B443 (1998) 21-25, nucl-th/9805006
+
+    1. S.V. Akkelin, Yu.M. Sinyukov, Phys.Rev.C70 (2004) 064901,
+	nucl-th/0310036
+    2. D. Molnar, P. Huovinen, nucl-th/0404065
+
+    3. T. Csorgo, F. Grassi, Y. Hama, T. Kodama,
+	Heavy Ion Phys.A21 (2004) 63-71, Acta Phys.Hung.A21 (2004) 63-72,
+	hep-ph/0204300
+    4. T. Csorgo, F. Grassi, Y. Hama, T. Kodama,
+	Heavy Ion Phys.A21 (2004) 53-62, Acta Phys.Hung.A21 (2004) 53-62,
+	hep-ph/0203204
+
+[2] P. Csizmadia, P. Levai, S. E. Vance, T. S. Biro, M. Gyulassy, J. Zimanyi:
+    "Strange hyperon and antihyperon production from quark and string-rope
+    matter", Journal of Physics G25 (1999) 321-330, hep-ph/9809456
+
+    1. J. Schaffner-Bielich, J.Phys.G30 (2004) R245, nucl-th/0408012
+
+    2. M. Gyulassy, L. McLerran, nucl-th/0405013
+    3. M. Gyulassy, nucl-th/0403032
+
+[3] P. Csizmadia, P. Levai: "phi, Omega and rho production from deconfined
+    matter in relativistic heavy ion collisions at CERN SPS",
+    Physical Review C61 (2000) 031903, hep-ph/9909544
+
+    1. E.L. Bratkovskaya, A.P. Kostyuk, W. Cassing, H. Stoecker,
+	Phys.Rev.C69 (2004) 054903, nucl-th/0402042
+    2. C. Nonaka, R. J. Fries, S. A. Bass, Phys.Lett.B583 (2004) 73-78,
+	nucl-th/0308051
+    3. L.W. Chen, V. Greco, C.M. Ko, S.H. Lee, W. Liu,
+	Phys.Lett.B601 (2004) 34-40, nucl-th/0308006
+    4. T. Hirano, Y. Nara, Phys.Rev.C69 (2004) 034908, nucl-th/0307015
+    5. V. Greco, C.M. Ko, I. Vitev, nucl-th/0412043
+
+[4] S. Cheng, S. Pratt, P. Csizmadia, Y. Nara, D. Molnar, M. Gyulassy,
+      S. E. Vance, B. Zhang: "The effect of finite-range interactions in
+      classical transport theory", Physical Review C65} (2002) 024901
+
+    1. S. Cheng, S. Petriconi, S. Pratt, M. Skoby, C. Gale, S. Jeon, V. T.
+       Pop, Q. H. Zhang, Phys.Rev.C69 (2004) 054906, nucl-th/0401008
+    2. Bin Zhang, Phys.Lett.B580 (2004) 144-148, nucl-th/0309015
+    3. S. Pal, S. Pratt, Phys.Lett.B578 (2004) 310-317, nucl-th/0308077
+    4. D. Molnar, M. Gyulassy, Phys.Rev.Lett.92 (2004) 052301, nucl-th/0211017
+    5. Z. W. Lin, C. M. Ko, B. A. Li, B. Zhang, S. Pal, nucl-th/0411110
+    6. S. Pratt, S. Pal, nucl-th/0409038
+
+[5] P. Csizmadia and P. Levai:
+    "The MICOR hadronization model with final state interactions",
+    Journal of Physics G28 (2002) 1997-2000
+
+    1. V. Greco, C.M. Ko, I. Vitev, nucl-th/0412043
+    2. D. Molnar, nucl-th/0410041,
+	To appear in the proceedings of Hot Quarks 2004: Workshop for Young
+	Scientists on the Physics of Ultrarelativistic Nucleus-Nucleus
+	Collisions (HQ'04), Taos Valley, New Mexico, 18-24 Jul 2004

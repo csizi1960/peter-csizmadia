@@ -1,0 +1,58 @@
+#!/usr/bin/perl -w
+#
+# ppwgen, Wed May 14 2008, Peter Csizmadia
+#
+# Generates 8-character passwords containing random alphanumeric characters.
+# The generated password contains at least 2 digits, 2 lower case and 2 upper
+# case letters.
+#
+
+use strict;
+
+sub genchar {
+	my $k = rand(10+2*26);
+	if($k < 10) {
+		return ord('0') + $k;
+	} elsif($k < 10 + 26) {
+		return ord('a') + $k - 10;
+	} elsif($k < 10 + 2*26) {
+		return ord('A') + $k - 10 - 26;
+	}
+	return 0;
+}
+
+sub genpw0 {
+	my $s = "";
+	for(my $i=0; $i<8; ++$i) {
+		$s .= chr(genchar());
+	}
+	return $s;
+}
+
+sub check {
+	my ($s) = @_;
+	my $numlower = 0;
+	my $numupper = 0;
+	my $numdigit = 0;
+	for(my $i = 0; $i < length($s); ++$i) {
+		my $c = ord(substr($s, $i, 1));
+		if($c >= ord('0') && $c <= ord('9')) {
+			++$numdigit;
+		} elsif($c >= ord('a') && $c <= ord('z')) {
+			++$numlower;
+		} elsif($c >= ord('A') && $c <= ord('Z')) {
+			++$numupper;
+		}
+	}
+	return $numlower >= 2 && $numupper >= 2 && $numdigit >= 2;
+}
+
+sub genpw {
+	my $s = genpw0();
+	while(!check($s)) {
+		$s = genpw0();
+	}
+	return $s;
+}
+
+printf("%s\n", genpw());

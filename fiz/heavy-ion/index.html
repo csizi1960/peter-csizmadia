@@ -1,0 +1,118 @@
+<html>
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="Author" CONTENT="Peter Csizmadia">
+<title>The MICOR model</title>
+</head>
+<body BGCOLOR="#e0e0e0" TEXT="#224400" LINK="#0000FF" VLINK="#9E0061" ALINK="#FFFF00">
+
+The <b>MI</b>croscopical <b>CO</b>alescence <b>R</b>ehadronization model
+describes the creation of particles in 2-&gt;1 coalescence processes:
+<ul>
+<li>Meson resonances (1 spin: &omega;, &rho;, K<sup><small>*</small></sup>,
+    &phi;) from quarks (u, d, s) and antiquarks.</li>
+<li>Baryon resonances (3/2 spin: &Delta;, &Sigma;<sup><small>*</small></sup>, 
+    &Xi;<sup><small>*</small></sup>, &Omega;) from <em>diquarks</em> and
+    quarks.
+    </li>
+<li>Antibaryon resonances from antidiquarks and antiquarks.</li>
+<li>Diquarks are created like the mesons, but from two quarks.
+    The <em>coalescence factor</em> of diquark creation is twice the
+    coalescence factor for the corresponding meson.
+    The factor 2 comes from the colors
+    (diquarks are colorful, mesons are colorless).</li>
+<li>Lower mass hadrons (protons, pions, etc.) cannot be created in the
+    coalescence model because quarks have (large)
+    <em>constituent quark masses</em>.
+    These hadrons are produced later, when the resonances decay.
+    In the original version of MICOR, decays were simulated using the JETSET
+    event generator. In later versions, GROMIT is used as a hadronic cascade
+    for the simulation of final state interactions.</li>
+</ul>
+MICOR has a relatively small number of <a HREF="micor-parameters.html">model
+parameters</a>; the two main parameters are the quark matter temperature
+and the transverse flow velocity. See also the
+<a HREF="../phd/index.html">summary of my PhD thesis</a>.
+<p>
+<b>GROMIT</b> is a general particle cascade program written in C++. It was
+developed by members of the RHIC Transport Theory Collaboration (RTTC):
+P&eacute;ter Csizmadia, Stephen E. Vance, Yasushi Nara, Sen Cheng, Scott
+Pratt, D&eacute;nes Moln&aacute;r. The source is freely available (see the
+<a HREF="gromit-license.txt">license</a>):
+<a HREF="gromit-0.3.1.tar.lzma">gromit-0.3.1.tar.lzma</a>
+(updated: Nov 16 2008).
+
+<p>
+<table CELLSPACING="0" CELLPADDING="0" BORDER="0">
+<tr><th VALIGN="TOP" WIDTH="50%">MICOR related papers</th>
+    <th>GROMIT papers</th></tr>
+<tr>
+    <td VALIGN="TOP" WIDTH="50%">
+    <ul>
+    <li>P. Csizmadia, P. L&eacute;vai, S. E. Vance, T. S. Bir&oacute;,
+	M. Gyulassy, J. Zim&aacute;nyi: <i>Strange hyperon and antihyperon
+	production from quark and string-rope matter</i>,
+	<a HREF="http://www.iop.org/Journals/jg">Journal of Physics
+    <b>G</b></a><b>25</b> (1999) 321;
+	Proc. of Int. Conference on Strangeness in Quark Matter, July 20-24,
+	1998, Padova, Italy
+	[<a HREF="http://arXiv.org/abs/hep-ph/9809456">hep-ph/9809456</a>]
+	</li>
+    <li>P. Csizmadia, P. L&eacute;vai: <i>&phi;, &Omega; and &rho; production
+	from deconfined matter in relativistic heavy ion collisions at CERN
+	SPS</i>,
+	<a HREF="http://prc.aps.org">Physical Review <b>C</b></a><b>61</b>
+	(2000) 031903
+	[<a HREF="http://arXiv.org/abs/hep-ph/9909544">hep-ph/9909544</a>]
+	</li>
+    <li>P. Csizmadia, P. L&eacute;vai
+	<i>D and J/&psi; production from deconfined matter in
+	relativistic heavy ion collisions</i>
+	[<a HREF="http://arXiv.org/abs/hep-ph/0008195">hep-ph/0008195</a>]
+	</li>
+    <li>P. L&eacute;vai, T. S. Bir&oacute;, P. Csizmadia,
+	T. Cs&ouml;rg&otilde;, J. Zim&aacute;nyi: <i> The production of charm
+	mesons from quark matter at CERN SPS and RHIC</i>,
+	<a HREF="http://www.iop.org/Journals/jg">Journal of Physics
+	<b>G</b></a><b>27</b> (2001) 703
+	[<a HREF="http://arXiv.org/abs/nucl-th/0011023">nucl-th/0011023</a>]
+	</li>
+    </td>
+<td VALIGN="TOP">
+    <ul>
+    <li>S. Cheng, S. Pratt, P. Csizmadia, Y. Nara, D. Moln&aacute;r,
+	M. Gyulassy, S. E. Vance, B. Zhang: <i>The effect of finite-range
+	interactions in classical transport theory</i>
+	<a HREF="http://prc.aps.org">Physical Review <b>C</b></a>65 (2002)
+	024901
+	[<a HREF="http://arXiv.org/abs/nucl-th/0107001">nucl-th/0107001</a>]
+	</li>
+    <li>Y. Nara, S.E. Vance, P. Csizmadia: <i> A study of parton energy loss in
+	Au+Au collisions at RHIC using transport theory</i>,
+	<a HREF="http://www.elsevier.com/locate/issn/03702693">Physics Letters
+	 <b>B</b></a><b>531</b> (2002) 209-215
+	[<a HREF="http://arXiv.org/abs/nucl-th/0109018">nucl-th/0109018</a>]
+	</li>
+    </ul>
+    </td>
+</tr>
+<tr>
+<td COLSPAN="2" VALIGN="TOP">
+    <ul>
+    <li>P. Csizmadia and P. L&eacute;vai, <i>The MICOR hadronization model with
+	final state interactions</i>,
+	<a HREF="http://www.iop.org/Journals/jg">Journal of Physics
+	<b>G</b></a><b>28</b> (2002) 1997-2000
+	[<a HREF="http://arXiv.org/abs/nucl-th/0011023">nucl-th/0011023</a>]
+	</li>
+    <li>P. Csizmadia and P. L&eacute;vai, <i>Energy dependence of transverse
+	quark flow in heavy ion collisions</i>,
+	Submitted to Acta Phys.Hung.
+	[<a HREF="http://arXiv.org/abs/nucl-th/0407054">nucl-th/0407054</a>]
+	</li>
+    </ul>
+    </td>
+</tr>
+</table>
+</body>
+</html>

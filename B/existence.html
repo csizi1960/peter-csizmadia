@@ -1,0 +1,144 @@
+<html>
+<head>
+<meta NAME="description" CONTENT="Why does the Universe exist?">
+<meta NAME="keywords" CONTENT="universe, creation, quantum gravity, life, consciousness, existence">
+<title>Existence</title>
+<script LANGUAGE="JavaScript">
+<!--
+today = new Date();
+szho = 10;
+sznap = 9;
+function myage() {
+	var ev = today.getYear();
+	if(ev < 2000) {
+		ev += 1900;
+	}
+	var szdate = new Date(ev, szho-1, sznap, 23, 59, 59);
+	var elozoszdate = new Date(ev, szho-1, sznap);
+	if(ev>=0 && ev<100) {
+		ev += 1900;
+	}
+	var kor = ev-1972;
+	if(today.getTime() < szdate.getTime()) {
+		elozoszdate = new Date(ev-1, szho-1, sznap);
+		kor -= 1;
+	}
+	kor += (today.getTime()-elozoszdate.getTime())/(1000*60*60*24*365);
+	return kor;
+}
+var creationwin = null;
+function newcontents(s, t1, t2, tu) {
+	if(creationwin == null || creationwin.closed) {
+		return;
+	}
+	var d = creationwin.document;
+	d.open();
+	d.write("<html><title>Creation</title>\n");
+	d.write("<body BGCOLOR='#000000' TEXT='#c0c0ff' LINK='#8080ff' VLINK='#7820d8' ALINK='#c0c0ff'>\n");
+	d.write("<p ALIGN=CENTER>\n<font SIZE=5>\n");
+	d.write(s);
+	d.write("</font></p>\n");
+	d.write("<p ALIGN=CENTER>\n<font SIZE=3>\n");
+	d.write(t1);
+	if(t2.length != 0) {
+		d.write("<sup><font SIZE=2>"+t2+"</font></sup>");
+	}
+	d.write(tu);
+	d.write("</font></p>\n");
+	d.write("</body>\n</html>\n");
+	d.close();
+}
+function kezdetbenvala(i) {
+	if(i == 0) {
+		if(creationwin != null && !creationwin.closed) {
+			creationwin.close();
+		}
+		creationwin = window.open("", "creation", "width=300,height=150");
+		newcontents("Quantum Gravity", "0", "", "");
+	} else {
+		if(i == 1) {
+			newcontents("Space-time", "10", "-43", "s");
+		} else if(i == 2) {
+			newcontents("Great Separation", "10", "-35", "s");
+		} else if(i == 3) {
+			newcontents("Electroweak Separation", "10", "-11", "s");
+		} else if(i == 4) {
+			newcontents("Protons and Neutrons from Quark matter", "10", "-5", "s");
+		} else if(i == 5) {
+			newcontents("Helium", "10", "2", "s");
+		} else if(i == 6) {
+			newcontents("Heavier elements", "10", "9", " years");
+		} else if(i == 7) {
+			newcontents("Life", "B.Cs. 3*10", "9", "");
+		} else if(i == 8) {
+			newcontents("Mankind", "B.Cs. 10", "6", "");
+		} else if(i == 9) {
+			newcontents("Civilization", "B.Cs. 10", "4", "");
+		} else if(i == 10) {
+			newcontents("<i>All these were not real</i>", "", "", "");
+		} else if(i == 11) {
+			newcontents("Nonexistent, actually", "", "", "");
+		} else if(i == 12) {
+			newcontents("Only a mathematical possibility not realized by the Consciousness", "", "", "");
+		} else if(i == 13) {
+			newcontents("Existence began "+myage()+" years ago",
+				    "", "", "");
+		} else {
+			if(creationwin != null) {
+				creationwin.close();
+			}
+			if(history.length == 1) {
+				window.close();
+			} else {
+				history.back();
+			}
+		}
+	}
+	if(i <= 13) {
+		setTimeout("kezdetbenvala("+(i+1)+")", 2000);
+	}
+}
+function cleanup() {
+	if(creationwin != null && !creationwin.closed)
+		creationwin.close();
+}
+//-->
+</script>
+</head>
+<body BGCOLOR="#000000" TEXT="#c0c0ff"
+      LINK="#8080ff" VLINK="#7820d8" ALINK="#c0c0ff"
+      onLoad="setTimeout('kezdetbenvala(0)', 1000)" onUnload="cleanup()">
+<p ALIGN=CENTER>
+<applet CODE="Egek" WIDTH="480" HEIGHT="480" NAME="Egek">
+<param NAME="nstars" VALUE="200">
+<param NAME="text" VALUE="P\'ETER">
+<param NAME="delay" VALUE="100">
+<param NAME="text0" VALUE="Quantum Gravity|0|*|*">
+<param NAME="text1" VALUE="Space-time|10|-43|s">
+<param NAME="text2" VALUE="Great Separation|10|-35|s">
+<param NAME="text3" VALUE="Electroweak Separation|10|-11|s">
+<param NAME="text4" VALUE="Protons and Neutrons$from Quark matter|10|-5|s">
+<param NAME="text5" VALUE="Helium|10|2|s">
+<param NAME="text6" VALUE="Heavier elements|10|9| years">
+<param NAME="text7" VALUE="Life|B.Cs. 3*10|9|*">
+<param NAME="text8" VALUE="Mankind|B.Cs. 10|6|*">
+<param NAME="text9" VALUE="Civilization|B.Cs. 10|4|*">
+<param NAME="text10" VALUE="\red All these were not real|*|*|*">
+<param NAME="text11" VALUE="Nonexistent, actually|*|*|*">
+<param NAME="text12" VALUE="Only a mathematical possibility$not realized by the Consciousness|*|*|*">
+<param NAME="text13" VALUE="Existence began$\myage$years ago|*|*|*">
+<font FACE="Times" SIZE=5>
+E<br><br>
+X<br><br>
+I<br><br>
+S<br><br>
+T<br><br>
+E<br><br>
+N<br><br>
+C<br><br>
+E
+</font>
+</applet>
+</p>
+</body>
+</html>

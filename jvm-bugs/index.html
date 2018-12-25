@@ -1,0 +1,200 @@
+<html>
+<head>
+<meta NAME="Author" CONTENT="Peter Csizmadia">
+<title>JVM, OS and browser bugs</title>
+</head>
+<body BGCOLOR="#e0e0e0" TEXT="#224400" LINK="#0000FF" VLINK="#9E0061" ALINK="#FFFF00">
+
+<p ALIGN="LEFT">
+Warning! This page is obsolete.
+</p>
+
+<p ALIGN=RIGHT><a HREF="whichbrowser.html">Java/JavaScript browser detection</a></p>
+
+<h3>Bugs and disappointing features in runtime environments</h3>
+
+<strong>W</strong> - Workaround,
+
+<p>
+<h4>Java:</h4>
+
+<ul>
+<li>Java Plugin
+    <ul>
+    <li><a HREF="getprintjob.html">getPrintJob() does not work properly in
+	Java 1.3 and 1.4.0</a></li>
+    </ul>
+    </li>
+<li>AWT bugs
+    <ul>
+    <li><a HREF="pupcbx.html">Menu items do not work in <tt>PopupMenu</tt></a>
+	in <strong>Sun Java 1.3-1.3.1</strong></li>
+    <li><a NAME="pupcbx" HREF="pupcbx.html">State change not detected for
+	<tt>CheckboxMenuItem</tt> of a <tt>PopupMenu</tt></a>
+	in <strong>MSIE 5.0</strong><br>
+	</li>
+    <li><a HREF="pupcbx.html">Menu labels cannot be changed</a>
+	in <strong>MSIE 4.01</strong><br>
+	</li>
+    <li><a HREF="polybug.html"><tt>Polygon.inside(x,y)</tt>
+	may fail due to bug in <tt>updateBounds</tt></a> in
+	<strong>JDK 1.0-1.1.6, Netscape 2.0-4.7, MSIE 3.0-?</strong>
+	</li>
+    <li><a HREF="gridbug128.html"><tt>GridBagLayout</tt>
+	can not deal with more than 128 rows.</a> in
+	<strong>JDK 1.0x, Netscape 2.0-4.05, MS Explorer 3.0-?</strong>
+	</li>
+    <li><a NAME="scrollbug" HREF="scrollbug.html">The <tt>maximum</tt>
+	value of <tt>Scrollbar</tt> is the rightmost position
+	of the left instead of the right side of the slider.</a>
+	<br><strong>MS Explorer 3.0-5.0 (java.version &lt;= 1.1)</strong>,
+	    <strong>Netscape 2.0-4.05 (java.version&lt;=1.1.2)</strong>
+	</li>
+    </ul>
+    </li>
+<li>Microsoft Windows, any browser
+    <ul>
+    <li>A component is in front of other windows if and
+	only if it has the keyboard focus.<br>
+	<strong>W:</strong>
+	always <tt>requestFocus</tt> after <tt>show</tt> but never
+	on <tt>mouseEnter</tt>.<br>
+	<strong>Drawback:</strong> a button under the mouse cannot receive
+	keyboard events.
+	</li>
+    <li><a HREF="clickmovebug.html">Mouse MOVE and DRAG events follow
+	every DOWN and UP without reason.</a><br>
+	<ul>
+	<li>DOWN-&gt;DRAG, UP-&gt;MOVE in Netscape 2 and MSIE 3</li>
+	<li>UP-&gt;MOVE in Netscape 4 and MSIE 4</li>
+	</ul>
+	</li>
+    </ul>
+    </li>
+<li>MS Explorer only
+    <ul>
+    <li>Scrolling the page may mix up applets in <strong>MSIE 4.0x</strong><br>
+	Especially frustrating for large applets.
+	</li>
+    <li>Arrays are not <tt>instanceof Object</tt> sometimes in
+	<strong>MSIE 3.0x</strong><br>
+	<strong>W:</strong> do not use arrays as objects.
+	</li>
+    </ul>
+    </li>
+<li>Netscape/Mozilla only
+    <ul>
+    <li><a HREF="parambug.html" NAME="parambug">Cannot use consecutive space
+	characters in applet parameters in Mozilla 0.9.7-1.0</a>
+	</li>
+    <li><a HREF="ns6jsace.html" NAME="ns6jsace">Applet methods containing I/O
+	operations may throw AccessControlException in Netscape 6 when called
+	from JavaScript</a>
+	</li>
+    <li><a HREF="ns6jsclf.html" NAME="ns6jsace">Applet freezes in Linux
+	Netscape 6 if a method called from JavaScript tries to download a
+	class file from the web server.</a>
+	</li>
+    <li><a HREF="newthread.html" NAME="newthread">Thread constructor
+	throws AccessControlException in Netscape 6/MSWindows</a>
+	</li>
+    <li><a HREF="ns4ftacrash.html" NAME="ns4ftacrash" TARGET="_blank">Netscape
+	4.0-4.7 may crash when the user closes a window containing frames,
+	tables and applets</a>
+	</li>
+    <li><a HREF="closefreeze.html" NAME="closefreeze">The browser freezes
+	when the user closes a window containing an applet</a> in
+	<strong>Netscape 4.51-4.7/MSWindows98</strong><br>
+	</li>
+    <li>JIT DAG failure for codes like
+	<a HREF="jitdag0.html"><tt>a=b*(c=d?e:f)</tt></a> or
+	<a HREF="jitdag1.html"><tt>method(c=d?e:f)</tt></a> in
+	<strong>Netscape 4.0 for MSWindows/Symantec JIT</strong><br>
+	<strong>W:</strong>
+	<tt>c=d?e:f; a=b*c;</tt>
+	</li>
+    <li><tt>getApplet(String)</tt> does not work in
+	<strong>Netscape 3.0 for MSWindows</strong><br>
+	<strong>W:</strong>
+	use <tt>getApplets()</tt> instead.
+	</li>
+    <li><a NAME="newfont" HREF="newfont.html">Extremely slow Font
+	constructor</a>
+	in <strong>Netscape 4.06-4.61 (java.version=1.1.5)</strong>
+	</li>
+    <li><a NAME="drawimage">drawImage extremely slow</a>
+	for partly transparent images (pixels with alpha=0)
+	in <strong>Netscape 4.06-4.61 (java.version=1.1.5)</strong><br>
+	This feature may cause animation to slow down noticably in
+	Netscape 4.06 compared to 4.05 or any other previous version.<br>
+	</li>
+    </ul>
+    </li>
+<li>X window
+    <ul>
+    <li><a NAME="fontsizes" HREF="fontsizes.html">Fonts are ugly</a>, their
+	actual size is not an always increasing function of the logical size
+	in points. <strong>Netscape 4.06-4.6 for Linux</strong>
+	</li>
+    </ul>
+</ul>
+
+<p>
+<h4>Java to JavaScript communication:</h4>
+<ul>
+<li>Netscape 4.6-4.7
+    <ul>
+    <li><a NAME="maynotscript"
+	   HREF="maynotscript.html">Security exception for getApplets and
+	MAYSCRIPT</a>
+	</li>
+    </ul>   
+    </li>
+<li>Netscape 4.6
+    <ul>
+    <li><a NAME="javascripter"
+	   HREF="javascripter.html">Security exception for eval</a>
+	</li>
+    </ul>   
+    </li>
+</ul>
+
+<p>
+<h4>JavaScript to Java communication:</h4>
+<ul>
+<li>Netscape 6
+    <ul>
+    <li><a HREF="deadconnect.html">Deadconnect</a>: Netscape 6.0 may die if a
+	script in a frame tries to call a Java method.
+	</li>
+    </ul>
+    </li>
+<li>Netscape 4.0-4.7
+    <ul>
+    <li><a HREF="onloadbug.html">Applet method call at onLoad may result in
+	&quot;document.X has no properties&quot;</a>
+	</li>
+    </ul>
+    </li>
+</ul>
+
+<p>
+<h4>Obfuscation-related:</h4>
+<ul>
+<li>Verifier error in Netscape 2.x for method and variable names
+    <em>not</em> matching the pattern
+    &quot;<tt>[a-zA-Z][a-zA-Z0-9]*</tt>&quot;.<br>
+    <strong>W:</strong> be careful with the obfuscator.
+    </li>
+</ul>
+
+<hr WIDTH="90%">
+
+<font SIZE=-2>
+<p ALIGN=CENTER>
+&copy; 1998-1999 <a HREF="http://www.kfki.hu/~cspeter/">Peter Csizmadia</a>
+</p>
+</font>
+
+</body>
+</html>

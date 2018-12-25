@@ -1,0 +1,79 @@
+#!/usr/bin/perl -w
+#
+# escapechars, Jun 18 2005 Peter Csizmadia
+# (@since Aug 31 2004)
+#
+
+use strict;
+
+if($#ARGV < 1) {
+	print <<EOF;
+Usage: escapechars INPUT_ENCODING OUTPUT_FORMAT [files...]
+
+Input encodings: utf8, latin1, latin2 etc.
+
+Output formats:
+\txml - use ampersand Unicode escape sequences
+\ttex - use accented characters, partially implemented
+
+Example: escapechars utf8 xml file.utf8.html > file.html
+EOF
+	exit 0;
+}
+
+my $inenc = shift @ARGV;
+my $outenc = shift @ARGV;
+
+unshift(@ARGV, '-') unless @ARGV;
+
+while($ARGV = shift) {
+	open(ARGV, $ARGV) or die "cannot open file";
+	binmode(ARGV, ":encoding(".$inenc.")")
+		or die "cannot set input encoding";
+	if($outenc eq "xml") {
+		while(defined(my $c = getc(ARGV))) {
+			if(ord($c) < 128) {
+				print $c;
+			} else {
+				print xmlunicode($c);
+			}
+		}
+	} elsif($outenc eq "tex") {
+		# incomplete, only hungarian accents are implemented
+		while(<ARGV>) {
+			s/\x{e1}/\{\\'a\}/g;
+			s/\x{c1}/\{\\'A\}/g;
+			s/\x{e9}/\{\\'e\}/g;
+			s/\x{c9}/\{\\'E\}/g;
+			s/\x{ed}/\{\\'\\i\}/g;
+			s/\x{cd}/\{\\'I\}/g;
+			s/\x{f3}/\{\\'o\}/g;
+			s/\x{d3}/\{\\'O\}/g;
+			s/\x{fa}/\{\\'u\}/g;
+			s/\x{da}/\{\\'U\}/g;
+			s/\x{f6}/\{\\"o\}/g;
+			s/\x{d6}/\{\\"O\}/g;
+			s/\x{fc}/\{\\"u\}/g;
+			s/\x{dc}/\{\\"U\}/g;
+			s/\x{f5}/\{\\~o\}/g;
+			s/\x{d5}/\{\\~O\}/g;
+			s/\x{fb}/\{\\^u\}/g;
+			s/\x{db}/\{\\^U\}/g;
+			s/\x{151}/\{\\H o\}/g;
+			s/\x{150}/\{\\H O\}/g;
+			s/\x{171}/\{\\H u\}/g;
+			s/\x{170}/\{\\H U\}/g;
+			print;
+		}
+	} else {
+		print STDERR $outenc.": unknown output format\n";
+		exit 1;
+	}
+	close(ARGV);
+}
+
+sub xmlunicode {
+	my ($c) = @_;
+	my $k = ord($c);
+	return sprintf("&#%d;", $k);
+}

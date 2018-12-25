@@ -1,0 +1,184 @@
+"
+" ~/.vimrc, Wed Jul 22 2009 (Oct 24 2000-) Peter Csizmadia
+"
+set nobackup		" backup: keep a backup file, nobackup: no backup
+set background=dark
+syntax on	" syntax highlighting
+function! SetBackgroundAndForeground()
+	highlight Normal guibg=black guifg=white
+endfunction
+call SetBackgroundAndForeground()
+set hlsearch	" search pattern highlighting
+set suffixes=.bak,~,.o,.class,.info,.swp	" no completion for these
+set bs=2	" allow backspacing over everything in insert mode
+set tw=78 	" automatically insert <EOL> at end of line
+set mousehide	" hide mouse pointer while typing
+set guioptions+=a
+set viminfo='20,\"1000
+set encoding=utf-8
+set fileencoding=utf-8
+
+if version >= 504
+	set clipboard=unnamed,autoselect
+endif
+
+" do not indent before case:, public:, private:, protected:
+set cinoptions=:0g0
+
+" Start in insert mode without losing the Esc key
+"set im!
+"imap <Esc> <C-L>
+
+" Ctrl-Q quit
+map <C-Q> :confirm q<CR>
+imap <C-Q> <C-o>:confirm q<CR>
+
+" Ctrl-Z undo
+map <C-Z> :undo<CR>
+imap <C-Z> <C-o>:undo<CR>
+
+" Paragraph up/down, find
+imap <C-up> <C-o>{
+imap <C-down> <C-o>}
+imap <C-f> <C-o>/
+imap <C-g> <C-o>n
+
+" Edit new file
+map <C-e> :browse confirm e<CR>
+imap <C-e> <C-o>:browse confirm e<CR>
+
+" Ctrl-J formats the current paragraph
+map <C-J> gqap
+imap <C-J> <C-o>gqap
+
+" F6: go to next file, Alt-F6: previous file
+map <F6> :bnext!<CR>
+imap <F6> <C-o>:bnext!<CR>
+map <M-F6> :bprevious!<CR>
+imap <M-F6> <C-o>:bprevious!<CR>
+
+" F9: make all, Alt-F9: build all
+map <F9> :!make<CR>
+imap <F9> <C-o>:!make<CR>
+map <M-F9> :!make clean && make<CR>
+imap <M-F9> <C-o>:!make clean && make<CR>
+
+" F10: replace 8 spaces with one tab
+map <F10> :,$s/        /\t/gc<CR>
+imap <F10> <C-o>:,$s/        /\t/gc<CR>
+
+" Switches C indenting and abbreviations off, use before mouse copy/paste
+map pas :set paste<CR>a
+
+" After mouse copy/paste, turn on C indenting and abbreviations again
+map nop :set nopaste<CR>
+
+" Makefiles, sh scripts, sed scripts, .ssh/authorized_keys files
+function! MakeAndScriptMode()
+	call SetBackgroundAndForeground()
+	set tw=0 wm=0		" do not wrap lines
+endfunction
+au BufNewFile,BufRead makefile*,Makefile*,GNUMakefile*,*.sh,*.?sh,*.sed,authorized_keys*,*.plt,*.in call MakeAndScriptMode()
+
+" C-like script languages
+function! CScriptMode()
+	call SetBackgroundAndForeground()
+	set tw=0 wm=0		" do not wrap lines
+	set cindent		" automatic indentation
+endfunction
+au BufNewFile,BufRead *.js,*.pl,*.awk call CScriptMode()
+
+" C-like languages
+function! CMode()
+	call SetBackgroundAndForeground()
+	set tw=0 wm=0 sw=4 sts=4	" do not wrap lines, indent: 4 chars
+	set cindent			" automatic indentation
+endfunction
+au BufNewFile,BufRead *.c,*.C,*.cpp,*.cxx,*.cc,*.h,*.hpp,*.c++,*.h++,*.cu,*.xpm,*.java,*.jsp call CMode()
+
+" LaTeX
+function! LaTeXMode()
+	call SetBackgroundAndForeground()
+	map <F9> :!latex % && dvips %:r.dvi -o %:r.ps<CR>
+	map <M-d> :!xdvi %:r.dvi &<CR><CR>
+	if match(expand("`where gv`"),"not.*found") >= 0
+		map <M-v> :!ghostview %:r.ps &<CR><CR>
+	else
+		map <M-v> :!gv %:r.ps &<CR><CR>
+	endif
+endfunction
+au BufNewFile,BufRead *.tex call LaTeXMode()
+
+" HTML
+function! HTMLMode()
+	call SetBackgroundAndForeground()
+	set tw=0 wm=0 sw=4 sts=4	" do not wrap lines, indent: 4 chars
+	map <C-J> :set tw=78<CR>gqap:set tw=0<CR>
+endfunction
+au BufNewFile,BufRead *.html call HTMLMode()
+
+"augroup gzip " from the vimrc_example file
+"  " Remove all gzip autocommands
+"  au!
+"  " Enable editing of gzipped files
+"  "       read: set binary mode before reading the file
+"  "             uncompress text in buffer after reading
+"  "      write: compress file after writing
+"  "     append: uncompress file, append, compress file
+"  autocmd BufReadPre,FileReadPre	*.gz set bin
+"  autocmd BufReadPost,FileReadPost	*.gz let ch_save = &ch|set ch=2
+"  autocmd BufReadPost,FileReadPost	*.gz '[,']!gunzip
+"  autocmd BufReadPost,FileReadPost	*.gz set nobin
+"  autocmd BufReadPost,FileReadPost	*.gz let &ch = ch_save|unlet ch_save
+"  autocmd BufReadPost,FileReadPost	*.gz execute ":doautocmd BufReadPost " . expand("%:r")
+"  autocmd BufWritePost,FileWritePost	*.gz !mv <afile> <afile>:r
+"  autocmd BufWritePost,FileWritePost	*.gz !gzip <afile>:r
+"  autocmd FileAppendPre			*.gz !gunzip <afile>
+"  autocmd FileAppendPre			*.gz !mv <afile>:r <afile>
+"  autocmd FileAppendPost		*.gz !mv <afile> <afile>:r
+"  autocmd FileAppendPost		*.gz !gzip <afile>:r
+"augroup END
+
+"augroup bzip2 "
+"  " Remove all bzip2 autocommands
+"  au!
+"  " Enable editing of bzipped files
+"  "       read: set binary mode before reading the file
+"  "             uncompress text in buffer after reading
+"  "      write: compress file after writing
+"  "     append: uncompress file, append, compress file
+"  autocmd BufReadPre,FileReadPre	*.bz2 set bin
+"  autocmd BufReadPost,FileReadPost	*.bz2 let ch_save = &ch|set ch=2
+"  autocmd BufReadPost,FileReadPost	*.bz2 '[,']!bunzip2
+"  autocmd BufReadPost,FileReadPost	*.bz2 set nobin
+"  autocmd BufReadPost,FileReadPost	*.bz2 let &ch = ch_save|unlet ch_save
+"  autocmd BufReadPost,FileReadPost	*.bz2 execute ":doautocmd BufReadPost " . expand("%:r")
+"  autocmd BufWritePost,FileWritePost	*.bz2 !mv <afile> <afile>:r
+"  autocmd BufWritePost,FileWritePost	*.bz2 !bzip2 <afile>:r
+"  autocmd FileAppendPre			*.bz2 !bunzip2 <afile>
+"  autocmd FileAppendPre			*.bz2 !mv <afile>:r <afile>
+"  autocmd FileAppendPost		*.bz2 !mv <afile> <afile>:r
+"  autocmd FileAppendPost		*.bz2 !bzip2 <afile>:r
+"augroup END
+
+augroup lzma "
+  " Remove all lzma autocommands
+  au!
+  " Enable editing of lzma compressed files
+  "       read: set binary mode before reading the file
+  "             uncompress text in buffer after reading
+  "      write: compress file after writing
+  "     append: uncompress file, append, compress file
+  autocmd BufReadPre,FileReadPre	*.lzma set bin
+  autocmd BufReadPost,FileReadPost	*.lzma let ch_save = &ch|set ch=2
+  autocmd BufReadPost,FileReadPost	*.lzma '[,']!unlzma
+  autocmd BufReadPost,FileReadPost	*.lzma set nobin
+  autocmd BufReadPost,FileReadPost	*.lzma let &ch = ch_save|unlet ch_save
+  autocmd BufReadPost,FileReadPost	*.lzma execute ":doautocmd BufReadPost " . expand("%:r")
+  autocmd BufWritePost,FileWritePost	*.lzma !mv <afile> <afile>:r
+  autocmd BufWritePost,FileWritePost	*.lzma !lzma <afile>:r
+  autocmd FileAppendPre			*.lzma !unlzma <afile>
+  autocmd FileAppendPre			*.lzma !mv <afile>:r <afile>
+  autocmd FileAppendPost		*.lzma !mv <afile> <afile>:r
+  autocmd FileAppendPost		*.lzma !lzma <afile>:r
+augroup END

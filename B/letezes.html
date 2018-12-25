@@ -1,0 +1,142 @@
+<html>
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="description" CONTENT="Miért létezik az Univerzum?">
+<meta NAME="keywords" CONTENT="univerzum, teremtés, kvantumgravitáció, élet, tudatosság, létezés">
+<title>L&eacute;tez&eacute;s</title>
+<script LANGUAGE="JavaScript">
+<!--
+today = new Date();
+szho = 10;
+sznap = 9;
+function myage() {
+	var ev = today.getYear();
+	if(ev < 2000) {
+		ev += 1900;
+	}
+	var szdate = new Date(ev, szho-1, sznap, 23, 59, 59);
+	var elozoszdate = new Date(ev, szho-1, sznap);
+	if(ev>=0 && ev<100) {
+		ev += 1900;
+	}
+	var kor = ev-1972;
+	if(today.getTime() < szdate.getTime()) {
+		elozoszdate = new Date(ev-1, szho-1, sznap);
+		kor -= 1;
+	}
+	kor += (today.getTime()-elozoszdate.getTime())/(1000*60*60*24*365);
+	return kor;
+}
+var creationwin = null;
+function newcontents(s, t1, t2, tu) {
+	if(creationwin == null || creationwin.closed) {
+		return;
+	}
+	var d = creationwin.document;
+	d.open();
+	d.write("<html><title>Teremt&eacute;s</title>\n");
+	d.write("<body BGCOLOR='#000000' TEXT='#c0c0ff' LINK='#8080ff' VLINK='#7820d8' ALINK='#c0c0ff'>\n");
+	d.write("<p ALIGN=CENTER>\n<font SIZE=5>\n");
+	d.write(s);
+	d.write("</font></p>\n");
+	d.write("<p ALIGN=CENTER>\n<font SIZE=3>\n");
+	d.write(t1);
+	if(t2.length != 0) {
+		d.write("<sup><font SIZE=2>"+t2+"</font></sup>");
+	}
+	d.write(tu);
+	d.write("</font></p>\n");
+	d.write("</body>\n</html>\n");
+	d.close();
+}
+function kezdetbenvala(i) {
+	if(i == 0) {
+		if(creationwin != null && !creationwin.closed) {
+			creationwin.close();
+		}
+		creationwin = window.open("", "creation", "width=300,height=150");
+		newcontents("Kvantumgravit&aacute;ci&oacute;", "0", "", "");
+	} else {
+		if(i == 1) {
+			newcontents("T&eacute;rid&otilde;", "10", "-43", "s");
+		} else if(i == 2) {
+			newcontents("Nagy Sz&eacute;tv&aacute;laszt&aacute;s", "10", "-35", "s");
+		} else if(i == 3) {
+			newcontents("Elektrogyenge Sz&eacute;tv&aacute;laszt&aacute;s", "10", "-11", "s");
+		} else if(i == 4) {
+			newcontents("Protonok &eacute;s Neutronok a Kvarkanyagb&oacute;l", "10", "-5", "s");
+		} else if(i == 5) {
+			newcontents("H&eacute;lium", "10", "2", "s");
+		} else if(i == 6) {
+			newcontents("Nehezebb elemek", "10", "9", " &eacute;v");
+		} else if(i == 7) {
+			newcontents("&Eacute;let", "P.e. 3*10", "9", "");
+		} else if(i == 8) {
+			newcontents("Ember", "P.e. 10", "6", "");
+		} else if(i == 9) {
+			newcontents("Civiliz&aacute;ci&oacute;", "P.e. 10", "4", "");
+		} else if(i == 10) {
+			newcontents("<i>Mindez nem volt val&oacute;s&aacute;gos</i>", "", "", "");
+		} else if(i == 11) {
+			newcontents("Tulajdonk&eacute;ppen nem is l&eacute;tezett", "", "", "");
+		} else if(i == 12) {
+			newcontents("Csak matematikai lehet&otilde;s&eacute;g volt,$amit nem realiz&aacute;lt a Tudat", "", "", "");
+		} else if(i == 13) {
+			newcontents("A l&eacute;tez&eacute;s "+myage()+" &eacute;vvel ezel&otilde;tt kezd&otilde;d&ouml;tt", "", "", "");
+		} else {
+			if(creationwin != null) {
+				creationwin.close();
+			}
+			if(history.length == 1) {
+				window.close();
+			} else {
+				history.back();
+			}
+		}
+	}
+	if(i <= 13) {
+		setTimeout("kezdetbenvala("+(i+1)+")", 2000);
+	}
+}
+function cleanup() {
+	if(creationwin != null && !creationwin.closed)
+		creationwin.close();
+}
+//-->
+</script>
+</head>
+<body BGCOLOR="#000000" TEXT="#c0c0ff"
+      LINK="#8080ff" VLINK="#7820d8" ALINK="#c0c0ff"
+      onLoad="setTimeout('kezdetbenvala(0)', 1000)" onUnload="cleanup()">
+<p ALIGN=CENTER>
+<applet CODE="Egek" WIDTH="480" HEIGHT="480" NAME="Egek">
+<param NAME="nstars" VALUE="200">
+<param NAME="text" VALUE="P\'ETER">
+<param NAME="delay" VALUE="100">
+<param NAME="text0" VALUE="Kvantumgravit\'aci\'o|0|*|*">
+<param NAME="text1" VALUE="T\'erid\H o|10|-43|s">
+<param NAME="text2" VALUE="Nagy Sz\'etv\'alaszt\'as|10|-35|s">
+<param NAME="text3" VALUE="Elektrogyenge Sz\'etv\'alaszt\'as|10|-11|s">
+<param NAME="text4" VALUE="Protonok \'es Neutronok$a Kvarkanyagb\'ol|10|-5|s">
+<param NAME="text5" VALUE="H\'elium|10|2|s">
+<param NAME="text6" VALUE="Nehezebb elemek|10|9| \'ev">
+<param NAME="text7" VALUE="\'Elet|P.e. 3*10|9|*">
+<param NAME="text8" VALUE="Ember|P.e. 10|6|*">
+<param NAME="text9" VALUE="Civiliz\'aci\'o|P.e. 10|4|*">
+<param NAME="text10" VALUE="\red Mindez nem volt val\'os\'agos|*|*|*">
+<param NAME="text11" VALUE="Tulajdonk\'eppen nem is l\'etezett|*|*|*">
+<param NAME="text12" VALUE="Csak matematikai lehet\H os\'eg volt,$amit nem realiz\'alt a Tudat|*|*|*">
+<param NAME="text13" VALUE="A l\'etez\'es$\myage$\'evvel ezel\H ott kezd\H od\:tt|*|*|*">
+<font FACE="Times" SIZE=5><b>
+L<br><br>
+&Eacute;<br><br>
+T<br><br>
+E<br><br>
+Z<br><br>
+&Eacute;<br><br>
+S
+</b></font>
+</applet>
+</p>
+</body>
+</html>

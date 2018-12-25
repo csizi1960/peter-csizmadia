@@ -1,0 +1,7 @@
+"
+" ~/.vimrc, Thu Jan 10 2008 (Jan 10 2008-) Peter Csizmadia
+"
+set background=dark
+hi Visual guibg=blue guifg=red
+hi Search guibg=yellow guifg=blue
+hi Normal guibg=black guifg=white

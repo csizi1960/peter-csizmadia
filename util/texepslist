@@ -1,0 +1,63 @@
+#!/usr/bin/perl -w
+#
+# texepslist, Jan 14 2009 Peter Csizmadia
+#
+
+use strict;
+use Getopt::Long;
+
+Getopt::Long::Configure("bundling");
+our $opt_all = 0;
+our $opt_h = 0;
+GetOptions ("a" => \$opt_all, "all" => \$opt_all,
+	    "h" => \$opt_h, "help" => \$opt_h);
+
+if(@ARGV < 1 || $opt_h) {
+	print <<EOF;
+Lists (Encapsulated) PostScript files referred in LaTeX file(s).
+Usage:
+    texepslist [options] file.tex ...
+Options:
+    -a or --all    lists repeated occurrences too
+EOF
+	exit 0;
+}
+
+#my $pattern = "[a-zA-Z0-9\+\-]+\\.(ps|eps)";
+my $pattern = "[^{},]+\\.(ps|eps)";
+
+sub find_eps_in_line {
+	if(/{$pattern}/) {
+		s/^.*{($pattern)}.*$/$1/;
+		chomp;
+		return $_;
+	} elsif(/=$pattern,/) {
+		s/^.*=($pattern),.*$/$1/;
+		chomp;
+		return $_;
+	} elsif(/=$pattern}/) {
+		s/^.*=($pattern)}.*$/$1/;
+		chomp;
+		return $_;
+	} else {
+		return "";
+	}
+}
+
+if($opt_all) {
+	while(<>) {
+		my $f = find_eps_in_line;
+		if(!($f eq "")) {
+			printf("%s\n", $f);
+		}
+	}
+} else {
+	my %hash;
+	while(<>) {
+		my $f = find_eps_in_line;
+		if(!($f eq "") && !defined($hash{$f})) {
+			$hash{$f}=1;
+			printf("%s\n", $f);
+		}
+	}
+}

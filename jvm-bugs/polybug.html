@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>Polygon updateBounds bug</title>
+</head>
+<body>
+Point (50,50) is inside the polygon
+p = ((0,100), (100,100), 100,60), (50,0)).
+Unfortunately, some Java implementations do not know it.<br>
+<code>p.inside(50,50)</code> may be <code>false</code> due to a bug in
+<code>updateBounds()</code>.<br>
+<code>updateBounds()</code> is called in method <code>g()</code>
+of the following applet, but not in method <code>f()</code>.
+<p>
+<center>
+<applet code=Polybug width=400 height=110>
+<strong>(YOU CANNOT SEE A JAVA APPLET HERE)</strong>
+</applet>
+<p>
+<a HREF="Polybug.java">Polybug.java</a>
+</center>
+<p>
+
+<strong>Workaround:</strong> reconstruct the polygon after the last
+<tt>addPoint</tt>:
+<blockquote><pre>
+p = new Polygon(p.xpoints, p.ypoints, p.npoints);
+</pre></blockquote>
+
+</body>
+</html>

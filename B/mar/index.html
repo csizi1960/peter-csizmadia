@@ -1,0 +1,255 @@
+<html>
+<head>
+<title>Marvin ARchiver</title>
+<meta NAME="keywords" CONTENT="archiver,java,mar">
+<meta NAME="author" CONTENT="Peter Csizmadia">
+</head>
+<body BGCOLOR="#e0e0e0" TEXT="#404080">
+<font FACE="Helvetica, Arial">
+
+<h1>The <font COLOR=green>M</font>arvin <font COLOR="green">AR</font>chiver</h1>
+
+Marvin ARchiver (mar.class) is a <a HREF="COPYRIGHT">free</a>,
+small but pretty smart Java utility.
+<p>
+Minimum platform: Java 1.1.
+Best platforms: Java 2.0 and later.
+(See the <a HREF="details.html">details</a>).
+<p>
+<font SIZE="-2">
+Marvin ARchiver is named after its first applications.
+The installer program for
+<a HREF="http://www.chemaxon.com/marvin">Chemaxon's Marvin Applets</a>
+is a self-running MAR archive since version 2.2.
+MarvinSketch, the molecule sketcher program also has a MAR form: the full
+application (46 classes and many other resource files) is compressed into one
+MarvinSketch.class file.
+</font>
+<p>
+
+<a HREF="#mar">MAR, the archiver</a>
+<ol>
+<li><a HREF="#mar1">MAR is a command line archiver like JAR or TAR</a></li>
+<li><a HREF="#mar2">The MAR archiver is an empty MAR archive</a>
+    <ol>
+    <li><a HREF="#mar2_1">MAR archives are self extracting</a></li>
+    <li><a HREF="#mar2_2">MAR archives are MAR archivers</a></li>
+    </ol>
+    </li>
+<li><a HREF="#mar3">MAR can pack a full application into one class</a></li>
+<li><a HREF="#mar4">MAR compresses much better than JAR or ZIP</a></li>
+</ol>
+<a HREF="#mari">MARI, the OS-independent application installer</a>
+<p>
+<a HREF="#download">Downloads</a>
+
+</font>
+
+<p>
+
+<hr WIDTH="50%">
+
+<font FACE="Helvetica, Arial">
+<h2><a NAME="mar">MAR, the archiver</a></h2>
+
+<h3><a NAME="mar1">1. &nbsp; MAR is a command line archiver like JAR or TAR</a></h3>
+MAR uses the same basic command line options as JAR or TAR. See the example:
+<p>
+<center>
+<small>
+<table CELLSPACING=0 CELLPADDING=5 BORDER=2>
+<tr ALIGN=CENTER><td>MAR</td><td>JAR</td></tr>
+<tr>
+<td>java mar cvf chemaxon-tree.class chemaxon</td>
+<td>jar cvf chemaxon-tree.jar chemaxon</td>
+</tr>
+<tr>
+<td>java mar tvf chemaxon-tree.class chemaxon</td>
+<td>jar tvf chemaxon-tree.jar chemaxon</td>
+</tr>
+<tr>
+<td>java mar xvf chemaxon-tree.class chemaxon</td>
+<td>jar xvf chemaxon-tree.jar chemaxon</td>
+</tr>
+</table>
+</small>
+</center>
+</font>
+
+<font FACE="Helvetica, Arial">
+<h3><a NAME="mar2">2. &nbsp; The MAR archiver is an empty MAR archive</a></h3>
+
+MAR archives contain all the program code of MAR, so mar.class itself is
+an empty MAR archive.
+The overhead from the MAR code is exactly the size of mar.class: 12k.
+</font>
+
+<font FACE="Helvetica, Arial">
+<h4><a NAME="mar2_1">2.1 &nbsp; MAR archives are self extracting</a></h4>
+Create an archive and try the following commands:
+</font>
+<blockquote><pre>
+java your-archive
+java your-archive tv
+java your-archive xv
+</pre></blockquote>
+
+<font FACE="Helvetica, Arial">
+<h4><a NAME="mar2_2">2.2 &nbsp; MAR archives are MAR archivers</a></h4>
+
+Another archive can be created that also contains everything
+<tt>your-archive.class</tt> contains.
+</font>
+<blockquote><pre>
+java your-archive cvf another-archive.class another/*.java
+</pre></blockquote>
+<font FACE="Helvetica, Arial">
+The original MAR program can also be recreated (as an empty MAR archive):
+</font>
+<blockquote><pre>
+java your-archive --create-mar
+</pre></blockquote>
+
+<font FACE="Helvetica, Arial">
+<h3><a NAME="mar3">3. &nbsp MAR can pack a full application into one class</a></h3>
+If you package your application into a class, you must also specify the name
+of the class that contains your
+</font>
+<tt>main()</tt>
+<font FACE="Helvetica, Arial">method:</font>
+<blockquote><pre>
+java cvf myapp.class -r com.mystuff.myapp.MyAppMain com/mystuff/myapp
+</pre></blockquote>
+<font FACE="Helvetica, Arial">
+Then run your application with &quot;java myapp&quot;.
+<p>
+<small>
+If you would use JAR instead of MAR, the equivalent command would be
+&quot;java -classpath myapp.jar:$CLASSPATH com.mystuff.myapp.MyAppMain&quot;
+or &quot;java -jar mystuff.jar&quot;.
+</small>
+<p>
+MAR options can be specified for such a MAR archive only if the first option
+is <tt>--mar</tt>. For example:
+</font>
+<blockquote><pre>
+java myapp --mar tv
+</pre></blockquote>
+
+<font FACE="Helvetica, Arial">
+<h3><a NAME="mar4">4. &nbsp; MAR compresses much better than JAR or ZIP</a></h3>
+MAR creates smaller archives than JAR or ZIP (not counting the 12k
+overhead) because it compresses all the archive in one step, with the GZIP
+algorithm. It can produce even smaller archives than TAR+GZIP, as can be
+seen from the following test result (JDK 1.2.2 source code):
+</font>
+<blockquote><pre>
+4566016 src.zip
+4552704 src.jar
+3224915 src.tar.gz
+3215148 src.class
+</pre></blockquote>
+
+<font FACE="Helvetica, Arial">
+<h2><a NAME="mari">MARI, the OS-independent application installer</a></h2>
+
+The file mari.class is really a <a HREF="#mar">mar</a> archive that contains
+Java classes for application installation for various operating systems.
+The MARI installer code is <a HREF="COPYRIGHT">free</a> software, just like
+MAR.
+<p>
+To create an installer class for your own Java application, first you must
+make a MARI.properties file that contains information about the files you
+want to include.
+Then run
+</font>
+<blockquote><pre>
+java mari cvf your-installer.class -r marpack.inst.Cmdline MARI.properties <i>files...</i>
+</pre></blockquote>
+<font FACE="Helvetica, Arial">
+Here you also chose the command line user interface with marpack.inst.Cmdline.
+At the moment, this is the only existing UI. A graphical user interface will
+be implemented in the future.
+<p>
+<small>Note that marpack.inst is independent of the archiver's code, so you can
+also make an installer JAR instead of a class. All you have to do is to pack
+everything the class would contain into a JAR file, and put a
+&quot;Main-Class: marpack.inst.Cmdline&quot; line into the manifest.</small>
+<p>
+Then a user can install your package by running the command
+</font>
+<blockquote><pre>
+java your-installer
+</pre></blockquote>
+<font FACE="Helvetica, Arial">
+Then the installer
+<ol>
+<li>extracts your files in the installation directory</li>
+<li><i>generates scripts</i> (Unix) or batch files (Windows) for
+    running the Java applications</li>
+<li>creates menu items in the <i>Gnome/KDE</i> Applications menu (Unix) or
+    the <i>Start</i> menu (Windows)</li>
+<li>creates <i>symbolic links</i> to the scripts in the neighboring bin
+    directory if it exists (Unix)</li>
+<li>generates <i>uninstall</i> script (Unix)</li>
+<li>installs the package as an <i>RPM</i> if the operating system is an
+    RPM-based Linux</li>
+</ol>
+The user can later uninstall your package by running UNINSTALL (in Unix),
+with the package manager (in RPM-based Linux),
+or from the Control Panel/Add|Remove Programs (in Windows).
+<p>
+
+Current limitations:
+<ul>
+<li>No GUI during the installation.</li>
+<li>Installation directory cannot be specified.</li>
+<li>The installation directory cannot contain subdirectories
+    (except <tt>bin</tt>).</li>
+<li>Windows uninstall: created directories are not removed (it is a limitation
+    of the INF scripts)</li>
+<li>...</li>
+</ul>
+A MARI installer currently works in the following operating systems:
+<ul>
+<li>Unix
+    <ul>
+    <li>generic</li>
+    <li>RPM-based Linux (RedHat, Caldera, SuSE, etc.)</li>
+    </ul>
+    </li>
+<li>Windows</li>
+</ul>
+<p>
+Contributors are welcome...
+</font>
+<p>
+
+<font FACE="Helvetica, Arial">
+<h2><a NAME="download">Downloads</a></h2>
+
+<table CELLSPACING=0 CELLPADDING=5 BORDER=0>
+<tr><td>Installer for the binaries:</td>
+    <td><a HREF="mar-0_10.class">mar-0_10.class</a></td>
+    <td></td></tr>
+<tr><td>The binaries separately:</td>
+    <td><a HREF="mar.class">mar.class</a></td>
+    <td><a HREF="mari.class">mari.class</a></td></tr>
+<tr><td>Source archive:</td>
+    <td><a HREF="mar-0_10-src.class">mar-0_10-src.class</a></td>
+    <td></td></tr>
+</table>
+</font>
+
+<p>
+
+<hr WIDTH="50%">
+<p ALIGN=CENTER>
+<font FACE="Helvetica, Arial" SIZE="-2">
+Copyright &copy; 1999
+<a HREF="http://www.kfki.hu/~cspeter/">Peter Csizmadia</a>
+</font>
+</p>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+#!/usr/bin/perl -w
+# debug-dagmanout - 2009.04.02 - Peter Csizmadia
+
+use strict;
+use IO::Handle;
+
+my $fname;
+
+if($#ARGV < 0) {
+	print <<EOF;
+Usage:
+	debug-dagmanout some.dag
+or
+	debug-dagmanout some.dag.dagman.out
+EOF
+	my $i = 0;
+	my @dagmanouts;
+	for my $dagmanout (glob("*.dagman.out")) {
+		printf("or choose a dagman.out file in this directory:\n");
+		printf("[%d] %s\n", $i+1, $dagmanout);
+		$dagmanouts[$i] = $dagmanout;
+		++$i;
+	}
+	if($i > 0) {
+		my $input = -1;
+		while($input <= 0 || $input > $#dagmanouts + 1) {
+			printf("[");
+			for(my $j=0; $j<$i; ++$j) {
+				printf("%d/", $j + 1);
+			}
+			printf("n/?] ");
+			chomp($input = <STDIN>);
+			$_ = $input;
+			if(! /^\d+$/) {
+				exit 0;
+			}
+		}
+		$fname = $dagmanouts[$input - 1];
+	} else {
+		exit 0;
+	}
+} else {
+	$fname = $ARGV[0];
+}
+
+@ARGV = map {
+	/\.dag$/ ? "$_.dagman.out" : $_
+} @ARGV;
+
+open(F, $fname) or die "cannot open ".$fname;
+STDOUT->autoflush;
+
+printf("----- ".$fname." -----\n");
+my %jobs;
+while(<F>) {
+	chomp;
+	next if ! /.*Node .* job proc \(.*\..*\) failed/;
+	my $node = $_;
+	my $job = $_;
+	$node =~ s/(.*Node )(.*)( job proc \()(.*)(\..*\).*)/$2/;
+	$job =~ s/(.*Node )(.*)( job proc \()(.*)(\..*\).*)/$4/;
+	if(!defined($jobs{$job})) {
+		$jobs{$job} = 1;
+		printf("\n----- Dagman.out lines for failed job $job -----\n");
+		system("grep $job ".$fname);
+		printf("$_\n\n");
+		printf("----- Logfile contents (logs/*".$job."*) -----\n");
+		system("cat logs/*".$job."*");
+#		printf("\nPress Enter to see the submitting lines for job $job".
+#		       " = node $node. ");
+#		chomp(my $input = <STDIN>);
+#		system("grep 'submitting.*$node' ".$fname);
+		printf("\nPress Enter to see the next failed job or Ctrl-C to quit. ");
+		chomp(my $input = <STDIN>);
+	}
+}
+close(F);

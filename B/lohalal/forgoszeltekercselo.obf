@@ -1,0 +1,9 @@
+from: optimized
+to: .
+classpath: optimized
+mainclass: ForgoszelTekercselo
+anonymous mode: true
+packages: true
+classes: true
+fields: true
+methods: true

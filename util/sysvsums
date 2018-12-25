@@ -1,0 +1,47 @@
+#!/usr/bin/perl -w
+#
+# sysvsums, Sat Jun 5 2004 Peter Csizmadia
+#
+
+use strict;
+
+sub sum_SysV {
+	my $fh = shift;
+	my $sum = 0;
+	my $len = 0;
+	my ($buf, $num, $i);
+	while($num = sysread $fh, $buf, 4096) {
+		$len += $num;
+		foreach ( unpack("%32C*", $buf) ) {
+			$sum += $_;
+		}
+	}
+	return $sum % 65535, $len;
+}
+
+#sub sum_CRC16_BSD {
+#	my $fh = shift;
+#	my $crc = 0;
+#	my $len = 0;
+#	my ($buf, $num, $i);
+#	while($num = sysread $fh, $buf, 4096) {
+#		$len += $num;
+#		foreach ( unpack("C*", $buf) ) {
+#			$crc |= 0x10000 if ( $crc & 1 );
+#			$crc = (($crc>>1)+$_) & 0xffff;
+#		}
+#	}
+#	return $crc, $len;
+#}
+
+open FIND, "find . -type f | sort |" or die "unable to run find or sort";
+while(<FIND>) {
+	chomp;
+	s/^\.\///;
+	my $f=$_;
+	open F, "< $f";
+	my ($sum, $len) = sum_SysV(\*F);
+	printf("%9d %05d %s\n", $len, $sum, $f);
+	close F;
+}
+close FIND;

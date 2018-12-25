@@ -1,0 +1,78 @@
+\documentclass{article}[10pt]
+\usepackage{ifthen}
+\usepackage{calc}
+\usepackage{fp}
+
+\newcommand{\sciIndex}{$_{\mathrm{SCI}}$}
+%\newcommand{\sciIndex}{.\quad}
+\newcommand{\MNplus}[2]{\FPupn\tmpfp{#1 #2 +}\FPround\tmpfp{\tmpfp}{0}\tmpfp}
+\newcommand{\pub}[4]{#1\\{\it #2}\\#3
+    \ifthenelse{\equal{#4}{}}{}{\hfill {\small \mbox{e-print: #4}}}}
+%\newcommand{\IFIndepDep}[3]{\ifthenelse{\equal{#1}{}}{}{IF: #1\\}
+%    F{\"u}ggetlen id{\'e}z{\H o}: #2, F{\"u}gg{\H o} id{\'e}z{\H o}: #3,
+%    {\"O}sszesen: \MNplus{#2}{#3}}
+\newcommand{\IFIndepDep}[3]{\ifthenelse{\equal{#1}{}}{}{IF: #1\\}
+    Independent citations: #2, Coauthor: #3, Total: \MNplus{#2}{#3}}
+\addtolength{\oddsidemargin}{-1in}
+\addtolength{\evensidemargin}{-1in}
+\addtolength{\textwidth}{2.0in}
+
+\newcounter{myPubList}
+\newenvironment{MyPubListSCI}{\begin{list}{[\arabic{myPubList}]}
+	{\usecounter{myPubList}\setlength{\topsep}{1pt}
+	\setlength{\itemsep}{0pt}}\rm}{\end{list}}
+\newenvironment{MyPubListEprint}{\begin{list}{[e\arabic{myPubList}]}
+	{\usecounter{myPubList}\setlength{\topsep}{1pt}
+	\setlength{\itemsep}{0pt}}\rm}{\end{list}}
+\newenvironment{MyPubListProcs}{\begin{list}{[p\arabic{myPubList}]}
+	{\usecounter{myPubList}\setlength{\topsep}{1pt}
+	\setlength{\itemsep}{0pt}}\rm}{\end{list}}
+\newcounter{refList}
+\newcounter{saveCitList}
+\newenvironment{CitListSCI}{\begin{list}{\bf\arabic{refList}\sciIndex}
+	{\usecounter{refList}\setlength{\topsep}{1pt}
+	\setlength{\itemsep}{0pt}}
+	\rm}{\setcounter{saveCitList}{\value{refList}}\end{list}}
+\newenvironment{CitListIndep}{\begin{list}{\bf\arabic{refList}.\quad}
+	{\usecounter{refList}\setlength{\topsep}{1pt}
+	\setlength{\itemsep}{0pt}}\rm
+      	\setcounter{refList}{\value{saveCitList}}}
+	{\setcounter{saveCitList}{\value{refList}}\end{list}}
+\newenvironment{CitListCoauthorSCI}{\small\begin{list}{* \arabic{refList}\sciIndex\,\,}
+	{\usecounter{refList}\setlength{\topsep}{1pt}
+	\setlength{\itemsep}{0pt}}\rm
+      	\setcounter{refList}{\value{saveCitList}}}
+	{\setcounter{saveCitList}{\value{refList}}\end{list}}
+\newenvironment{CitListCoauthor}{\small\begin{list}{* \arabic{refList}.\quad\,\,}
+	{\usecounter{refList}\setlength{\topsep}{1pt}
+	\setlength{\itemsep}{0pt}}\rm
+      	\setcounter{refList}{\value{saveCitList}}}
+	{\setcounter{saveCitList}{\value{refList}}\end{list}}
+
+\begin{document}
+
+\section*{\center Publications and citations}
+
+\centerline{\bf P{\'e}ter Csizmadia}
+
+\vspace{5mm}
+
+\subsection*{Papers in Refereed Journals}
+
+\begin{MyPubListSCI}
+\input{citations.sci.tex}
+\end{MyPubListSCI}
+
+%\subsection*{E-prints and submitted papers}
+%
+%\begin{MyPubListEprint}
+%\input{citations.eprint.tex}
+%\end{MyPubListEprint}
+
+\subsection*{Proceedings}
+
+\begin{MyPubListProcs}
+\input{citations.proc.tex}
+\end{MyPubListProcs}
+
+\end{document}

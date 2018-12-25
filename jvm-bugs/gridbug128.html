@@ -1,0 +1,19 @@
+<html>
+<head>
+<title>GridBagLayout limitation</title>
+</head>
+<body>
+In older JVMs (1.0), <code>GridBagLayout</code> may not contain more than 128
+rows or columns.
+<p>
+<center>
+<applet code=GridBug128 width=100 height=516>
+<strong>(YOU CANNOT SEE A JAVA APPLET HERE)</strong>
+</applet>
+<p>
+<a HREF="GridBug128.java">GridBug128.java</a>
+</center>
+<p>
+<strong>Workaround:</strong> make intermediate panels containing less rows.
+</body>
+</html>

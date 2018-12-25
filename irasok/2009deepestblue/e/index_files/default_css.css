@@ -1,0 +1,93 @@
+/* CSS Document */
+
+
+/* common all template */
+
+.linkmorecomments, .nocomment, .linkaddcomment {color: #333333;font: 12px Arial, Helvetica, sans-serif; font-weight: normal; margin:4px 0px 0px 0px;}
+.commentclosed {color: #000000;font: 12px Arial, Helvetica, sans-serif; font-weight: normal;}
+
+
+/* specific default template */
+
+table.mxcdefault_dotted 
+{
+	border-bottom-style : dotted;
+	border-bottom-color : #999999;
+	border-bottom-width : 1px;
+	padding             : 0, 0, 0, 0;
+	vertical-align      : middle;
+	font-family         : Verdana, Geneva, Helvetica;
+}
+
+table.mxcdefault_dotted td
+{
+	border-top-style    : dotted;
+	border-top-color    : #999999;
+	border-top-width    : 1px;
+	padding             : 2px, 0px, 0px, 0px;
+	height              : 22px;
+	vertical-align      : middle;
+	font-size           : 11px;
+	font-weight         : normal;
+	font-stretch        : semi-condensed;
+	color               : #666666;
+}
+
+
+table.mxcdefault_clean
+{
+	border-top-style    : none;
+	border-bottom-style : none;
+	padding             : 0, 0, 0, 0;
+	vertical-align      : middle;
+	font-family         : Verdana, Geneva, Helvetica;
+}
+
+table.mxcdefault_clean td
+{
+	border-bottom-style : none;
+	border-top-style    : none;
+	padding             : 0, 0, 0, 0;
+	font-size           : 11px;
+	font-weight         : normal;
+	height              : 20px;
+	font-stretch        : semi-condensed;
+	color               : #666666;
+}
+
+.commenttableentry1
+{
+	padding             : 0px 4px 0px 4px;
+	background-color    : #F5F5F5;
+}
+
+.commenttableentry2
+{
+	padding             : 0px 4px 0px 4px;
+	background-color    : #E5E5E5;
+}
+
+.mxcdefault_title
+{
+	font-weight         : bold;
+}
+
+.mxcdefault_comment
+{
+}
+
+.avatar {float:left;text-align:center;position:relative;padding:4px 6px 4px 0;height:1%;width:1%;height:auto;width:auto;}
+
+.mxcdefault_posted
+{
+	font-size           : 11px;
+	color               : #999999;
+	font-family         : Verdana, Geneva, Helvetica;
+}
+
+.mxcdefault_report, .mxcdefault_reply, .mxcdefault_seeallreplies
+{
+	font-size           : 10px;
+	color               : #999999;
+	font-family         : Verdana, Geneva, Helvetica;
+}

@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>Mozilla 0.9.7-1.0 - cannot use consecutive spaces in applet parameters</title>
+</head>
+<body>
+
+Consecutive space characters in applet parameters are converted to only one
+space.
+This bug applies to Mozilla 0.9.7-1.0 and probably some earlier versions
+too.
+
+<p ALIGN=CENTER>
+<applet CODE="ParamBug" WIDTH=400 HEIGHT=100>
+<param NAME="a" VALUE="'WW' - 2 W letters">
+<param NAME="b" VALUE="'..' - 2 dots">
+<param NAME="c" VALUE="'__' - 2 underscores">
+<param NAME="d" VALUE="'  ' - 2 spaces? (only 1 in Mozilla 1.0!)">
+</applet>
+</p>
+
+<p ALIGN=CENTER>
+<a HREF="ParamBug.java">ParamBug.java</a>
+</p>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp>
+  <information>
+    <title>Schwarzschild Demo</title>
+    <vendor>cspeter</vendor>
+    <homepage href="."/>
+    <offline-allowed/>
+  </information>
+
+  <resources>
+    <j2se href="http://java.sun.com/products/autodl/j2se" version="1.5+"/>
+    <property name="sun.java2d.noddraw" value="true"/>
+    <jar href="schwarzschild.jar"/>
+    <extension name="jogl" href="http://download.java.net/media/jogl/builds/archive/jsr-231-webstart-current/jogl.jnlp"/>
+  </resources>
+
+  <applet-desc main-class="schwarzschild_demo.SchwarzschildApplet"
+	width="600" height="400" name="Schwarzschild Demo"/>
+</jnlp>

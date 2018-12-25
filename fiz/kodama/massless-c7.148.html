@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Kodama</title>
+</head>
+<body bgcolor="#cccccc" text="#000000">
+
+<p align="CENTER">
+<applet code="gridripper.applet.AMR1d" archive="gridripper.jar"
+        height="512" width="720" />
+
+<!-- PDE and initial conditions -->
+<param name="pde" value="gr.scalar.kodama.KScEq" />
+<param name="initCond" value="ODEShootInit" />
+<param name="parameters" value="rhomax,a,b,c,d,rho0" />
+<param name="parameter.rhomax" value="8" />
+<param name="parameter.a" value="1.5" />
+<param name="parameter.b" value="1.5" />
+<param name="parameter.d" value="10" />
+<param name="parameter.c" value="7.148" />
+<param name="parameter.rho0" value="5" />
+
+<!-- Relaxation method parameters for initial condition -->
+<param name="ode" value="gr.scalar.kodama.KScODE" />
+<param name="shoot.integrator" value="RK4" />
+<param name="shoot.dx" value="0.015625" />
+
+<!-- Numerical method and AMR parameters -->
+<param name="gridInt" value="RK4" />
+<param name="dtdx" value="0.125" />
+<param name="sigma" value="0.2" />
+<!-- <param name="sigma" value="VanishingSigma sigma0=0.01 x1=0.125 x2=0 a=2" -->
+<param name="maxi" value="256" />
+<param name="maxLevel" value="4" />
+<param name="refinementRatio" value="2" />
+<param name="amError" value="ComponentError 0" />
+<param name="errorTolerance" value="2e-4" />
+<param name="errorCheckFreq" value="8" />
+<param name="regridFreq" value="16" />
+<param name="bufferZoneSize" value="2" />
+
+<!-- Output file -->
+<param name="dtwrite" value="0.25" />
+<param name="tmax" value="5" />
+<param name="blankLines" value="2" />
+<param name="dataFormat" value="binary" />
+<param name="writeIntq" value="true" />
+
+<!-- GUI only -->
+<param name="delay" value="0" />
+<param name="displayedComponents" value="B:1,C:1,Phi:1,Pi:1" />
+<param name="scale" value="180" />
+<param name="memorySteps" value="2" />
+<param name="memoryMax" value="100" />
+
+<strong><font COLOR="#ff0000">This browser does not have a
+    Java Plug-in.</font><br>
+<a target="_blank" href="http://java.com/download">
+Get the Java Runtime Environment here.</a></strong>
+</applet>
+</p>
+
+</body>
+</html>

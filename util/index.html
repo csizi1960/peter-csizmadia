@@ -1,0 +1,619 @@
+<html>
+<head>
+<meta name="description" content="Unix scripts, small utilities.">
+<meta name="Author" content="Peter Csizmadia">
+<title>Unix scripts and small utilities</title>
+</head>
+<body bgcolor="#e0e0e0" text="#224400" link="#0000FF" vlink="#9E0061" alink="#FFFF00">
+
+<center>
+<table border="2">
+<tr><td colspan="2" align="CENTER"><b>File utilities</b></td></tr>
+<tr><td><a href="#ddsplit">ddsplit</a></td>
+    <td>splits a large file into smaller pieces</td>
+    <td><tt>Jun 30 1999</tt></td></tr>
+<tr><td><a href="#debill">debill</a></td>
+    <td>removes annoying ^MS from DOS text files</td>
+    <td><tt>Aug 24 1999</tt></td></tr>
+<tr><td><a href="#oldtouch">oldtouch</a></td>
+    <td>synchronizes modification times of directories with files and
+	of files with svn info</td>
+    <td><tt>May 20 2009</tt></td></tr>
+<tr><td><a href="#substitute">substitute</a></td>
+    <td>search and replace in text files</td>
+    <td><tt>Jul  8 2008</tt></td></tr>
+<tr><td><a href="#txt2mac">txt2mac</a></td>
+    <td>converts a Unix or MS text file to Mac text format</td>
+    <td><tt>Jun  5 2004</tt></td></tr>
+<tr><td colspan="2" align="CENTER"><b>XML, LaTeX, Postscript</b></td></tr>
+<tr><td><a href="#escapechars">escapechars</a></td>
+    <td>converts non-ASCII (UTF-8, Latin-1 etc.) files to ASCII with
+	XML or TeX escape sequences</td>
+    <td><tt>Jun 18 2005</tt></td></tr>
+<tr><td><a href="#latex2utf8txt">latex2utf8txt</a></td>
+    <td>converts LaTeX files to UTF-8 text, removes line breaks from
+	paragraphs</td>
+    <td><tt>Jun 18 2005</tt></td></tr>
+<tr><td><a href="#moveps">moveps</a></td>
+    <td>translates coordinates in PostScript files</td>
+    <td><tt>Jan 03 2005</tt></td></tr>
+<tr><td><a href="#stripkml">stripkml</a></td>
+    <td>removes superfluous placemarks from GPS tracks in Google Earth KML
+	files</td>
+    <td><tt>Mar 16 2008</tt></td></tr>
+<tr><td><a href="#tex2l">tex2l</a></td>
+    <td>converts LaTeX escape sequences to ISO8859-2 (Latin-2) encoded
+	characters</td>
+    <td><tt>May 29 2006</tt></td></tr>
+<tr><td><a href="#texepslist">texepslist</a></td>
+    <td>lists EPS filenames occurring in LaTeX file(s)</td>
+    <td><tt>Jan 14 2009</tt></td></tr>
+<tr><td colspan="2" align="CENTER"><b>DVD burning</b></td></tr>
+<tr><td><a href="#dvdburn">dvdburn</a></td>
+    <td>writes an ISO image to DVD using growisofs or cdrecord</td>
+    <td><tt>Jan 18 2006</tt></td></tr>
+<tr><td colspan="2" align="CENTER"><b>Multimedia</b></td></tr>
+<tr><td><a href="#id3ls">id3ls</a></td>
+    <td>lists MP3 ID3 info using id3, id3tool, id3ed or id3v2</td>
+    <td><tt>May  6 2006</tt></td></tr>
+<tr><td><a href="#ram2wav">ram2wav</a></td>
+    <td>converts RealAudio RAM to WAV</td>
+    <td><tt>Apr 21 2008</tt></td></tr>
+<tr><td colspan="2" align="CENTER"><b>System, Network</b></td></tr>
+<tr><td><a href="#lpready">lpready</a></td>
+    <td>lists printers and enables disabled printers</td>
+    <td><tt>Feb  8 2008</tt></td></tr>
+<tr><td><a href="#pping">pping</a></td>
+    <td>ping script that warns for packet dropping</td>
+    <td><tt>Dec  4 2008</tt></td></tr>
+<tr><td><a href="#ppwgen">ppwgen</a></td>
+    <td>generates a password</td>
+    <td><tt>May 14 2008</tt></td></tr>
+<tr><td><a href="#rpmlist">rpmlist</a></td>
+    <td>prints sorted list of installed software packages</td>
+    <td><tt>Nov  9 2008</tt></td></tr>
+<tr><td><a href="#sdirdiff">sdirdiff, sgetdiff, sputdiff</a></td>
+    <td>remote directory synchronization with
+	<font color="#222288"><b>ssh</b></font></td>
+    <td><tt>Oct 5 2008</tt></td></tr>
+<tr><td><a href="#sreget">sreget</a>, <a href="#sreput">sreput</a></td>
+    <td>downloads a file with <font color="#222288"><b>ssh</b></font>
+	starting at end of local file</td>
+    <td><tt>Oct 19 2006</tt></td></tr>
+<tr><td colspan="2" align="CENTER"><b>Error checking</b></td></tr>
+<tr><td><a href="#pcsums">pcsums.c</a></td>
+    <td>calculates BSD, SysV, CRC-32 checksums, stops on I/O error</td>
+    <td><tt>Dec 23 2005</tt></td></tr>
+<tr><td><a href="#sysvsums">sysvsums</a></td>
+    <td>calculates System V checksums for all files recursively</td>
+    <td><tt>Jun  5 2004</tt></td></tr>
+<tr><td colspan="2" align="CENTER"><b>Startup files</b></td>
+    <td align="CENTER"> </td></tr>
+<tr><td><a href="#vimrc">~/.vimrc</a></td>
+    <td>for VI iMproved (vim/gvim)</td>
+    <td><tt>Jul 22 2009</tt></td></tr>
+<tr><td><a href="#zshrc">~/.zshrc</a></td>
+    <td>my Z shell startup file</td>
+    <td><tt>Jun 16 2009</tt></td></tr>
+<tr><td colspan="2" align="CENTER"><b>(Probably) obsolete</b></td></tr>
+<tr><td><a href="#freget">freget</a></td>
+    <td>downloads a file with <font color="#222288"><b>ftp</b></font>
+	starting at end of local file</td>
+    <td><tt>Nov  9 1999</tt></td></tr>
+<tr><td><a href="#pscat">pscat</a></td>
+    <td>concatenates PostScript files</td>
+    <td><tt>Dec 13 2008</tt></td></tr>
+<tr><td><a href="#rpmupdate">rpmupdate</a></td>
+    <td>updates your Linux from a directory containing RPM files</td>
+    <td><tt>May  9 2002</tt></td></tr>
+<tr><td><a href="#unbot">unbot</a></td>
+    <td>removes robots from access log files</td>
+    <td><tt>Oct  9 2007</tt></td></tr>
+</table>
+</center>
+
+<p>
+
+<a href="ddsplit" name="ddsplit">ddsplit</a>
+<dl><dd>Splits a large file into smaller pieces.<br>
+	The chunk size is specified in kilobytes.
+	<pre>
+	<blockquote>
+<font color="#222288">ddsplit mozilla-5.0-M6.i386.rpm 1423 mozilla</font>
+dd if=mozilla-5.0-M6.i386.rpm of=mozilla.000 bs=1024 count=1423 skip=0
+1423+0 records in
+1423+0 records out
+dd if=mozilla-5.0-M6.i386.rpm of=mozilla.001 bs=1024 count=1423 skip=1423
+1423+0 records in
+1423+0 records out
+dd if=mozilla-5.0-M6.i386.rpm of=mozilla.002 bs=1024 count=1423 skip="2"846
+1423+0 records in
+1423+0 records out
+dd if=mozilla-5.0-M6.i386.rpm of=mozilla.003 bs=1024 skip=4269
+288+1 records in
+288+1 records out
+<font color="#222288">ls -l mozilla*</font>
+-rw-r--r--   1 cspeter  cspeter   4667180 Jun 19 17:50 mozilla-5.0-M6.i386.rpm
+-rw-r--r--   1 cspeter  cspeter   1457152 Jun 30 12:13 mozilla.000
+-rw-r--r--   1 cspeter  cspeter   1457152 Jun 30 12:13 mozilla.001
+-rw-r--r--   1 cspeter  cspeter   1457152 Jun 30 12:13 mozilla.002
+-rw-r--r--   1 cspeter  cspeter    295724 Jun 30 12:13 mozilla.003
+	</pre>
+	</blockquote>
+	The splitted files can be put together again simply by using <em>cat</em>:
+	<blockquote>
+	<pre>
+<font color="#222288">cat mozilla.0* &gt;mozilla.rpm</font>
+	</pre>
+	</blockquote>
+    </dl>
+
+<a href="debill" name="debill">debill</a>
+<dl><dd>Tiny <em>sh</em> script that converts WinDOS text files to Unix.
+	<blockquote>
+	<pre>
+<font color="#222288">debill "TEXT F~1.TXT" &gt;text_file</font>
+	</pre>
+	</blockquote>
+    </dl>
+
+<a href="oldtouch" name="oldtouch">oldtouch</a>
+<dl><dd>Synchronizes modification times of directories with files
+	and of files with svn info.
+	<p>
+	<em>sh</em> script.
+	<ul>
+	<li>Makes directories and zip files as old as their latest entries.</li>
+	<li>Sets modification times of version controlled files to the
+	    "Last Changed Date" shown by svn info.</li>
+	</ul>
+	<blockquote>
+	<pre>
+<font color="#222288">oldtouch foo anotherdir</font>
+	</pre>
+	</blockquote>
+    </dl>
+
+<a href="substitute" name="substitute">substitute</a>
+<dl><dd>Search and replace in text files.
+	<p>
+	<em>Perl</em> script that searches the specified files for a pattern,
+	and if found, replaces that pattern with the replacement text.
+	File modification times are preserved if the -p option is specified
+	as the first argument.
+	<blockquote>
+	<pre>
+<font color="#222288">substitute '#e0e0e0' '#ccffcc' marvin/*.html</font>
+...
+	</pre>
+	</blockquote>
+	Using the -m i or -m x option, a multiline block can also be replaced
+	by the contents of a file. The first non-option argument is the
+	pattern that must match the first line of the block. The second
+	argument is the pattern matching the last line of the block (-m i) or
+	the following line (-m x). The third argument is the file containing
+	the replacement.
+	<blockquote>
+	<pre>
+<font color="#222288">substitute -m x "^...This library is free software; you can redistribute it and/or" "^package " new_license.txt *.java</font>
+	</pre>
+	</blockquote>
+	If the -N option (-1, -2 etc.) is used, then replacing is only
+	performed in the first N lines of the file(s).
+	<p>
+	Perl's substitution operator can also be used directly. To replace
+	text strings like <code>"c=0.01 psi0=0.3"</code> by
+	<code>"lambda=0.01 sigma=0.3"</code>, use
+	<blockquote>
+	<pre>
+<font color="#222288">substitute 's/c=(.*)psi0=/lambda=$1sigma=/' *.in</font>
+	</pre>
+	</blockquote>
+    </dl>
+
+<a href="txt2mac" name="txt2mac">txt2mac</a>
+<dl><dd>Tiny <em>Perl</em> script that converts a Unix or MS text file to Mac
+	text format.
+	<blockquote>
+	<pre>
+<font color="#222288">txt2mac file.txt &gt;mac_text_file</font>
+	</pre>
+	</blockquote>
+    </dl>
+
+<a href="escapechars" name="escapechars">escapechars</a>
+<dl><dd><em>Perl</em> script that converts non-ASCII (UTF-8, Latin-1 etc.)
+	files to ASCII with escape sequences.
+	<blockquote>
+	<pre>
+<font color="#222288">escapechars utf8 xml file.utf8.html &gt; file.html</font>        # use ampersand unicode escape sequences for XML
+
+<font color="#222288">escapechars latin2 tex file.latin2.tex &gt; file.tex</font>      # use TeX escape sequences like {\'a}, {\H o} etc.
+	</pre>
+	</blockquote>
+    </dl>
+
+<a href="latex2utf8txt" name="latex2utf8txt">latex2utf8txt</a>
+<dl><dd><em>Perl</em> script that converts LaTeX files to UTF-8 text. Also
+	removes line breaks from paragraphs.
+	<blockquote>
+	<pre>
+<font color="#222288">latex2utf8txt file.tex</font>
+	</pre>
+	</blockquote>
+    </dl>
+
+<a href="moveps" name="moveps">moveps</a>
+<dl><dd><em>Perl</em> script that translates the BoundingBox and the arguments
+	of all moveto commands in a PostScript file.
+	<blockquote>
+	<pre>
+<font color="#222288">moveps -508 0 rk4-r2.eps &gt; changed.eps</font>
+	</pre>
+	</blockquote>
+    </dl>
+
+<a href="stripkml" name="stripkml">stripkml</a>
+<dl><dd>Simplifies Google Earth KML files by removing superfluous placemarks
+	(&quot;Points&quot;) from GPS tracks. Only the Path is left.<br>
+	<em>Perl</em> script based on LibXML.
+	<blockquote>
+	<pre>
+<font color="#222288">stripkml pakistan.kml &gt; pakistan.stripped.kml</font>
+	</pre>
+	</blockquote>
+    </dl>
+
+<a href="tex2l" name="tex2l">tex2l</a>
+<dl><dd><em>sh</em> script that uses <em>sed</em> to
+	converts escape sequences in LaTeX files to ISO8859-2 (Latin-2)
+	encoded characters. For the inverse conversion,
+	use <a href="#escapechars">escapechars</a> <tt>latin2</tt> <tt>tex</tt>.
+    </dl>
+
+<a href="texepslist" name="texepslist">texepslist</a>
+<dl><dd><em>Perl</em> script that lists PostScript and EPS filenames occurring
+    in LaTeX file(s).
+    </dl>
+
+<a href="dvdburn" name="dvdburn">dvdburn</a>
+<dl><dd><em>sh</em> script that uses growisofs or cdrecord to
+	write an ISO image to DVD.<br>
+	Note that you might have to change the dev and driveropts options in
+	the script before using it first.
+	<blockquote>
+	<pre>
+<font color="#222288">dvdburn stuff.iso</font>
+cdrecord -v -dao speed="2" dev=/dev/dvdrecorder driveropts=burnfree -isosize stuff.iso
+Proceed? (yes/no) <font color="#222288">yes</font>
+...
+	</pre>
+	</blockquote>
+    </dl>
+
+<a href="id3ls" name="id3ls">id3ls</a>
+<dl><dd><em>sh</em> script that tries to use id3, id3tool, id3ed or id3v2 to
+	list the MP3 ID3 info in the current directory or for the specified
+	files.<br>
+	The format is uniform, it does not matter which program is used.
+    </dl>
+
+<a href="ram2wav" name="ram2wav">ram2wav</a>
+<dl><dd><em>sh</em> script that converts RealAudio RAM to WAV using
+	<em>wget</em> and <em>MPlayer</em>.
+	<p>
+	Example:
+	<blockquote>
+	<pre>
+	<font color="#222288">ram2wav 7 http://real1.radio.hu/bartok/2008/04/19/2008-04-19-b19.ram</font>
+	</pre>
+	</blockquote>
+    </dl>
+
+<a href="lpready" name="lpready">lpready</a>
+<dl><dd><em>sh</em> script that lists available printers in /etc/printcap and
+	enables disabled (probably USB) printers.
+    </dl>
+
+<a href="pping" name="pping">pping</a>
+<dl><dd><em>Perl</em> script that executes ping and prints a warning message
+immediately when a packet is dropped.
+    </dl>
+
+<a href="ppwgen" name="ppwgen">ppwgen</a>
+<dl><dd><em>Perl</em> script that generates an 8-character password containing
+    random alphanumeric characters. The generated password contains at least
+    2 digits, 2 lower case and 2 upper case letters.
+    </dl>
+
+<a href="rpmlist" name="rpmlist">rpmlist</a>
+<dl><dd><em>sh</em> script that lists installed RPM packages in
+	installation time, name or size order.
+    </dl>
+
+<a href="sdirdiff" name="sdirdiff">sdirdiff</a>, sgetdiff, sputdiff
+<dl><dd><em>sh</em> scripts for directory synchonization.
+	<p>
+	<em>sdirdiff</em> shows the difference between a local and a
+	remote directory.
+	Uses <a href="http://www.ssh.org">ssh</a> to log in to the remote host,
+	and <em>sum</em> to determine if a local and a remote file have the
+	same contents.<br>
+	Native executables, ar archives, object, dependency info (*.d),
+	LaTeX auxiliary, and backup (*~ *.bak *.BAK) files are skipped.
+	(Native binaries are recognized using the <i>file</i> command and
+	looking for the &quot;<tt>ELF </tt>&quot; or &quot;<tt>COFF </tt>&quot;
+	string in its output.)
+	<blockquote>
+	<pre>
+<font color="#222288">sdirdiff sunserv</font>
+&lt; ddsplit
+&lt; index.html
+&gt; index.html
+	</pre>
+	</blockquote>
+	Furthermore, option -x lets you skip files with the specified
+	extensions:
+	<blockquote>
+	<pre>
+<font color="#222288">sdirdiff -x ".html .dat .whatever" sunserv</font>
+&lt; ddsplit
+	</pre>
+	</blockquote>
+	<em>sputdiff</em> uploads all the files from the CWD to the
+	remote host that are missing,
+	or their remote version have different contents.
+	Uses <em>tar</em> and <em>gzip</em> to package and extract the
+	difference, and <em>ssh</em> to copy the difference to the remote host.
+	<blockquote>
+	<pre>
+<font color="#222288">sputdiff sunserv</font>
+x ddsplit, 799 bytes, 2 tape blocks
+x index.html, 4416 bytes, 9 tape blocks
+	</pre>
+	</blockquote>
+	<em>sgetdiff</em> does the opposite: downloads the difference.
+	<p>
+	All the three programs are contained in one script file. To use them,
+	download <a href="sdirdiff">sdirdiff</a>, make it executable, then
+	make two hard links:
+	<blockquote>
+	<pre>
+<font color="#222288">chmod +x sdirdiff</font>
+<font color="#222288">ln sdirdiff sgetdiff</font>
+<font color="#222288">ln sdirdiff sputdiff</font>
+	</pre>
+	</blockquote>
+	Alternatively, you can download
+	<a href="sdirdiff.tar.gz">sdirdiff.tar.gz</a> which contains the
+	three hard linked executables.
+    </dl>
+
+<a href="sreget" name="sreget">sreget</a>
+<dl><dd>Continues downloading of a partially downloaded file.
+	<p>
+	Copies the end of the remote file to the local host using
+	<a href="http://www.ssh.org">ssh</a>, then appends it to the local
+	file so that the two files will have the same contents.
+	To speed up downloading, it compresses the data with <em>gzip</em>
+	while copying.
+	<p>
+	I use it to download only the changed parts (the end) of a
+	large logfile through a slow network connection (modem):
+	<blockquote>
+	<pre>
+<font color="#222288">sreget sunserv:log/access_log</font>
+0+1 records in
+51+1 records out
+	</pre>
+	</blockquote>
+	Also works if the local file is compressed with <em>gzip</em> or
+	<em>bzip2</em>:
+	<blockquote>
+	<pre>
+<font color="#222288">sreget sunserv:log/access_log cspeter.log.bz2</font>
+bunzipping: cspeter.log.bz2 -&gt; cspeter.log
+0+1 records in
+0+1 records out
+bzipping: cspeter.log -&gt; cspeter.log.bz2
+	</pre>
+	</blockquote>
+    </dl>
+
+<a href="sreput" name="sreput">sreput</a>
+<dl><dd>Inverse of <a href="#sreget">sreget</a>.
+	<p>
+	Copies the end of the local file to the remote host using
+	<a href="http://www.ssh.org">ssh</a>, then appends it to the local
+	file so that the two files will have the same contents.
+	To speed up downloading, it compresses the data with <em>gzip</em>
+	while copying.
+	<blockquote>
+	<pre>
+<font color="#222288">sreput 264-10.bdata dali:data</font>
+0+1 records in
+3456+1 records out
+1769490 bytes (1.8 MB) copied, 0.156672 seconds, 11.3 MB/s
+	</pre>
+	</blockquote>
+    </dl>
+
+<a href="pcsums.c" name="pcsums">pcsums.c</a>
+<dl><dd>Checksum calculator written in C.
+	<p>
+	Differences between GNU sum 2.0 and <em>pcsums</em>:
+	<ul>
+	<li><em>pcsums</em> writes output line also if input error occurs,</li>
+	<li>updates output line after each megabyte of input data,</li>
+	<li>calculates three checksums at the same time,</li>
+	<li>faster (by 25% on my machine).</li>
+	</ul>
+	Useful to determine the location of errors on CDROMs or floppy disks.
+	<blockquote>
+	<pre>
+<font color="#222288">pcsums /dev/fd0 /dev/cdrom /boot/vmlinux-* /var/lib/rpm/packages.rpm</font>
+       M           k   BSD  SysV   CRC-32
+     1.4      1395.0 46789 52579 3F99108D /dev/fd0
+/dev/fd0: Input/output error
+   549.5    562674.0 20762  7470 4DF3BA6F /dev/cdrom
+/dev/cdrom: Input/output error
+     1.5      1508.2 42095 41065 B5C1A3C2 vmlinux-2.2.12-20
+    18.2     18628.6 33476 50796 9460293E packages.rpm
+	</pre>
+	</blockquote>
+	Compilation: <font color="#222288"><tt>cc -O pcsums.c -o pcsums</tt></font>
+    </dl>
+
+<a href="sysvsums" name="sysvsums">sysvsums</a>
+<dl><dd><em>Perl</em> script that prints the file sizes and the System V
+	checksums for all files in the current directory recursively.
+	<blockquote>
+	<pre>
+<font color="#222288">sysvsums</font>
+      806 59248 bashrc
+      792 58067 ddsplit
+       34 02175 debill
+      918 04373 dvdburn
+      709 57709 eftp
+      844 55721 fix-accesslog
+     2700 09993 freget
+    14857 28863 index.html
+      398 33218 inputrc
+      468 40072 l2tex
+      131 11888 Makefile
+     4819 15344 pcsums.c
+     1421 38209 pscat
+     5108 60253 Rename.class
+     7378 58557 Rename.java
+     1176 16144 rpmupdate
+     2682 00800 sdirdiff
+     1283 37048 sdirdiff.tar.gz
+     2682 00800 sgetdiff
+     2682 00800 sputdiff
+     2030 24185 sreget
+      963 08028 substitute
+      842 58194 sysvsums
+      646 53427 tex2l
+     4852 00893 unbot
+     4654 62536 vimrc
+    18983 57653 zshrc
+	</pre>
+	</blockquote>
+    </dl>
+
+~/.<a href="vimrc" name="vimrc">vimrc</a>
+and <a href="gvimrc">gvimrc</a>
+<dl><dd>Startup files for <a href="http://www.vim.org">VI iMproved</a>.
+	<p>
+	Automatic indentation and/or syntax highlighting for C, C++, Perl,
+	Java, JavaScript, <b>JSP</b>, shell scripts, HTML, LaTeX, etc.
+	Editing of gzip- and bzip2-<em>compressed</em> files.<br>
+	Extra keybindings:
+	<font color="#222288">Ctrl-J</font>
+	(paragraph <em>formatting</em> like in pico),
+	<font color="#222288">F6</font> (next file),
+	<font color="#222288">Alt</font>-<font color="#222288">F6</font>
+	(previous file),
+	<font color="#222288">F9</font> (<tt>make</tt>),
+	<font color="#222288">Alt</font>-<font color="#222288">F9</font>
+	(build all),
+	<font color="#222288">F10</font> (replace spaces by tabs).
+	In LaTeX mode: <font color="#222288">F9</font>
+	(<tt>latex &amp;&amp; dvips</tt>),
+	<font color="#222288">Alt</font>-<font color="#222288">D</font>
+	(<tt>xdvi</tt>),
+	<font color="#222288">Alt</font>-<font color="#222288">V</font>
+	(<tt>gv</tt> or <tt>ghostview</tt>).
+	</dl>
+
+~/.<a href="zshrc" name="zshrc">zshrc</a>
+<dl><dd>Startup file for the <a href="http://sunsite.auc.dk/zsh">Z Shell</a>.
+	<p>
+	The <tt>xterm</tt> title contains the last command
+	(in zsh &gt;= 3.1).<br>
+	<font color="#222288">F1</font>: <tt>man</tt> for the current command,
+	<font color="#222288">F9</font>: smart <tt>make</tt>
+	(also works if you are deeper than the makefile's directory),
+	<font color="#222288"><tt>l</tt></font>: <tt>ls -ltr</tt>,
+	<font color="#222288"><tt>p</tt></font>: <tt>popd</tt>,
+	<font color="#222288"><tt>zless</tt></font>: <tt>less -i</tt>
+	for compressed files (.Z, .gz, .bz2).
+	If <tt>vim</tt> exists, <font color="#222288"><tt>vi</tt></font>
+	is its alias and
+	<font color="#222288"><tt>v</tt></font> is <tt>gvim -R</tt>.<br>
+	Java-related functions: <font color="#222288"><tt>jdk11</tt></font> and
+	<font color="#222288"><tt>jdk12</tt></font> to switch from one JDK
+	version to another by changing <tt>PATH</tt> and <tt>CLASSPATH</tt>
+	(note that <tt>JDK12HOME</tt>, <tt>JDK11HOME</tt> and
+	<tt>SWING_JAR</tt> must be set correctly for these functions to work).
+	<p>
+	In the <em>Bourne-Again Shell</em> (versions 1.x-2.0x), most of these
+	features cannot be implemented.
+	The maximum what I could do is in
+	<a href="bashrc" name="bashrc">bashrc</a> (~/.bashrc) and
+	<a href="inputrc" name="inputrc">inputrc</a> (~/.inputrc).
+    </dl>
+
+<a href="freget" name="freget">freget</a>
+<dl><dd>Continues downloading of a partially downloaded file.
+	<p>
+	Simple ftp reget, written in <em>Perl</em>.
+	Requires the Net::FTP module.
+	<br>
+	Its extra feature is that it works also if the local file is compressed
+	(<em>gzip</em> or <em>bzip2</em>) but the remote is not.<br>
+	I use it instead of <a href="#sreget">sreget</a> on a host that has
+	no ssh daemon.
+	<blockquote>
+	<pre>
+<font color="#222288">freget addr.com:log/access_log chemaxon.orig.bz2</font>
+bunzipping: chemaxon.orig.bz2 -&gt; chemaxon.orig
+opening ftp connection to addr.com
+cd log
+get access_log chemaxon.orig 11444158
+bzipping: chemaxon.orig -&gt; chemaxon.orig.bz2
+	</pre>
+	</blockquote>
+    </dl>
+
+<a href="pscat" name="pscat">pscat</a>
+<dl><dd>Concatenates PostScript files.
+	<p>
+	<em>Perl</em> script that merges two or more PostScript files and prints
+	the result to stdout.
+	<blockquote>
+	<pre>
+<font color="#222288">pscat pi+p.ps K.ps &gt; pi+p,K.ps</font>
+	</pre>
+	</blockquote>
+	Warning! This script is a simple hack, use at your own risk.
+	In some (maybe most?) cases, gs is better:
+	<blockquote>
+	<pre>
+<font color="#222288">gs -q -dNOPAUSE -dBATCH -sOutputFile=pi+p,K.ps -sDEVICE=pswrite pi+p.ps K.ps</font>
+	</pre>
+	</blockquote>
+    </dl>
+
+<a href="rpmupdate" name="rpmupdate">rpmupdate</a>
+<dl><dd><em>Perl</em> script that loops through all *.rpm files in the current
+	directory and installs those packages that already have an older
+	installed in your Linux system. (This script is obsolete!)
+    </dl>
+
+<a href="unbot" name="unbot">unbot</a>
+<dl><dd>Removes lines associated to robots and spiders
+	from web server access log files.
+	<p>
+	Written in <em>Perl</em>.<br>
+	The logfile can be compressed (<em>gzip</em> or <em>bzip2</em>).
+	Example:
+	<blockquote>
+	<pre>
+<font color="#222288">unbot cspeter.log.bz2 -b robot.bz2 | bzip2 &gt;human.bz2</font>
+	</pre>
+	</blockquote>
+    </dl>
+
+</body>
+</html>

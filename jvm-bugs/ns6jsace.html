@@ -1,0 +1,88 @@
+<html>
+<head>
+<title>Netscape 6 + JavaScript AccessControlException at file loading</title>
+</head>
+<body>
+
+Netscape 6 (Sun Java 1.3.0_01) does not let applets open http and file
+connection in methods called from JavaScript. If you press the Load button,
+Netscape may freeze. If you are lucky, then only the following exception is
+thrown:
+<pre>
+java.security.AccessControlException: access denied (java.net.SocketPermission localhost resolve)
+    at java.security.AccessControlContext.checkPermission(AccessControlContext.java:272)
+    at java.security.AccessController.checkPermission(AccessController.java:399)
+    at java.lang.SecurityManager.checkPermission(SecurityManager.java:545)
+    at java.lang.SecurityManager.checkConnect(SecurityManager.java:1042)
+    at sun.plugin.protocol.jdk12.http.HttpURLConnection.connectStep1(HttpURLConnection.java:170)
+    at sun.plugin.protocol.jdk12.http.HttpURLConnection.getInputStream(HttpURLConnection.java:282)
+    at Ns6JsACE.load(Ns6JsACE.java:24)
+    at java.lang.reflect.Method.invoke(Native Method)
+    at sun.plugin.liveconnect.PrivilegedCallMethodAction.run(SecureInvocation.java:564)
+    at java.security.AccessController.doPrivileged(Native Method)
+    at sun.plugin.liveconnect.SecureInvocation.CallMethod(SecureInvocation.java:273)
+    at sun.plugin.navig.motif.AThread.handleRequest(Native Method)
+    at sun.plugin.navig.motif.AThread.JNIHandleLoop(AThread.java:44)
+    at sun.plugin.navig.motif.AThread.run(AThread.java:36)
+</pre>
+<p>
+
+<center>
+<form onSubmit="return false">
+<input TYPE=BUTTON VALUE="Load" onClick="loadSg()">
+</form>
+</center>
+
+<script LANGUAGE="JavaScript">
+<!--
+function loadSg() {
+    document.Ns6JsACE.load("fine.txt");
+}
+//-->
+</script>
+
+<p ALIGN=CENTER>
+<applet CODE="Ns6JsACE" NAME="Ns6JsACE"
+	WIDTH=400 HEIGHT=100>
+</applet>
+</p>
+
+<p ALIGN=CENTER>
+<a HREF="Ns6JsACE.java">Ns6JsACE.java</a>
+</p>
+
+<strong>Workaround</strong>
+<p>The I/O connections should be opened in a separate thread that is created
+before the JavaScript calls, in applet init().
+
+<center>
+<form onSubmit="return false">
+<input TYPE=BUTTON VALUE="Load" onClick="loadSg2()">
+</form>
+</center>
+
+<script LANGUAGE="JavaScript">
+<!--
+function loadSg2() {
+    document.Ns6JsACEWorkaround.load("fine.txt");
+}
+//-->
+</script>
+
+<p ALIGN=CENTER>
+<applet CODE="Ns6JsACEWorkaround" NAME="Ns6JsACEWorkaround"
+	WIDTH=400 HEIGHT=100>
+</applet>
+</p>
+
+<p ALIGN=CENTER>
+<a HREF="Ns6JsACEWorkaround.java">Ns6JsACEWorkaround.java</a>
+</p>
+
+<hr WIDTH="50%">
+<p>
+Related bug:
+<a HREF="ns6jsclf.html">Netscape 6 + JavaScript freezing at class loading</a>
+
+</body>
+</html>

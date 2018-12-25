@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>Netscape 6 + JavaScript freezing at class loading</title>
+</head>
+<body>
+
+Linux Netscape 6 (Sun Java 1.3.0_01) freezes when an applet tries to load a
+class in a method called from JavaScript. The browser does not freeze if the
+applet classes are local files, it only freezes if the applet is on a web
+server (http). Press the Load button to try it.
+<p>
+
+<center>
+<form onSubmit="return false">
+<input TYPE=BUTTON VALUE="Load" onClick="loadSg()">
+</form>
+</center>
+
+<script LANGUAGE="JavaScript">
+<!--
+function loadSg() {
+    document.Ns6JsCLF.load("Zzz");
+}
+//-->
+</script>
+
+<p ALIGN=CENTER>
+<applet CODE="Ns6JsCLF" NAME="Ns6JsCLF"
+	WIDTH=400 HEIGHT=100>
+</applet>
+</p>
+
+<p ALIGN=CENTER>
+<a HREF="Ns6JsCLF.java">Ns6JsCLF.java</a><br>
+<a HREF="Zzz.java">Zzz.java</a>
+</p>
+
+<hr WIDTH="50%">
+<p>
+Related bug:
+<a HREF="ns6jsace.html">Netscape 6 + JavaScript AccessControlException at file
+loading</a>
+
+</body>
+</html>

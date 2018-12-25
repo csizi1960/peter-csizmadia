@@ -1,0 +1,43 @@
+<html>
+<head><title>Windows Netscape 4.5-4.7 don't like window closing</title></head>
+<body>
+When you close a browser window that contains an applet,
+Netscape 4.51-4.7 (probably 4.06 and later) may freeze in MSWindows.
+<font SIZE="+2">
+<ol>
+<li><a HREF="closefreeze-applet.html" TARGET="_blank">Click here to open the
+    window.</a>
+<li>Close the window.</li>
+<li>Try again if you can (if Netscape did not freeze).</li>
+</ol>
+</font>
+The browser usually freezes at the second try, but don't give up until the 20th.
+<p>
+Fortunately, there is a workaround: the applet must be put to sleep in
+the <tt>destroy()</tt> method.
+<p ALIGN=CENTER>
+<font SIZE="+2">
+<a HREF="closefreezesleepfix-applet.html" TARGET="_blank">Click here to show the
+    fixed version</a>
+</font>
+</p>
+<p ALIGN=CENTER>
+<a HREF="CloseFreeze.java">CloseFreeze.java</a><br>
+<a HREF="CloseFreezeSleepFix.java">CloseFreezeSleepFix.java</a>
+</p>
+<hr WIDTH="50%">
+<p>
+<small>
+Previously, I had another workaround: I removed all the components
+of the applet recursively in <tt>destroy()</tt> (see
+<a HREF="CloseFreezeFix.java">CloseFreezeFix.java</a> and the
+<a HREF="closefreezefix-applet.html" TARGET="_blank">test page</a>).
+<a HREF="mailto:dkok@execpc.com">Dan Kok</a> pointed out that what Netscape
+needs is probably just wasting some time. Putting the applet to sleep is a
+more direct way to waste time than recursively removing its components.
+</small>
+<p ALIGN=RIGHT>
+<small>February 22 2000</small>
+</p>
+</body>
+</html>

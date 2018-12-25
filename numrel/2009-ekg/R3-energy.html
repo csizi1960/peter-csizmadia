@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<style type="text/css">
+<!--
+h1 { font-size: large; font-weight: bold; }
+body,td,th {
+	font-family: Arial, Helvetica, Sans-Serif;
+	text-align: left; vertical-align: top;
+	font-size: medium; }
+td.instructions { font-size: small; }
+-->
+</style>
+<title>Kodama Energy of a Gravitationally Collapsing Scalar Field in R3 Topology</title>
+</head>
+<body bgcolor="#111111" text="#ffffff" link="#CCFFFF" vlink="#CCFFCC" alink="#FFCCFF">
+
+<h1>Gravitational collapse of a massive scalar field in
+&#x211D;<sup><small>3</small></sup> topology</h1>
+
+<table cellspacing="0" cellpadding="0">
+<tr><td align="LEFT" valign="TOP" NOWRAP>
+    Time evolution of the gravity-matter
+    energy density distribution, <i>ℰ</i><sub><small>GM</small></sub>.<br>
+    The black curve indicates the apparent horizon.</td>
+    <td align="LEFT" valign="TOP" class="instructions" NOWRAP>
+	<ul>
+	<li>To move, drag the mouse while pressing button.</li>
+	<li>To rotate, drag the mouse while pressing Shift<br>
+	and the left mouse button at the same time.</>
+	<li>To get closer or farther, use the mouse wheel.</li>
+	</ul>
+	</td>
+    </tr>
+<tr><td align="CENTER" colspan="2">
+<p align="CENTER">
+<applet code="org.jdesktop.applet.util.JNLPAppletLauncher" height="640" width="768"
+	archive="gridsurf.jar,
+http://download.java.net/media/applet-launcher/applet-launcher.jar,
+http://download.java.net/media/jogl/builds/archive/jsr-231-webstart-current/jogl.jar,
+http://download.java.net/media/gluegen/webstart/gluegen-rt.jar">
+  <param name="java_arguments" VALUE="-Djnlp.packEnabled=true"/>
+  <param name="codebase_lookup" value="false"/>
+  <param name="subapplet.classname" value="gridsurf.GridSurfApplet"/>
+  <param name="subapplet.displayname" value="Kodama Energy - R3 EKG"/>
+  <param name="noddraw.check" value="true"/>
+  <param name="noddraw.check.silent" value="true"/>
+  <param name="progressbar" value="true"/>
+  <param name="jnlpNumExtensions" value="1"/>
+  <param name="jnlpExtension1"
+	 value="http://download.java.net/media/jogl/builds/archive/jsr-231-webstart-current/jogl.jnlp"/>
+  <param name="jnlp_href" value="gridsurf.jnlp"/>
+  <param name="argCount" value="7"/>
+  <param name="args0" value="-u rho,tau_c,energy"/>
+  <param name="args1" value="-x rho,0,25 -y tau_c,0,35 -z ℰ_{GM},-0.6,0.6"/>
+  <param name="args2" value="--xtics %.0f,5 --ytics %.0f,5 --ztics %.1f,0.5"/>
+  <param name="args3" value="--font-scale 0.01 --base-surface --top-surface"/>
+  <param name="args4" value="--axis-label-size 1.1 --tic-label-size 0.7"/>
+  <param name="args5" value="-C R3-3d-energy.mts1.curve,using=1:2:3,rgb=000000"/>
+  <param name="args6" value="R3-3d.energy.applet.bdata"/>
+</applet>
+</p>
+</td></tr></table>
+
+</body>
+</html>

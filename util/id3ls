@@ -1,0 +1,116 @@
+#!/bin/sh -e
+# MP3 ID3 viewer - Peter Csizmadia, 2006.03.29-05.06
+
+if [ "$1" = "-h" ]; then
+	cat << EOF
+Usage:
+    id3ls [options] [file(s).mp3]
+
+Options:
+-1  prints id3 V1 tags (only works if the id3 program is used)
+-2  prints id3 V2 tags (only works if the id3 program is used)
+EOF
+	exit 0
+fi
+
+view_id3tool() {
+	t=`id3tool "$1" | grep -i '^song title:'\
+       		| sed 's/^song title:[ \t]\+//i' | sed 's/[ \t]\+$//'`
+	a=`id3tool "$1" | grep -i '^artist:'\
+       		| sed 's/^artist:[ \t]\+//i' | sed 's/[ \t]\+$//'`
+	l=`id3tool "$1" | grep -i '^album:'\
+       		| sed 's/^album:[ \t]\+//i' | sed 's/[ \t]\+$//'`
+	y=`id3tool "$1" | grep -i '^year:' | sed 's/^year:[ \t]\+//i'`
+	n=`id3tool "$1" | grep -i '^track:' | sed 's/^track:[ \t]\+//i'`
+	g=`id3tool "$1" | grep -i '^genre:' | sed 's/^genre:[ \t]\+//i' | sed 's/ ([x0-9A-F]\+)$//'`
+	echo "$g | $a $y $l | $n $t"
+}
+
+view_id3ed() {
+	t=`id3ed -i "$1" | grep -i '^songname: ' | sed 's/^songname: //i'`
+	a=`id3ed -i "$1" | grep -i '^artist: ' | sed 's/^artist: //i'`
+	l=`id3ed -i "$1" | grep -i '^album: ' | sed 's/^album: //i'`
+	y=`id3ed -i "$1" | grep -i '^year: ' | sed 's/^year: //i'`
+	n=`id3ed -i "$1" | grep -i '^tracknum: ' | sed 's/^tracknum: //i'`
+	g=`id3ed -i "$1" | grep -i '^genre: ' | sed 's/^genre: //i' | sed 's/[ ]*([0-9]\+)//'`
+	echo "$g | $a $y $l | $n $t"
+}
+
+view_id3v2() {
+	t=`id3v2 -l "$1" | grep -i '^TIT2 ' | sed 's/^TIT2.*: //i'`
+	a=`id3v2 -l "$1" | grep -i '^TPE1 ' | sed 's/^TPE1.*: //i'`
+	l=`id3v2 -l "$1" | grep -i '^TALB' | sed 's/^TALB.*: //i'`
+	y=`id3v2 -l "$1" | grep -i '^TYER' | sed 's/^TYER.*: //i'`
+	n=`id3v2 -l "$1" | grep -i '^TRCK' | sed 's/^TRCK.*: //i'`
+	g=`id3v2 -l "$1" | grep -i '^TCON' | sed 's/^TCON.*: //i' | sed 's/[ ]*([0-9]\+)//'`
+	echo "$g | $a $y $l | $n $t"
+}
+
+if [ `id3 -h 2>/dev/null | wc -l` != "0" ]; then
+	opt=""
+	if [ "$1" = "-1" ]; then
+		opt="-1"
+		shift
+	elif [ "$1" = "-2" ]; then
+		opt="-2"
+		shift
+	fi
+	if [ -n "$*" ]; then
+		id3 $opt -q "%g | %a %y %l | %n %t" "$@"
+	else
+		for f in *.mp3; do
+			id3 $opt -q "%g | %a %y %l | %n %t" "$f"
+		done
+	fi
+elif [ `id3tool -v 2>/dev/null | wc -l ` != "0" ]; then
+	if [ "$1" = "-1" -o "$1" = "-2" ]; then
+		echo "WARNING: id3tool does not recognize options -1, -2" >&2
+		shift
+	fi
+	if [ -n "$*" ]; then
+		for f in "$@"; do
+			view_id3tool "$f"
+		done
+	else
+		for f in *.mp3; do
+			view_id3tool "$f"
+		done
+	fi
+elif [ `id3ed -v 2>/dev/null | wc -l ` != "0" ]; then
+	if [ "$1" = "-1" -o "$1" = "-2" ]; then
+		echo "WARNING: id3ed does not recognize options -1, -2" >&2
+		shift
+	fi
+	if [ -n "$*" ]; then
+		for f in "$@"; do
+			view_id3ed "$f"
+		done
+	else
+		for f in *.mp3; do
+			view_id3ed "$f"
+		done
+	fi
+elif [ `id3v2 -h 2>/dev/null | wc -l ` != "0" ]; then
+	if [ "$1" = "-1" -o "$1" = "-2" ]; then
+		echo "WARNING: id3ed does not recognize options -1, -2" >&2
+		shift
+	fi
+	if [ -n "$*" ]; then
+		for f in "$@"; do
+			view_id3v2 "$f"
+		done
+	else
+		for f in *.mp3; do
+			view_id3v2 "$f"
+		done
+	fi
+else
+	cat << EOF >&2
+No id3 viewer found. One of the following programs must be in your \$PATH:
+- id3
+- id3tool
+- id3ed
+- id3v2
+EOF
+	exit 1
+fi

@@ -1,0 +1,176 @@
+#!/bin/sh
+#
+# sdirdiff/sgetdiff/sputdiff, Sun Oct 5 2008,  Peter Csizmadia
+# (first version: 1998.08.25)
+#
+
+prog=`basename $0`
+
+AWK=awk
+tmpdir="$TMPDIR"
+if [ -z "$tmpdir" ]; then
+	if [ -d "/tmp" ]; then
+		tmpdir="/tmp"
+	else
+		echo "\$TMPDIR not set and /tmp does not exist" >&2
+		exit 1
+	fi
+fi
+if [ -z "$BASH_VERSION" ]; then
+	for i in gawk nawk; do
+		which_awk=`type $i`
+		if [ "$?" = "0" ]; then
+			AWK="$i"
+			break;
+		fi
+	done
+else
+	for i in gawk nawk; do
+		which_awk=`which $i`
+		if [ "$?" = "0" ]; then
+			r=`echo $which_awk | grep -i "^no $i "`
+			if [ -z "$r" ]; then
+				AWK="$i"
+				break
+			fi
+		fi
+	done
+fi
+
+exclude=""
+while [ "$1" = "-x" ]; do
+	if [ "$1" = "-x" ]; then
+		shift
+		exclude="$1"
+	fi
+	shift
+done
+tmp=""
+if [ -n "$exclude" ]; then
+	tmp=""
+	for i in $exclude; do
+		if (echo $i | grep '^\.' >/dev/null); then
+			tmp="$tmp/\\$i:/d;"
+		else
+			tmp="$tmp/$i:/d;"
+		fi
+	done
+fi
+exclude="$tmp"
+
+if [ $# -lt 1 ]; then
+	cat << EOF
+$prog [-x \"extensions\"] [login@]host directory
+options:
+-x extensions    exclude filenames ending with the specified extensions
+examples:
+  cd homepage
+  $prog sgi30
+  $prog sgi30 somedir/homepage
+  $prog -x ".bak .dat" joe@somewhere.else anotherdir/homepage
+EOF
+	exit 0
+fi
+
+loginhost=""
+setloginhost() {
+	if [ $# = 2 ]; then
+		loginhost="-l $1 $2"
+	else
+		loginhost=$1
+	fi
+}
+setloginhost `echo $1 | sed 's/@/ /'`
+
+home=`(cd $HOME; /bin/pwd)`
+
+if [ $# -lt 2 ]; then
+	dir=`/bin/pwd|sed "s:^$home::"|sed "s:^/::"`
+	if [ -z "$dir" ]; then
+		$dir="."
+	fi
+else
+	dir="$2"
+fi
+
+# functions for sdirdiff
+intfunc() {
+	echo "${prog}: interrupted" >&2
+	rm -f $tmpfile
+	exit 1
+}
+calcsums() {
+	if [ $# = 1 ]; then
+		echo "$1" `sum -r "$1"` | $AWK '{print $1,$2}'
+	elif [ ! $# = 0 ]; then
+		sum -r $@ | $AWK '{print $3,$1}'
+	fi
+}
+dirdiff() {
+	tmpfile="$tmpdir/$prog$$.tmp"
+
+	trap intfunc 2
+	trap intfunc 15
+
+	ssh $loginhost "/bin/sh -e" << EOF | $AWK '{if($1 == "/" && $4 != "") { print $2, $3; } else { print $3, $1; }}' | sort > $tmpfile
+cd "$dir"
+calcsums() {
+	if [ \$# = 1 ]; then
+		echo "/" "\$1" \`sum -r "\$1"\`
+	elif [ ! \$# = 0 ]; then
+		sum -r \$@
+	fi
+}
+calcsums \`file * | sed "/ELF /d;/COFF /d;/ ar archive/d;/directory/d;/symbolic link/d;/\.aux:.*ascii/d;/\.aux:.*LaTeX/d;${exclude}s/:.*//"\`
+EOF
+	if [ $? -ne 0 ]; then
+		rm -f $tmpfile
+		exit 1
+	fi
+	calcsums `file * | sed "/ELF /d;/COFF /d;/ ar archive/d;/directory/d;/symbolic link/d;/\.aux:.*ascii/d;/\.aux:.*LaTeX/d;${exclude}s/:.*//"`\
+| sort | diff - $tmpfile | $AWK '{
+	if(match($2, "~$|\\.bak$|\\.BAK$|\\.d$"))
+		next
+	if($1=="<" || $1==">")
+		print $1,$2
+}'
+	if [ $? -ne 0 ]; then
+		rm -f $tmpfile
+		exit 1
+	fi
+	rm -f $tmpfile
+	return 0
+}
+
+# do sdirdiff
+if [ "$prog" = "sdirdiff" ]; then
+	dirdiff
+	exit $?
+
+# do sgetdiff
+elif [ "$prog" = "sgetdiff" ]; then
+	f=`dirdiff | $AWK "
+{
+	if(\\\$1 == \">\")
+		printf \" '%s'\", \\\$2
+}END{
+	printf \"\n\"
+}"`
+	ssh $loginhost "cd \"$dir\" && tar cf - $f | gzip -9" | gzip -cd | tar xvf -
+	exit $?
+
+# do sputdiff
+elif [ "$prog" = "sputdiff" ]; then
+	f=`dirdiff | $AWK "
+{
+	if(\\\$1 == \"<\")
+		printf \" %s\", \\\$2
+}END{
+	printf \"\n\"
+}"`
+	tar cf - $f | gzip -9 | ssh $loginhost "cd \"$dir\" && gzip -cd | tar xvf -"
+	exit $?
+else
+	echo This program must be named sdirdiff, sgetdiff, or sputdiff. >&2
+	exit 1
+fi

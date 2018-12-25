@@ -1,0 +1,100 @@
+<html>
+<head>
+<meta NAME="author" CONTENT="Peter Csizmadia">
+<title>Java</title>
+<script LANGUAGE="JavaScript">
+<!--
+jsver="1.0";
+//-->
+</script>
+<script LANGUAGE="JavaScript1.1">
+<!--
+jsver="1.1";
+grdigON = new Image();
+grdigON.src = "img/grdig-mo.gif";
+marvinON = new Image();
+marvinON.src = "img/msketch-mo.gif";
+Moffimg = new Image();
+//-->
+</script>
+<script LANGUAGE="JavaScript">
+<!--
+function Mon(img) {
+	if(jsver!="1.0") {
+		if(img) {
+			Moffimg.src = eval("document."+img.name+".src")
+			img.src = eval(img.name+"ON.src")
+		}
+	}
+}
+function Moff(img) {
+	if(jsver!="1.0") {
+		if(img) {
+			img.src = Moffimg.src
+		}
+	}
+}
+//-->
+</script>
+</head>
+<body BGCOLOR="#e0e0e0" TEXT="#224400" LINK="#0000FF" VLINK="#9E0061" ALINK="#FFFF00">
+<font FACE="Helvetica, Arial">
+
+My Java programs
+<ul>
+<li>ChemAxon
+    <a HREF="http://www.chemaxon.com/marvin">MarvinSketch and MarvinView</a>:<br>
+    molecule sketcher and viewer applets, applications and beans.
+    </li>
+<li><a HREF="grdig/" onMouseOver="Mon(document.grdig)" onMouseOut="Moff(grdig)"><img SRC="img/grdig.gif" ALT="Graph Redigitizer applet" NAME="grdig" WIDTH=44 HEIGHT=44 BORDER=0 ALIGN=CENTER>Graph Redigitizer</a><br>
+    Tool for reading coordinates of data points from linear and
+    logscaled graphs. (free source!)
+    </li>
+<li><a HREF="http://slideproject.sourceforge.net">SlideProject</a>: slide show program
+    that supports zooming, highlighted points, animated multi-image slides
+    (sequences of JPEG, GIF or PNG files), MPEG movies, audio tracks (AU and WAV),
+    text fading in/out, additional images fading in/out, panorama scrolling etc.<br>
+    <small>Related command line tools</a>:
+    <ul>
+    <li>PxWAV - Finds and extracts WAV
+	audio tracks from JPEGs and other files.</li>
+    <li>PBinGrep - Searches binary
+	files, prints the locations of matches.</li>
+    <li>JPEG Compression Quality Tester
+	- Approximate compression quality calculation for JPEG files.</li>
+    </ul>
+    </small>
+    (free source!)
+    </li>
+</ul>
+
+<small>
+Obsolete stuff
+<ul>
+<li>Marvin ARchiver (MAR):
+    A command line utility like JAR or TAR. Creates self extracting archives and
+    also makes it possible to compress a full application into one class
+    file. (free source!)<br>
+    MARvInstall (MARI):
+    Application installer class maker, based on MAR.
+    Works in Unix, RedHat Linux and older Windows versions.<br>
+    Pre-alpha, <b>discontinued</b> project. See the B/mar directory if you
+    are interested.</li>
+<li><a HREF="jvm-bugs/index.html">My Bug Collection</a>:
+    Java-related bugs in web browsers and operating systems, workarounds,
+    bugware detection.
+    </li>
+</ul>
+</small>
+
+<hr WIDTH="90%">
+
+<font SIZE=-2>
+<p ALIGN=CENTER>
+&copy; 1998-2004 <a HREF="http://www.kfki.hu/~cspeter/">Peter Csizmadia</a>
+</p>
+</font>
+
+</font>
+</body>
+</html>

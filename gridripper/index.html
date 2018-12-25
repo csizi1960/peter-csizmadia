@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>GridRipper</title>
+<style type="text/css">
+    body {font-family: verdana,arial,helvetica,sans-serif; font-size: 10pt;
+	  text-align: justify; width: 720px; margin-left: 56px;}
+    h1 {text-align: center;}
+    h2 {font-size: 12pt; text-align: left;}
+    th {font-size: 10pt; text-align: center; vertical-align: top;}
+    td {font-size: 10pt; text-align: left; vertical-align: top;}
+    div.abstractAndAuthor {margin-top: 9pt; margin-left: 9pt; font-size: 9pt; text-align: center;}
+    img {border: 0;}
+</style>
+</head>
+<body bgcolor="#ffffff" text="#000000">
+
+<h1>GridRipper</h1>
+
+<p align="LEFT">
+A fourth order precision Adaptive Mesh Refinement (AMR) code for solving
+hyperbolic systems of partial differential equations numerically.
+</p>
+
+<p>
+A physical model consists of a partial differential equation (PDE) and an
+initial condition, both implemented as C++/Java classes. Parameters can be
+specified in the input file. The input file can also contain function
+definitions, hence it is possible to specify initial conditions without writing
+program code.
+<p>
+<a href="parameters.html">Simulation parameters</a>:
+<ul>
+<li><a href="parameters.html#physics">Physics</a>: model and parameters
+    </li>
+<li><a href="parameters.html#basic">Basic</a> simulation parameters:
+    <ul>
+    <li>Base grid resolution and maximum number of refinement levels.</li>
+    <li>The Courant factor. It can be constant or a function of time.</li>
+    <li>Integration method: RK2, RK4, Iterated Crank-Nicholson
+	or Lax-Wendroff.</li>
+    <li>The &sigma; factor of the numerical dissipation term. It can be
+	coordinate dependent.</li>
+    </ul>
+    </li>
+<li><a href="parameters.html#AMR_spec">Special</a> mesh refinement related parameters:
+    <ul>
+    <li>Error function and error tolerance for the refinement condition.</li>
+    <li>Frequency of error checking.</li>
+    <li>Maximum number of time steps without regridding.</li>
+    <li>Buffer zone size.</li>
+    </ul>
+    </li>
+<li><a href="parameters.html#output">Output</a>:
+    <ul>
+    <li>Time difference for datafile writing.</li>
+    <li>...</li>
+    </ul>
+    </li>
+</ul>
+
+<h2>API documentation</h2>
+<ul>
+<li><a href="c++/html/index.html">GridRipper/C++ API</a></li>
+<li><a href="java/html/index.html">GridRipper/Java API</a></li>
+</ul>
+
+<h2>Tools</h2>
+<table cellspacing="5pt">
+<tr><td>gridripper</td>
+    <td>Solves the system of PDEs numerically, stores the solution
+	in a binary file (.bdata).</td>
+    <td>(C++)</td></tr>
+<tr><td>jgridripper</td><td>(Same for models implemented in Java.)</td>
+    <td>(Java)</td></tr>
+<tr><td>xgridripper</td>
+    <td>GridRipper GUI, simulation with graphical monitoring.</td>
+    <td>(Java)</td></tr>
+<tr><td>grr-odeshoot</td>
+	<td>Solves an ODE with shooting method.</td><td>(C++)</td></tr>
+<tr><td>grr-jodeshoot</td><td>(Same for ODEs implemented in Java.)</td>
+    <td>(Java)</td></tr>
+<tr><td>grr-joderelax</td>
+    <td>Solves an ODE with relaxation method.</td><td>(Java)</td></tr>
+<tr><td>grr-intdx</td>
+    <td>Reads bdata, numerically integrates the specified function(s) in
+	space using a fifth order polynomial approximation.</td>
+    <td>(C++)</td></tr>
+<tr><td>grr-jintdx</td><td>(Same for models implemented in Java.)</td>
+    <td>(Java)</td></tr>
+<tr><td>grr-curves</td>
+    <td>Reads bdata and creates curves by calculating the x-intercepts of the
+	specified function.</td>
+    <td>(C++)</td></tr>
+<tr><td>grr-datatable</td>
+    <td>Reads the input and the bdata files, prints the values of the specified
+	field components and grid functions in text format.</td>
+    <td nowrap>(C++)</td></tr>
+<tr><td>grr-jdatatable</td><td>(Same for models implemented in Java.)</td>
+    <td>(Java)</td></tr>
+<tr><td>grr-bdata2txt</td>
+    <td>Reads bdata and prints its contents in text format.<br/>
+	Note that it cannot print functions of field components,
+	use grr-datatable for that.</td>
+    <td nowrap>(Perl)</td></tr>
+<tr><td>grr-meshdensity</td>
+    <td>Reads bdata, prints mesh refinement info.</td>
+    <td nowrap>(Perl)</td></tr>
+<tr><td>grr-calc</td>
+    <td>Calculator; useful for testing expression
+	    evaluation.</td><td>(C++)</td></tr>
+<tr><td>grr-jcalc</td><td>(Same in Java.)</td><td>(Java)</td></tr>
+</table>
+
+<h2>Applications</h2>
+
+The main aim for developing the code was to solve the Einstein equations
+numerically. The following problems are currently investigated:
+<ul>
+<li>Gravitational collapse of fluid or scalar field in spherical symmetry.</li>
+<li>Creation of baby universes.</li>
+<li>Cosmic inflation.</li>
+<li>Einstein-Klein-Gordon system in 3D scenarios using multipole expansion.
+    </li>
+</ul>
+
+<h2>Download</h2>
+Not yet available, first the core library should be separated from models.
+
+<h2>Authors and contributors</h2>
+<ul>
+<li>P&eacute;ter Csizmadia &mdash; C++, Java</li>
+<li>Andr&aacute;s L&aacute;szl&oacute;
+    &mdash; C++: multipole, incremental integration</li>
+<li>Istv&aacute;n R&aacute;cz &mdash; ideas and theoretical background</li>
+</ul>
+
+<h2>Thanks</h2>
+This work was supported in part by OTKA grant K67942.
+
+<h2>References</h2>
+<ul>
+<li>P. Csizmadia, <i>Testing a new mesh refinement code in the evolution
+    of a spherically symmetric Klein-Gordon field</i>,
+    International Journal of Modern Physics <b>D</b>15 (2006) 107-119
+    [<a HREF="http://arXiv.org/abs/hep-th/0505036">arXiv:hep-th/0505036</a>]
+<li>P. Csizmadia, <i>Fourth order AMR and nonlinear dynamical systems
+    in compactified space</i>,
+    Classical and Quantum Gravity <b>24</b> (2007) S369-S379.
+</ul>
+
+<p>
+<hr width="50%">
+<p align="right">
+17 June 2009, P. Csizmadia
+</p>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+#!/usr/bin/perl -w
+
+use IO::Handle;
+use strict;
+
+if($#ARGV < 0) {
+	print <<EOF;
+This scripts executes ping and prints a warning message immediately when a
+packet is dropped.
+
+Usage: pping [ping options] address
+EOF
+	exit 0;
+}
+
+STDOUT->autoflush(1);
+open(F, "LANG=en_US ping @ARGV |") or die "cannot execute ping ".$ARGV[0];
+my $prev = 0;
+while(<F>) {
+	s/(^.*icmp_seq=)(\d+) (.*)$/$1$2 $3/;
+	my $l = $_;
+	if(defined($2)) {
+		if($2 == $prev + 2) {
+			printf("********** 1 PACKET DROPPED **********\n");
+			print;
+		} elsif($2 != $prev + 1) {
+			printf("********** %d PACKETS DROPPED **********\n",
+			       $2 - $prev - 1);
+			print;
+		} else {
+			print;
+		}
+		$prev = $2;
+	} else {
+		print;
+	}
+}
+close(F);

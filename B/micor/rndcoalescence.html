@@ -1,0 +1,75 @@
+<html>
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="description" CONTENT="Java applet for the simulation of coalescence hadronization.">
+<meta NAME="keywords" CONTENT="quark, diquark, meson, baryon, hadron, hadronization, coalescence, MICOR, Java, applet">
+<meta NAME="Author" CONTENT="Peter Csizmadia">
+<title>Quark coalescence</title>
+</head>
+<body BGCOLOR="#e0e0e0" TEXT="#224400" LINK="#0000FF" VLINK="#9E0061" ALINK="#FFFF00">
+
+<p ALIGN=LEFT>
+<a HREF=".">back to MICOR</a>
+</p>
+
+<p ALIGN=CENTER>
+<applet CODE=RndCoalescence WIDTH=700 HEIGHT=600>
+<param NAME="Nu" VALUE=100>
+<param NAME="Nd" VALUE=100>
+<param NAME="Ns" VALUE=30>
+<param NAME="Nu~" VALUE=50>
+<param NAME="Nd~" VALUE=50>
+<param NAME="Ns~" VALUE=15>
+<param NAME="Cqq" VALUE=1>
+<param NAME="Cqs" VALUE=0.5>
+<param NAME="Css" VALUE=0.25>
+<param NAME="Cqqq" VALUE=1>
+<param NAME="Cqqs" VALUE=0.5>
+<param NAME="Cqsq" VALUE=0.75>
+<param NAME="Cqss" VALUE=0.375>
+<param NAME="Cssq" VALUE=0.25>
+<param NAME="Csss" VALUE=0.125>
+<strong>(YOU CANNOT SEE A JAVA APPLET HERE)</strong><br>
+</applet>
+</p>
+
+<p ALIGN=CENTER>
+Source:
+<a HREF="RndCoalescence.java">RndCoalescence.java</a>,
+<a HREF="TimeevolCanvas.java">TimeevolCanvas.java</a>
+</p>
+
+Particles in this simulation:
+<ol>
+<li>Initial, elementary particles:
+    u, d, s quarks and their corresponding antiquarks.
+    The color of a quark is red, green, or blue, each with 1/3 probabability.
+    </li>
+<li>Intermediate composite particles: diquarks and antidiquarks.
+    The color of a diquark is antired (green+blue), antigreen (red+blue),
+    or antiblue (red+green), each with 1/3 probabability.
+    </li>
+<li>Final (colorless) composite particles: mesons, baryons, antibaryons.
+</ol>
+Each coalescence process has a weight, proportional to its coalescence factor.
+<ul>
+<li><i>C<sub>qq</sub></i>: coalescence factor of two light quarks (u, d),
+    two light antiquarks, or a light quark and a light antiquark</li>
+<li><i>C<sub>qs</sub></i>: a light and a strange quark, ...</li>
+<li><i>C<sub>ss</sub></i>: two strange quarks, ...</li>
+<li><i>C<sub>qqq</sub></i>: uu, ud, or dd light diquark and a light quark, ...</li>
+<li><i>C<sub>qqs</sub></i>: uu, ud, or dd light diquark and a strange quark, ...</li>
+<li><i>C<sub>qsq</sub></i>: us or ds diquark and a light quark, ...</li>
+<li><i>C<sub>qss</sub></i>: us or ds diquark and a strange quark, ...</li>
+<li><i>C<sub>ssq</sub></i>: ss diquark and a light quark, ...</li>
+<li><i>C<sub>sss</sub></i>: ss diquark and a strange quark, ...</li>
+</ul>
+Diquarks may decay into two quarks.
+The weight of the decay process is proportional to the coalescence factor
+of the creation of a diquark of the same type.
+<p>
+At each step in the simulation, a coalescence or (diquark) decay process
+is chosen randomly, according to its weight.
+
+</body>
+</html>

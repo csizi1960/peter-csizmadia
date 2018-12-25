@@ -1,0 +1,18 @@
+<html>
+<body>
+This page contains a simple JavaScript line that can kill Netscape 6.0 when
+you press <b>Reload</b>. If the browser stays alive, then press <b>Reload</b>
+again.
+<blockquote>
+<pre>
+window.Packages.java.lang.System.out.println("I'm dead");
+</pre>
+</blockquote>
+<script LANGUAGE="JavaScript1.1">
+window.Packages.java.lang.System.out.println("I'm dead");
+</script>
+There is nothing special in this line, probably any Java command would do it.
+Notice that Netscape does not die if you do a reload only for this frame
+(right click-Reload). It dies only if you reload both frames at the same time.
+</body>
+</html>

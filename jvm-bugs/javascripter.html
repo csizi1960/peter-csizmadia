@@ -1,0 +1,37 @@
+<html>
+<head>
+<title>JavaScripting bug</title>
+</head>
+<body>
+
+The following applet should show a JavaScript alert box work in Netscape 3,
+MS Explorer 4, and later versions.
+<p>
+It does not work in Netscape 4.6 and produces the following stack trace:
+<blockquote>
+<pre>
+netscape.security.AppletSecurityException: security.checkcreateclassloader
+  at netscape.security.AppletSecurity.checkCreateClassLoader(AppletSecurity.java:298)
+  at java.lang.SecurityManager.checkCreateClassLoader(SecurityManager.java:281)
+  at java.lang.ClassLoader.&lt;init&gt;(ClassLoader.java:136)
+  at netscape.applet.AppletClassLoader.&lt;init&gt;(AppletClassLoader.java:487)
+  at netscape.applet.AppletClassLoader.getClassLoader(AppletClassLoader.java:447)
+  at JavaScripter.start(JavaScripter.java:5)
+* at netscape.applet.DerivedAppletFrame$StartAppletEvent.dispatch(DerivedAppletFrame.java:640)
+  at java.awt.EventDispatchThread$EventPump.dispatchEvents(EventDispatchThread.java:81)
+  at java.awt.EventDispatchThread.run(EventDispatchThread.java:135)
+  at netscape.applet.DerivedAppletFrame$AppletEventDispatchThread.run(DerivedAppletFrame.java:911)
+</pre>
+</blockquote>
+Corrected in 4.61.
+
+<p ALIGN=CENTER>
+<applet CODE="JavaScripter" MAYSCRIPT WIDTH=50 height=50></applet>
+</p>
+
+<p ALIGN=CENTER>
+<a HREF="JavaScripter.java">JavaScripter.java</a>
+</p>
+
+</body>
+</html>

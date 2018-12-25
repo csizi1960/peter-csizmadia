@@ -1,0 +1,11 @@
+set show-all-if-ambiguous On
+TAB: complete				# This is not default on some systems.
+
+"\e[1~": beginning-of-history     	# Home
+"\e[4~": end-of-history			# End
+"\e[5~": history-search-backward	# Page Up
+"\e[6~": history-search-forward		# Page Down
+
+# F2: Previous-history, forward to second word and remove it.
+# Useful when grepping for differ words in the same file.
+"\e[[A": "\C-p\C-a\M-f \M-d"

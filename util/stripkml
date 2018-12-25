@@ -1,0 +1,55 @@
+#!/usr/bin/perl -w
+# stripkml - 2008.03.16. Peter Csizmadia
+
+use XML::LibXML;
+
+if($#ARGV < 0) {
+	print <<EOF;
+Simplifies Google Earth KML files by removing superfluous placemarks
+("Points") from GPS tracks.
+
+Usage: stripkml file.kml
+EOF
+	exit 0
+}
+
+my $parser = XML::LibXML->new();
+my $doc = $parser->parse_file($ARGV[0]);
+
+my @nodelist = $doc->getElementsByTagName('name');
+
+foreach $node (@nodelist) {
+	# Test whether name is in the following context:
+	# <Folder>
+	#   <name>Tracks</name>
+	#   <Folder>
+	#     <Folder>
+	#       ...
+	#       <name>Points</name>
+	#       ...
+	#     </Folder>
+	#   </Folder>
+	# </Folder>
+	next if $node->firstChild->nodeValue ne "Points";
+	my $pointsfolder = $node->parentNode;
+	next if $pointsfolder->nodeName ne "Folder";
+	my $trackfolder = $pointsfolder->parentNode;
+	next if $trackfolder->nodeName ne "Folder";
+	my $tracksfolder = $trackfolder->parentNode;
+	next if $tracksfolder->nodeName ne "Folder";
+	my $p = $tracksfolder->firstChild;
+	while($p->nodeName =~ /#.*/) {
+		$p = $p->nextSibling();
+	}
+	next if $p->nodeName ne "name";
+	next if $p->firstChild->nodeValue ne "Tracks";
+
+	# Remove whitespace between Points folder and the next tag
+	if($pointsfolder->nextSibling->nodeName eq "#text") {
+		$trackfolder->removeChild($pointsfolder->nextSibling);
+	}
+	# Remove Points folder
+	$trackfolder->removeChild($pointsfolder);
+}
+
+print $doc->toString(0);

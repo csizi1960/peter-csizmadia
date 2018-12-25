@@ -1,0 +1,37 @@
+<html>
+<head>
+<title>Scrollbar bug</title>
+</head>
+<body>
+In the correct Java implementation (Sun JDK, Netscape 4.06 and later),
+the slider occupies all of the scrollbar because
+<code>value=0</code> and <code>visible=50</code>, so the <b>right</b> side
+    of the slider is at <code>50</code>.
+<p>
+In a buggy browser such as Microsoft Explorer 3.0-5.0 (java.version &lt;= 1.1)
+and Netscape 2.0-4.05,
+the slider occupies only the left half of the scrollbar, because
+the <code>maximum</code> parameter is the maximum rightmost position of the
+<b>left</b> side of the slider.
+
+<p ALIGN=CENTER>
+<applet code=Scrollbug width=400 height=30></applet>
+</p>
+
+<p ALIGN=CENTER>
+<a HREF="Scrollbug.java">Scrollbug.java</a>
+</p>
+<strong>Workaround:</strong>
+<blockquote><pre>
+vendor = System.getProperty(&quot;java.vendor&quot;);
+ver = System.getProperty(&quot;java.version&quot;);
+scrollbug = (vendor.equals(&quot;Microsoft Corp.&quot;)
+                &amp;&amp; (ver.startsWith(&quot;1.0&quot;) || ver.equals(&quot;1.1&quot;))) 
+            || (vendor.equals(&quot;Netscape Communications Corporation&quot;)
+                &amp;&amp; (ver.startsWith(&quot;1.0&quot;) || ver.equals(&quot;1.1.2&quot;))); 
+maximum = scrollbug? maxright - visible : maxright;
+scrollbar.setValues(value, visible, minimum, maximum);
+</pre></blockquote>
+
+</body>
+</html>

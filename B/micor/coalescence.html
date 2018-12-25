@@ -1,0 +1,49 @@
+<html>
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="description" CONTENT="Java applet for the simulation of coalescence hadronization.">
+<meta NAME="keywords" CONTENT="quark, diquark, meson, baryon, hadron, hadronization, coalescence, MICOR, Java, applet">
+<meta NAME="Author" CONTENT="Peter Csizmadia">
+<title>Quark coalescence</title>
+</head>
+<body BGCOLOR="#e0e0e0" TEXT="#224400" LINK="#0000FF" VLINK="#9E0061" ALINK="#FFFF00">
+
+<p ALIGN=LEFT>
+<a HREF=".">back to MICOR</a>
+</p>
+
+<p ALIGN=CENTER>
+<applet CODE=Coalescence WIDTH=700 HEIGHT=600>
+<param NAME="Nu" VALUE=100>
+<param NAME="Nd" VALUE=100>
+<param NAME="Ns" VALUE=30>
+<param NAME="Nu~" VALUE=50>
+<param NAME="Nd~" VALUE=50>
+<param NAME="Ns~" VALUE=15>
+<param NAME="Cqq" VALUE="0.25">
+<param NAME="Cqs" VALUE="0.20">
+<param NAME="Css" VALUE="0.16">
+<param NAME="Cqqq" VALUE="0.18">
+<param NAME="Cqqs" VALUE="0.13">
+<param NAME="Cqsq" VALUE="0.22">
+<param NAME="Cqss" VALUE="0.12">
+<param NAME="Cssq" VALUE="0.23">
+<param NAME="Csss" VALUE="0.12">
+<strong>(YOU CANNOT SEE A JAVA APPLET HERE)</strong><br>
+</applet>
+</p>
+
+<p ALIGN=CENTER>
+Source:
+<a HREF="Coalescence.java">Coalescence.java</a>,
+<a HREF="TimeevolCanvas.java">TimeevolCanvas.java</a>
+</p>
+
+This applet does the same as <a HREF="rndcoalescence.html">RndCoalescence</a>
+but now all the particle numbers are changed at each time step with numbers
+proportional to the weights of the coalescence processes they participate in.
+The main difference is that there is no random noise now, the simulation
+is deterministic.
+
+</body>
+</html>

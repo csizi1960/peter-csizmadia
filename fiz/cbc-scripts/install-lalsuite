@@ -1,0 +1,744 @@
+#!/bin/bash -e
+# install-lalsuite - 2009.04.12 - Peter Csizmadia
+# Builds and installs LAL, LALApps, Glue, pyLAL etc.
+# This script is based on the following docs:
+# https://www.lsc-group.phys.uwm.edu/daswg/docs/howto/lscsoft-install.html
+# https://www.lsc-group.phys.uwm.edu/daswg/docs/howto/lal-install.html
+# https://www.lsc-group.phys.uwm.edu/daswg/projects/glue.html
+# https://www.lsc-group.phys.uwm.edu/daswg/projects/pylal.html
+
+###########################################################################
+################################# Settings ################################
+###########################################################################
+
+# Separation of installed software. To install programs into the standard
+# non-lsc, metaio, libframe, glue, lal, lalapps and pylal subdirectories
+# of $LSCSOFT_PREFIX, use lscsoft_separation="y".
+# To install them into the common $LSCSOFT_PREFIX/bin, $LSCSOFT_PREFIX/lib
+# etc. directories, use lscsoft_separation="n".
+lscsoft_separation="y"
+
+# Relative location of Python packages
+pythonlib_postfix="/lib/python2.4/site-packages"
+
+# Non-LSC software
+LSCSOFT_SRCURL="http://www.lsc-group.phys.uwm.edu/daswg/download/software/source"
+pkgconfig="" # do not build pkgconfig
+#pkgconfig="pkgconfig-0.15.0.tar.gz"
+fftw="" # do not build FFTW
+#fftw="fftw-3.1.2.tar.gz"
+gsl="" # do not build GSL
+#gsl="gsl-1.9.tar.gz"
+libframe="" # do not build libframe
+#libframe="libframe-6.24-8.tar.gz"
+#metaio="" # do not build MetaIO
+metaio="8.2" # use MetaIO 8.2
+#metaio="7.2" # use MetaIO 7.2
+#metaio="HEAD" # build the CVS version
+glue="" # get it from CVS
+#glue="glue-1.18.tar.gz"
+lscsoft_user_env="lscsoft-user-env-1.13.tar.gz"
+
+default_options[1]="opt/lscsoft-grb070923_20090403 s5_exttrig_20090220 pylal=s5_exttrig_grb070923_20090403 metaio=7.2"
+default_options[2]="opt/lscsoft-s5_followup_20090325 s5_followup_20090325 metaio=8.2"
+
+# The following defaults are commented out because the Git version of such old
+# tags differ from their CVS versions. Use install-lalsuite-cvs to install them.
+#default_options[2]="opt/lscsoft-lowcbc s5_2yr_lv_lowcbc_20081009 metaio=7.2"
+#default_options[3]="opt/lscsoft-lowcbc20081207 s5_2yr_lv_lowcbc_20081207 metaio=8.2"
+
+# libframe and metaio configure requires the --without-matlab option at
+# ldas-grid.ligo-la.caltech.edu, otherwise it fails with
+# "configure: error: can not determine Matlab version number"
+configMatlab="--without-matlab"
+
+# See
+# https://www.lsc-group.phys.uwm.edu/daswg/projects/lal.html
+CVSROOT=:pserver:anonymous@gravity.phys.uwm.edu:2402/usr/local/cvs/lscsoft
+export CVSROOT
+
+###########################################################################
+########################## Utility functions ##############################
+###########################################################################
+
+run() { # runs a command and logs its output
+	pkg=$1; shift
+	what=$1; shift
+	logfile="${pkg}.${what}.log"
+	t0_run=`date +%s`
+	echo -n "$pkg: $what "
+	if /bin/sh -vc "$*" >& "$build_dir/$logfile"; then
+		retcode=0
+	else
+		retcode=$?
+		echo -n "FAILED "
+	fi
+	t1_run=`date +%s`
+	dt=`sh -c "expr $t1_run - $t0_run; exit 0"`
+	minutes=`sh -c "expr $dt / 60; exit 0"`
+	secs=`sh -c "expr $dt - 60 '*' $minutes; exit 0"`
+	printf "[%d:%02d]\n" $minutes $secs
+	if [ "$retcode" != "0" ]; then
+		echo "tail -13 $build_dir/$logfile"
+		tail -13 "$build_dir/$logfile"
+		exit 1
+	fi
+}
+
+test_rebuild() { # Tests whether a software directory exists and asks the
+                 # the user whether to rebuild it
+	rebuild="y"
+	if [ -d "$build_dir/$1" ]; then
+		echo -n "$1: directory exists. "
+		rebuild=""
+		while [ "$rebuild" != "y" -a "$rebuild" != "n" ]; do
+			echo -n "Rebuild [y/n/?] "
+			read rebuild
+		done
+	fi
+}
+
+is_version_number() {
+	echo $1 | egrep '^[0-9]+(\.[0-9]+)*[a-zA-Z0-9]*(-[0-9])*$' >/dev/null
+}
+
+is_defined_in_config_log() {
+	w=`grep "^$1=" config.log |sed "s/$1=//"`
+	[ -n "$w" -a "$w" != "''" -a "$w" != '""' ];
+}
+
+print_log_info() {
+	pkg=$1
+	echo "$pkg: >>> $build_dir/$pkg.*.log"
+}
+
+xnonlsc() { # Downloads non-LSC software, extracts it and sets the swdir
+	    # environment variable to the name of the new subdirectory.
+	pkg=$1; shift
+	echo "$pkg: cd $build_dir"
+	cd "$build_dir"
+	if [ ! -f "$1" ]; then
+		if [ "$getcmd" = "curl" ]; then
+			echo "$pkg: curl $LSCSOFT_SRCURL/$1 >$1"
+			curl "$LSCSOFT_SRCURL/$1" >$1
+			if [ "`file $1|sed 's/.*: //;s/HTML .*$/HTML/'`" = "HTML" ]
+			then
+				if grep 'title.*404' $1 >/dev/null; then
+					echo $LSCSOFT_SRCURL/$1 not found
+					exit 1
+				fi
+			fi
+		elif [ "$getcmd" = "wget" ]; then
+			echo "$pkg: wget $LSCSOFT_SRCURL/$1"
+			wget "$LSCSOFT_SRCURL/$1"
+		else
+			echo "neither curl nor wget found" >&2
+			exit 1
+		fi
+	fi
+	swdir=`tar tf "$1" | sort | head -1 | sed 's/\/$//'`
+	if [ "$2" = "force" ]; then
+		echo "$pkg: rm -rf $swdir; tar xzf $1"
+		rm -rf $swdir; tar xzf $1
+		rebuild="y"
+		echo "$pkg: cd $swdir"
+		cd $swdir
+		print_log_info $pkg
+	else
+		test_rebuild $swdir
+		if [ "$rebuild" = "y" ]; then
+			echo "$pkg: rm -rf $swdir; tar xzf $1"
+			rm -rf $swdir; tar xzf $1
+			echo "$pkg: cd $swdir"
+			cd $swdir
+			print_log_info $pkg
+		elif [ "$target_was_clean" = "y" ]; then
+			# make install needed
+			print_log_info $pkg
+		fi
+	fi
+}
+
+checkout() { # Checks out LSC software from CVS
+	pkg=$1; shift
+	outdir=$1
+	if [ -n "$3" ]; then
+		outdir=$3
+	fi
+	if [ -d "$outdir" ]; then
+		echo "$pkg: rm -rf $outdir"
+		rm -rf "$outdir"
+	fi
+	print_log_info $pkg
+	if [ "$outdir" = "$1" ]; then
+		run "$pkg" "checkout" "CVSROOT=$CVSROOT cvs co -r $2 -P $1"
+	else
+		run "$pkg" "checkout" "CVSROOT=$CVSROOT cvs co -r $2 -P -d $outdir $1"
+	fi
+}
+
+skipped_logs() {
+	pkg=$1
+	shift
+	w=""
+	for i in $@; do
+		if [ -z "$w" ]; then
+			w=$i
+		else
+			w="$w $i"
+		fi
+	done
+	echo $w
+}
+
+missing_init_py_workaround() {
+	if [ -d "$2" -a ! -f "$2/__init__.py" ]; then
+		# This file is missing in lalapps rev. s5_exttrig_20081003.
+		# (--> pylal_grbsummary cannot find lalapps module)
+		echo "$1: touch $2/__init__.py"
+		touch "$2/__init__.py"
+	fi
+}
+
+###########################################################################
+################### Parse command line arguments ##########################
+###########################################################################
+
+target_dir=""
+release=""
+pylal_release=""
+for arg in $@; do
+	if echo $arg | grep '^libframe=' > /dev/null; then
+		libframe=`echo $arg | sed 's/^libframe=//'`
+	elif echo $arg | grep '^metaio=' > /dev/null; then
+		metaio=`echo $arg | sed 's/^metaio=//'`
+	elif echo $arg | grep '^pylal=' > /dev/null; then
+		pylal_release=`echo $arg | sed 's/^pylal=//'`
+	else
+		if [ -z "$target_dir" ]; then
+			target_dir=$arg
+		else
+			if [ -n "$release" ]; then
+				echo "$release or $arg?"
+				exit 1
+			fi
+			release="$arg"
+		fi
+	fi
+done
+if is_version_number $libframe; then
+	libframe="libframe-$libframe.tar.gz"
+fi
+if is_version_number $metaio; then
+	metaio="metaio-$metaio.tar.gz"
+fi
+
+###########################################################################
+################ Print help if no argument specified ######################
+###########################################################################
+
+if [ -z "$1" ]; then
+	# Defaults:
+	cat <<EOF
+Usage: install-lalsuite DIR TAG [options]
+    DIR              - installation path (absolute or relative to \$HOME)
+    TAG              - the Git tag to use
+Options:
+    pylal=TAG2       - pyLAL version to build (default: TAG2=TAG)
+EOF
+	if [ -n "$metaio" ]; then
+		cat <<EOF
+    metaio=VERSION   - MetaIO version to build (default: $metaio)
+EOF
+	else
+		cat <<EOF
+    metaio=VERSION   - MetaIO version to build
+EOF
+	fi
+	if [ -n "$libframe" ]; then
+		cat <<EOF
+    libframe=VERSION - libFrame version to build (default: $libframe)
+EOF
+	else
+		cat <<EOF
+    libframe=VERSION - libFrame version to build
+EOF
+	fi
+	cat <<EOF
+where VERSION is either the version number or the tar file name, e.g.
+metaio=7.2 is equivalent to metaio=metaio-7.2.tar.gz and
+libframe=6.24-8 is equivalent to libframe=libframe-6.24-8.tar.gz.
+
+See the tag(s) to use for various searches at
+https://www.lsc-group.phys.uwm.edu/ligovirgo/cbcnote/JointS5
+
+Do you want to start the build with default options?
+EOF
+	for i in ${!default_options[@]}; do
+		echo "[$i] install-lalsuite ${default_options[$i]}"
+	done
+	echo -n "Start ["
+	for i in ${!default_options[@]}; do
+		echo -n "$i/"
+	done
+	echo -n "n/?] "
+	read answer
+	for i in ${!default_options[@]}; do
+		if [ "$answer" = "$i" ]; then
+			exec $0 ${default_options[$i]}
+		fi
+	done
+	exit 0
+fi
+
+if [ -z "$target_dir" ]; then
+	echo "install directory not specified" >&2
+	exit 1
+fi
+if [ -z "$release" ]; then
+	echo "tag not specified" >&2
+	exit 1
+fi
+if [ -z "$pylal_release" ]; then pylal_release=$release; fi
+
+if [ -z "$USER" ]; then
+	echo "\$USER environment variable is not set"
+	exit 1
+fi
+
+###########################################################################
+###################### Set environment variables ##########################
+###########################################################################
+
+target_dir=`echo $target_dir | sed "s:^$HOME/::"`
+
+# Build directory
+if [ -n "$LSCSOFT_BUILDDIR" ]; then
+	build_dir=$LSCSOFT_BUILDDIR
+else
+	for w in /local/$USER /usr1/$USER /people/$USER; do
+		if [ -d $w ]; then
+			LSCSOFT_BUILDDIR="$w/lscbuild"
+			break;
+		fi
+	done
+	if [ -z "$LSCSOFT_BUILDDIR" ]; then
+		LSCSOFT_BUILDDIR="$HOME/src/lscbuild"
+	fi
+	cat <<EOF
+LSCSOFT_BUILDDIR=$LSCSOFT_BUILDDIR is assumed.
+To get rid of the following question, you can set and export this variable
+in your .profile (or whatever).
+EOF
+	echo -n "Build directory [$LSCSOFT_BUILDDIR]: "
+	read build_dir
+	if [ -z "$build_dir" ]; then
+		build_dir=$LSCSOFT_BUILDDIR
+	fi
+fi
+
+if ! echo $target_dir|grep '^/' >/dev/null; then
+	LSCSOFT_PREFIX="$HOME/$target_dir"
+else
+	LSCSOFT_PREFIX="$target_dir"
+fi
+if [ "$lscsoft_separation" = "y" ]; then
+	nonlsc_postfix="/non-lsc"
+	libframe_postfix="/libframe"
+	metaio_postfix="/libmetaio"
+	glue_postfix="/glue"
+	lal_postfix="/lal"
+	lalapps_postfix="/lalapps"
+	pylal_postfix="/pylal"
+else
+	nonlsc_postfix=""
+	libframe_postfix=""
+	metaio_postfix=""
+	glue_postfix=""
+	lal_postfix=""
+	lalapps_postfix=""
+	pylal_postfix=""
+fi
+nonlsc_prefix="${LSCSOFT_PREFIX}${nonlsc_postfix}"
+libframe_prefix="${LSCSOFT_PREFIX}${libframe_postfix}"
+metaio_prefix="${LSCSOFT_PREFIX}${metaio_postfix}"
+glue_prefix="${LSCSOFT_PREFIX}${glue_postfix}"
+lal_prefix="${LSCSOFT_PREFIX}${lal_postfix}"
+lalapps_prefix="${LSCSOFT_PREFIX}${lalapps_postfix}"
+pylal_prefix="${LSCSOFT_PREFIX}${pylal_postfix}"
+
+if sh -c "curl --version 2>/dev/null|grep '^curl '" >/dev/null 2>/dev/null; then
+	getcmd="curl"
+elif sh -c "wget --version" >/dev/null 2>/dev/null; then
+	getcmd="wget"
+else
+	echo "neither curl nor wget found" >&2
+	exit 1
+fi
+
+export GIT_SSH="gsissh"
+
+###########################################################################
+############################## Cleanup ####################################
+###########################################################################
+
+cd $HOME
+
+if [ -d "$build_dir" ]; then
+	if [ `/bin/ls -1 $build_dir | wc -l` != 0 ]; then
+		cat <<EOF
+$build_dir: Build directory is not empty.
+If you continue an interrupted build, then you need its contents.
+If this is a new build and you do not want to answer further questions
+during the build process, then it is recommended to delete the directory.
+EOF
+		answer=""
+		while [ "$answer" != "y" -a "$answer" != "n" ]; do
+			echo -n "Delete [y/n/?] "
+			read answer
+		done
+		if [ "$answer" = "y" ]; then
+			echo "rm -rf $build_dir"
+			rm -rf "$build_dir"
+		fi
+		echo
+	fi
+fi
+
+target_was_clean="y"
+if [ -d "$LSCSOFT_PREFIX" ]; then
+	if [ `/bin/ls -1 $LSCSOFT_PREFIX | wc -l` != 0 ]; then
+		target_was_clean="n"
+		cat <<EOF
+$LSCSOFT_PREFIX: Install directory is not empty.
+It is recommended to delete old installations before starting a new build.
+EOF
+		answer=""
+		while [ "$answer" != "y" -a "$answer" != "n" ]; do
+			echo -n "Delete [y/n/?] "
+			read answer
+		done
+		if [ "$answer" = "y" ]; then
+			echo "rm -rf $LSCSOFT_PREFIX"
+			rm -rf "$LSCSOFT_PREFIX"
+			target_was_clean="y"
+		fi
+		echo
+	fi
+fi
+
+###########################################################################
+########################## Check out lalsuite first #######################
+###########################################################################
+
+mkdir -p "$build_dir"
+cd "$build_dir"
+test_rebuild lalsuite
+lalsuite_checked_out_now="n"
+if [ "$rebuild" = "y" ]; then
+	cd "$build_dir"
+	if [ -z "$LIGO_USERNAME" ]; then
+		cat <<EOF
+LIGO_USERNAME variable is not set. To get rid of the following question, you
+should set and export it in your .profile (or whatever).
+EOF
+	fi
+	while [ -z "$LIGO_USERNAME" ]; do
+		echo -n "Enter your LIGO username: "
+		read LIGO_USERNAME
+	done
+	if [ -d lalsuite ]; then
+		echo "rm -rf lalsuite"
+		rm -rf lalsuite
+	fi
+	w="git clone git+ssh://$LIGO_USERNAME@ligo-vcs.phys.uwm.edu/usr/local/git/lalsuite.git lalsuite"
+	echo "git: $w"; $w || exit 1
+	echo "git: cd lalsuite"; cd lalsuite || exit 1
+	if [ "$pylal_release" != "$release" ]; then
+		echo "git: cp -pr . ../lalsuite_pylal"
+		cp -pr . ../lalsuite_pylal || exit 1
+	fi
+	echo "git: git checkout -b $release $release"
+	git checkout -b $release $release || exit 1
+	if [ "$pylal_release" != "$release" ]; then
+		echo "git: cd ../lalsuite_pylal"
+		cd ../lalsuite_pylal || exit 1
+		echo "git: git checkout -b $pylal_release $pylal_release"
+		git checkout -b $pylal_release $pylal_release || exit 1
+	fi
+	echo "git: cd .."; cd ..
+	lalsuite_checked_out_now="y"
+fi
+
+###########################################################################
+###################### Build required libraries ###########################
+###########################################################################
+
+t0_build=`date +%s`
+
+cat <<EOF >$build_dir/build.env
+export PATH="$LSCSOFT_PREFIX/bin:$nonlsc_prefix/bin:$libframe_prefix/bin:$metaio_prefix/bin:$lal_prefix/bin:$lalapps_prefix/bin:$glue_prefix/bin:\$PATH"
+
+export LD_LIBRARY_PATH="$LSCSOFT_PREFIX/lib:$nonlsc_prefix/lib:$libframe_prefix/lib:$metaio_prefix/lib:$lal_prefix/bin:\$LD_LIBRARY_PATH"
+
+export PYTHONPATH="$lalapps_prefix$pythonlib_postfix:$glue_prefix$pythonlib_postfix:\$PYTHONPATH"
+
+export PKG_CONFIG_PATH="$LSCSOFT_PREFIX/lib/pkgconfig:$nonlsc_prefix/lib/pkgconfig:$libframe_prefix/lib/pkgconfig:$metaio_prefix/lib/pkgconfig:$lal_prefix/lib/pkgconfig:$lalapps_prefix/lib/pkgconfig:\$PKG_CONFIG_PATH"
+EOF
+
+cat <<EOF
+. $build_dir/build.env
+
+EOF
+. $build_dir/build.env
+
+if [ -n "$pkgconfig" ]; then
+	xnonlsc "pkgconfig" $pkgconfig
+	if [ "$rebuild" = "y" ]; then
+		run "pkgconfig" "configure" ./configure --prefix=$nonlsc_prefix
+		run "pkgconfig" "make" make
+		run "pkgconfig" "install" make install
+	elif [ "$target_was_clean" = "y" ]; then
+		run "pkgconfig" "install" make install
+	fi
+fi
+if [ -n "$fftw" ]; then
+	if [ "$target_was_clean" = "y" ]; then
+		xnonlsc "fftw" $fftw force
+	else
+		xnonlsc "fftw" $fftw
+	fi
+	if [ "$rebuild" = "y" ]; then
+		run "fftw-f" "configure" ./configure --prefix=$nonlsc_prefix --enable-shared --enable-float --disable-fortran
+		run "fftw-f" "make" make
+		run "fftw-f" "install" make install
+		run "fftw" "configure" ./configure --prefix=$nonlsc_prefix --enable-shared --disable-fortran
+		run "fftw" "make" make
+		run "fftw" "install" make install
+	fi
+fi
+if [ -n "$gsl" ]; then
+	xnonlsc "gsl" $gsl
+	if [ "$rebuild" = "y" ]; then
+		run "gsl" "configure" ./configure --prefix=$nonlsc_prefix
+		run "gsl" "make" make
+		run "gsl" "install" make install
+	elif [ "$target_was_clean" = "y" ]; then
+		run "gsl" "install" make install
+	fi
+fi
+if [ -n "$libframe" ]; then
+	xnonlsc "libframe" $libframe
+	if [ "$rebuild" = "y" ]; then
+		run "libframe" "configure" ./configure --prefix=$libframe_prefix --disable-octave --disable-python $configMatlab
+		run "libframe" "make" make
+		run "libframe" "install" make install
+	elif [ "$target_was_clean" = "y" ]; then
+		run "libframe" "install" make install
+	fi
+fi
+if [ -n "$metaio" ]; then
+	rebuild="n"
+	if echo $metaio|grep '\.tar\.gz$' >/dev/null; then
+		# build from tar.gz
+		xnonlsc "metaio" $metaio
+	else
+		# build from CVS
+		test_rebuild metaio
+		if [ "$rebuild" = "y" ]; then
+			cd "$build_dir"
+			checkout "metaio" metaio $metaio
+			cd "$build_dir/metaio"
+			run "metaio" "00boot" ./00boot
+		fi
+	fi
+	if [ "$rebuild" = "y" ]; then
+		cppflags_save=$CPPFLAGS
+		if [ "`echo $metaio|sed 's/^metaio-//;s/\..*//'`" = "7" ]; then
+			# MetaIO 7 must be compiled in C99 compatibility mode,
+			# otherwise it would be unable to use zlib.
+			export CPPFLAGS="-std=c99"
+		fi
+		run "metaio" "configure" ./configure --prefix=$metaio_prefix $configMatlab
+		CPPFLAGS=$cppflags_save
+		run "metaio" "make" make
+		run "metaio" "install" make install
+	elif [ "$target_was_clean" = "y" ]; then
+		run "metaio" "install" make install
+	fi
+fi
+if [ -n "$glue" ]; then
+	xnonlsc "glue" $glue
+	if [ "$rebuild" = "y" -o "$target_was_clean" = "y" ]; then
+		run "glue" "install" python setup.py install --prefix=$glue_prefix
+	fi
+	source "$glue_prefix/etc/glue-user-env.sh"
+fi
+
+if [ "$lscsoft_separation" = "y" ]; then
+	xnonlsc "lscsoft-user-env" $lscsoft_user_env
+	if [ "$rebuild" = "y" ]; then
+		run "lscsoft-user-env" "configure" ./configure --prefix=$LSCSOFT_PREFIX
+		run "lscsoft-user-env" "make" make
+		run "lscsoft-user-env" "install" make install
+	elif [ "$target_was_clean" = "y" ]; then
+		run "lscsoft-user-env" "install" make install
+	fi
+	source $LSCSOFT_PREFIX/lscsoft-user-env.sh
+fi
+
+###########################################################################
+#################### Build lal, lalapps, glue and pylal ###################
+###########################################################################
+
+[ "$lalsuite_checked_out_now" = "n" ] && test_rebuild lalsuite/lal
+if [ "$lalsuite_checked_out_now" = "y" -o "$rebuild" = "y" ]; then
+	cd "$build_dir/lalsuite/lal"
+	print_log_info "lal"
+	run "lal" "00boot" ./00boot
+	run "lal" "configure" ./configure --prefix=$lal_prefix
+	if ! is_defined_in_config_log FRAME_LIBS; then
+		cat <<EOF 2>&1
+libframe installation not found.
+Please rerun the script with libframe build enabled.
+EOF
+		exit 1
+	fi
+	run "lal" "make" make
+	run "lal" "install" make install
+elif [ "$target_was_clean" = "y" ]; then
+	cd "$build_dir/lalsuite/lal"
+	print_log_info "lal"
+	run "lal" "install" make install
+fi
+source "$lal_prefix/etc/lal-user-env.sh"
+
+[ "$lalsuite_checked_out_now" = "n" ] && test_rebuild lalsuite/lalapps
+if [ "$lalsuite_checked_out_now" = "y" -o "$rebuild" = "y" ]; then
+	cd "$build_dir/lalsuite/lalapps"
+	print_log_info "lalapps"
+	run "lalapps" "00boot" ./00boot
+	run "lalapps" "configure" ./configure --prefix=$lalapps_prefix --enable-condor
+	run "lalapps" "make" make
+	run "lalapps" "install" make install
+	missing_init_py_workaround "lalapps" $lalapps_prefix$pythonlib_postfix/lalapps
+elif [ "$target_was_clean" = "y" ]; then
+	cd "$build_dir/lalsuite/lalapps"
+	print_log_info "lalapps"
+	run "lalapps" "install" make install
+	missing_init_py_workaround "lalapps" $lalapps_prefix$pythonlib_postfix/lalapps
+fi
+source "$lalapps_prefix/etc/lalapps-user-env.sh"
+
+[ "$lalsuite_checked_out_now" = "n" ] && test_rebuild lalsuite/glue
+if [ "$lalsuite_checked_out_now" = "y" -o "$rebuild" = "y" -o "$target_was_clean" = "y" ]; then
+	cd "$build_dir/lalsuite/glue"
+	print_log_info "glue"
+	run "glue" "install" python setup.py install --prefix=$glue_prefix
+fi
+source "$glue_prefix/etc/glue-user-env.sh"
+
+if [ "$pylal_release" = "$release" ]; then
+	pylal_subdir="lalsuite/pylal"
+else
+	pylal_subdir="lalsuite_pylal/pylal"
+fi
+[ "$lalsuite_checked_out_now" = "n" ] && test_rebuild $pylal_subdir
+if [ "$lalsuite_checked_out_now" = "y" -o "$rebuild" = "y" -o "$target_was_clean" = "y" ]; then
+	cd "$build_dir/$pylal_subdir"
+	print_log_info "pylal"
+	run "pylal" "install" python setup.py install --prefix=$pylal_prefix
+fi
+
+###########################################################################
+#### Create lscsoft-user-env.sh in case of non-standard installation ######
+###########################################################################
+
+if [ "$lscsoft_separation" = "n" ]; then
+	cat >$LSCSOFT_PREFIX/lscsoft-user-env.sh <<EOF
+LSCSOFT_PREFIX="$LSCSOFT_PREFIX"
+PATH="\$LSCSOFT_PREFIX/bin:\$PATH"
+MANPATH="\$LSCSOFT_PREFIX/man:\$LSCSOFT_PREFIX/share/man:\$MANPATH"
+LD_LIBRARY_PATH="\$LSCSOFT_PREFIX/lib:\$LD_LIBRARY_PATH"
+PYTHONPATH="\$LSCSOFT_PREFIX$pythonlib_postfix:\$PYTHONPATH"
+PKG_CONFIG_PATH="\$LSCSOFT_PREFIX/lib/pkgconfig:\$PKG_CONFIG_PATH"
+export PATH MANPATH LD_LIBRARY_PATH PYTHONPATH PKG_CONFIG_PATH
+LAL_LOCATION=\$LSCSOFT_PREFIX
+LAL_PREFIX=\$LSCSOFT_PREFIX
+LALAPPS_LOCATION=\$LSCSOFT_PREFIX
+LALAPPS_PREFIX=\$LSCSOFT_PREFIX
+GLUE_LOCATION=\$LSCSOFT_PREFIX
+GLUE_PREFIX=\$LSCSOFT_PREFIX
+PYLAL_LOCATION=\$LSCSOFT_PREFIX
+PYLAL_PREFIX=\$LSCSOFT_PREFIX
+EOF
+fi
+
+###########################################################################
+############# Print instructions about .profile configuration #############
+###########################################################################
+
+t1_build=`date +%s`
+dt=`sh -c "expr $t1_build - $t0_build; exit 0"`
+hours=`sh -c "expr $dt / 3600; exit 0"`
+dt2=`sh -c "expr $dt - 3600 '*' $hours; exit 0"`
+minutes=`sh -c "expr $dt2 / 60; exit 0"`
+secs=`sh -c "expr $dt2 - 60 '*' $minutes; exit 0"`
+printf "done [%d:%02d:%02d]\n" $hours $minutes $secs
+cat <<EOF
+
+Clean up the build directory $build_dir?
+It wastes space. However, if you want to examine build logs or rebuild some
+packages later, then you should not delete it.
+EOF
+answer=""
+while [ "$answer" != "y" -a "$answer" != "n" ]; do
+	echo -n "Delete [y/n/?] "
+	read answer
+done
+if [ "$answer" = "y" ]; then
+	cd $HOME
+	echo rm -rf $build_dir
+	rm -rf $build_dir
+fi
+
+profiles=""
+for f in .profile .bash_profile .zprofile; do
+	if [ -f "$HOME/$f" ]; then
+		if [ -z "$profiles" ]; then
+			profiles="$f"
+		else
+			profiles="$profiles $f"
+		fi
+	fi
+done
+if ! echo $target_dir|grep '^/' >/dev/null; then
+	if [ -n "$profiles" ]; then
+		cat <<EOF
+
+Please insert the following lines into your shell initialization files
+($profiles):
+LSCSOFT_PREFIX=\$HOME/$target_dir
+. \$LSCSOFT_PREFIX/lscsoft-user-env.sh
+. \$LSCSOFT_PREFIX$pylal_postfix/etc/pylal-user-env.sh
+EOF
+	else
+		cat <<EOF >$HOME/.profile
+LSCSOFT_PREFIX=\$HOME/$target_dir
+. \$LSCSOFT_PREFIX/lscsoft-user-env.sh
+. \$LSCSOFT_PREFIX$pylal_postfix/etc/pylal-user-env.sh
+EOF
+		cp $HOME/.profile $HOME/.zprofile
+		echo
+		echo Created .profile and .zprofile with the following contents:
+		cat $HOME/.profile
+	fi
+fi
+
+#typeset -U path manpath
+#ld_library_path=(\${(s(:))LD_LIBRARY_PATH}); typeset -U ld_library_path
+#pythonpath=(\${(s(:))PYTHONPATH}); typeset -U pythonpath
+#pkg_config_path=(\${(s(:))PKG_CONFIG_PATH}); typeset -U pkg_config_path
+#export LD_LIBRARY_PATH=\${(j(:))ld_library_path}
+#export PYTHONPATH=\${(j(:))pythonpath}
+#export PKG_CONFIG_PATH=\${(j(:))pkg_config_path}

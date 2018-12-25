@@ -1,0 +1,51 @@
+body {
+	font-family: verdana,arial,helvetica,sans-serif;
+	font-size: 10px;
+	text-align: justify;
+	width: 620px;
+}
+
+img {
+	border: 0px;
+}
+
+div.figR {
+	margin-top: 8px;
+	margin-left: 8px;
+	float: right;
+}
+
+div.figR img {
+	margin-left: 5px;
+	margin-bottom: 4px;
+}
+
+div.figR p {
+	font-size: 80%;
+	text-align: center;
+	margin-top: 0px;
+	margin-bottom: 4px;
+}
+
+div.figL {
+	margin-top: 8px;
+	margin-right: 8px;
+	float: left;
+}
+
+div.figL img {
+	margin-left: 5px;
+	margin-bottom: 4px;
+}
+
+div.figL p {
+	font-size: 80%;
+	text-align: center;
+	margin-top: 0px;
+	margin-bottom: 4px;
+}
+
+.citeindent {
+	text-indent : -20px;
+	padding-left: 20px;
+}

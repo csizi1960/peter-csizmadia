@@ -1,0 +1,49 @@
+# .bashrc
+
+# User specific aliases and functions
+
+function setTermForUnknown() {
+	t=$1
+	shift
+	for i in $*; do
+		if [ "$TERM" = "$i" ]; then
+			TERM=$t
+			return
+		fi
+	done
+}
+setTermForUnknown xterm xterm-debian
+
+if [ "$OSTYPE" = "linux" ]; then
+	alias ls='ls --color'
+fi
+if type less >/dev/null 2>/dev/null; then
+	alias less='less -i' # case insensitive search in less
+	zless() {
+		if [ $? = 0 ]; then
+			if [ "${1##*.gz}" = "" -o "${1##*.Z}" = "" ]; then
+				gzip -cd "$1" | less -i
+			elif [ "${1##*.bz2}" = "" ]; then
+				bzip2 -cd "$1" | less -i
+			else
+				less -i "$@"
+			fi
+		fi
+	}
+fi
+if type vim >/dev/null 2>/dev/null; then
+	alias vi=vim
+	alias v='gvim -R'
+fi
+alias l='ls -ltr'
+alias x='exit'
+case "$BASH_VERSION" in
+1.*)
+	bind TAB:complete
+	;;
+*)
+	bind TAB:menu-complete
+	;;
+esac
+
+PS1='\h\w\$ '

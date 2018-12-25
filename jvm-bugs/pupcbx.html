@@ -1,0 +1,37 @@
+<html>
+<head>
+<title>Popup menu + CheckboxMenuItem bug</title>
+</head>
+<body>
+
+Two Microsoft / Sun bugs are shown in this page.
+If you check &quot;checkme!&quot;, then normally the label should change to
+&quot;uncheckme!&quot;. If you click either &quot;checkme!&quot; or
+&quot;clickme!&quot;, a message like &quot;CheckboxMenuItem (un)checked&quot;
+or &quot;MenuItem clicked&quot; should appear in the applet (replacing
+the text &quot;Right click here!&quot;).
+
+<ol>
+<li>In <strong>Sun Java 1.3-1.3.1, 1.4beta2</strong> (Netscape 6.x, AppletViewer), menu items
+    do not detect events in the top level menu, neither "checkme!" nor
+    "clickme! works. They work only in the submenu.<br>
+    (Note: IBM Java 1.3 do not have this bug)</li>
+<li>In <strong>MS Explorer 5.0</strong> (Microsoft JVM), the state change of a
+    CheckboxMenuItem is not detected in the top level menu.
+    &quot;checkme!&quot; works only in the submenu.
+    </li>
+<li>In <strong>MS Explorer 4.01</strong>, the events are detected,
+    but the label change does not work at all for any MenuItem.
+    </li>
+</ol>
+
+<p ALIGN=CENTER>
+<applet CODE="PopupCheckbox" WIDTH=300 height=50></applet>
+</p>
+
+<p ALIGN=CENTER>
+<a HREF="PopupCheckbox.java">PopupCheckbox.java</a>
+</p>
+
+</body>
+</html>

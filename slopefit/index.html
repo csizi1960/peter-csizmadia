@@ -1,0 +1,127 @@
+<html>
+<head>
+<meta NAME="description" CONTENT="C program for slope parametric fitting.">
+<meta NAME="keywords" CONTENT="fit, slope parameter, slopefit, C, command line, script">
+<title>Slopefit</title>
+</head>
+<body BGCOLOR="#e0e0e0" TEXT="#224400" LINK="#0000FF" VLINK="#9E0061" ALINK="#FFFF00">
+
+<h1 ALIGN=CENTER>Slopefit</h1>
+
+<h2>News</h2>
+
+<ul>
+<li><i>May 27, 2001</i> <b>Slopefit 1.2.3</b>. More than one datafiles can be
+    processed. New options: --mtmin, --mtmax, --ymin, --ymax
+    </li>
+<li><i>April 12, 2001</i> Slopefit 1.2.2.
+    New options: --ptmin and --ptmax
+    </li>
+<li><i>March 1, 2000</i> Slopefit 1.2.1, also available as an RPM package
+    </li>
+<li><i>February 7, 2000</i> Slopefit 1.2<br>
+    Rewrote the program in C++ and implemented 3 new fitting functions:
+    <ul>
+    <li>A*m<sub>T</sub>*sinh(gamma*v*p<sub>T</sub>/T)*T/(gamma*v*p<sub>T</sub>)*exp(-gamma*m<sub>T</sub>/T)</li>
+    <li>Siemens-Rasmussen formula</li>
+    <li>A*mt*K0(gamma*p<sub>T</sub>/T)*I0(gamma*v*p<sub>T</sub>/T)</li>
+    </ul>
+    </li>
+</ul>
+
+<h2>Introduction</h2>
+
+<b>Slopefit</b> is a <a HREF="COPYING.txt">free</a>, <em>fast</em>,
+<em>easily scriptable</em>, <em>command line</em>
+program for fitting functions to particle momentum spectra.
+
+<p>
+
+The transverse momentum distribution of particles created in heavy ion collisions
+can be fitted with the following expression:
+
+<p>
+<table ALIGN=CENTER>
+<tr ALIGN=middle VALIGN=middle>
+<td>d<I>N</I><DIV>----</DIV><I>m</I><SUB>T</SUB>d<I>m</I><SUB>T</SUB></TD>
+<td>=</TD>
+<td><I>A</I></TD>
+<td>(<I>m</I><SUB>T</SUB>/<I>m</I>)<SUP><I>alpha</I></SUP></TD>
+<td>exp(-<I>m</I><SUB>T</SUB>/<I>T</I>)</TD>
+</TR>
+</table>
+
+where <I>A</I>, <I>alpha</I> and <I>T</I> are the fitted parameters.
+<I>T</I> is a temperature-like quantity, called the <I>inverse slope parameter</I>.
+
+<p>
+
+Slopefit fits three parameters by default, but you can fix
+<I>alpha</I> or <I>T</I> with the command line options <B>-a</B>
+and <B>-t</B>. The format of the input datafile can be specified with the
+<B>-F</B> option, but the program recognizes some predefined formats also
+from the extension of the input file.
+The input file may contain the standard deviations <I>s</I> of the
+data (last column). In that case, the standard deviations of the fitted
+parameters will be correct.
+If there is a <I>y</I> (rapidity) column (first column) in the input
+file, the program fits the data independently for each <I>y</I> value.
+You can get detailed help by typing "<code>slopefit -h</code>".
+
+<h3>Example</h3>
+
+<p>
+The data file <A HREF="alcor1.txt"><code>alcor1.txt</code></A>
+contains kaon momentum distribution from a Monte Carlo simulation,
+and it is in <code>.ymtm</code> format.
+It means that its columns are: <I>y</I>, <I>m</I><SUB>T</SUB>-<I>m</I>,
+d<I>N</I>/<I>m</I><SUB>T</SUB>d<I>m</I><SUB>T</SUB>, <I>s</I>.
+<br>The switch <code>-v</code> means verbose mode,
+option <code>-m 0.4936</code>
+specifies the kaon mass, and <code>.ymtm</code> is needed because the suffix
+of <code>alcor1.txt</code> is not <code>.ymtm</code>.
+
+<p>
+<blockquote><pre>
+dali~/Doc/9705.data/0.16-0.72/outgoing% <font COLOR="#222288">slopefit -vm 0.4936 alcor1.txt .ymtm</font>
+# m=0.493600
+# y     T       alpha   A       s_T     s_alpha s_A     N       chi^2   z
+0.000   0.32402 -1.0720 915.849 8.5e-03 7.3e-02 3.2e+01 30      25.9    -0.058
+0.250   0.33568 -1.1803 870.670 6.6e-03 5.3e-02 2.2e+01 30      30.5    +0.545
+0.500   0.31930 -1.0022 900.806 6.0e-03 5.3e-02 2.3e+01 30      25.0    -0.192
+0.750   0.31825 -0.9738 840.232 6.1e-03 5.4e-02 2.2e+01 30      24.5    -0.255
+1.000   0.31349 -0.8453 744.147 6.1e-03 5.6e-02 2.0e+01 30      25.7    -0.087
+1.250   0.32357 -0.8337 552.138 7.0e-03 6.2e-02 1.6e+01 30      31.3    +0.651
+1.500   0.33701 -0.9689 360.404 9.3e-03 7.5e-02 1.2e+01 30      29.2    +0.377
+1.750   0.31747 -0.9969 227.319 1.2e-02 1.1e-01 1.1e+01 30      34.9    +1.077
+2.000   0.28832 -1.2629 129.133 1.7e-02 1.8e-01 1.2e+01 30      16.4    -1.598
+...
+</pre></blockquote>
+The output columns <code>s_T</code>, <code>s_alpha</code>, <code>s_A</code>
+are the standard deviations of the fitted parameters,
+<code>N</code> is the number of data points 
+and <code>z</code> is the Gaussian corresponding to the <I>chi-square</I>.
+
+<h2>Downloads</h2>
+
+<table CELLSPACING=10 CELLPADDING=0 BORDER=0>
+<tr><td>Source</td>
+    <td><a HREF="slopefit-1.2.3.tar.gz">slopefit-1.2.3.tar.gz</a></td></tr>
+<tr><td>Binary RPM for Linux/glibc-2.2 (RedHat 7)</td>
+    <td><a HREF="slopefit-1.2.3-0.i386.rpm">slopefit-1.2.3-0.i386.rpm</a></td>
+    </tr>
+<tr><td>RPM source</td>
+    <td><a HREF="slopefit-1.2.3-0.src.rpm">slopefit-1.2.3-0.src.rpm</a></td>
+    </tr>
+</table>
+
+<p>
+
+<hr WIDTH="90%">
+
+<p ALIGN=CENTER><font SIZE=-2>
+&copy; 1998-2001 <a HREF="http://www.kfki.hu/~cspeter/">Peter Csizmadia</a>
+</font></p>
+
+</body>
+</html>

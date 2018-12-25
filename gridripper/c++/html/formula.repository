@@ -1,0 +1,146 @@
+\form#0:$\vartheta\in[0,\pi]$
+\form#1:$\varphi\in[0,2\pi[$
+\form#2:$Y_{l}^{m}(\vartheta,\varphi):= \sqrt{\frac{2l+1}{4\pi}} \sqrt{\frac{(l-m)!}{(l+m)!}} P_{l}^{m}(\cos(\vartheta)) \mathrm{e}^{\mathrm{i}m\varphi}$
+\form#3:$l\in\mathbf{N}_{0}$
+\form#4:$m\in\{-l,\dots,l\}$
+\form#5:$P_{l}^{m}:= \frac{(-1)^{(|m|+m)/2}}{2^{l}l!} \frac{(l+(m-|m|)/2)!}{(l-(m-|m|)/2)!} (1-\mathrm{id}^2)^{|m|/2} ((\mathrm{id}^2-1)^{l})^{(l+|m|)}$
+\form#6:$\mathrm{id}$
+\form#7:$[-1,1]$
+\form#8:$\vartheta$
+\form#9:$\varphi$
+\form#10:$Y_{l}^{m}=(-\mathrm{i})^{m}{Y_{{}_{\mathrm{Maple}}}}_{l}^{m}$
+\form#11:$Yre_{l}^{m} := \frac{1}{\sqrt{2}} (Y_{l}^{m} + (-1)^{m} Y_{l}^{-m})$
+\form#12:$m>0$
+\form#13:$Yre_{l}^{m} := Y_{l}^{m}$
+\form#14:$m=0$
+\form#15:$Yre_{l}^{m} := \frac{1}{\mathrm{i}\sqrt{2}} (Y_{l}^{|m|} - (-1)^{|m|} Y_{l}^{-|m|})$
+\form#16:$m<0$
+\form#17:$ \int_{0}^{\pi}\int_{0}^{2\pi} Y_{l_1}^{m_1}(\vartheta, \varphi) Y_{l_2}^{m_2}(\vartheta, \varphi) Y_{l_3}^{m_3}(\vartheta, \varphi) \;\sin(\vartheta)\mathrm{d}\vartheta\,\mathrm{d}\varphi $
+\form#18:$l_1\geq 0$
+\form#19:$l_2\geq 0$
+\form#20:$l_3\geq 0$
+\form#21:$|m_1|\leq l_1$
+\form#22:$|m_2|\leq l_2$
+\form#23:$|m_3|\leq l_3$
+\form#24:$|l_1-l_2|\leq l_3$
+\form#25:$l_3\leq l_1+l_2$
+\form#26:$m_1+m_2+m_3=0$
+\form#27:$(l_1+l_2+l_3)\%2=0$
+\form#28:$|m2|\leq l_2$
+\form#29:$\{m_1, m_2, m_3\}$
+\form#30:$m_1-m_2+m_3=0$
+\form#31:$\int_{0}^{2\pi}\int_{0}^{\pi} Y_{l}^{1}(\vartheta, \varphi) \exp(-\mathrm{i}\varphi) \sin(\vartheta)\;\mathrm{d}\vartheta\,\mathrm{d}\varphi$
+\form#32:$\int_{-1}^{1} P^{1}_{l}(x) \;\mathrm{d}x = \frac{(-1)^{l}-1}{2} \frac{l}{l+1} \left(\frac{\Gamma(l/2)}{((l-1)/2)!}\right)^{2} = \frac{(-1)^{l}-1}{2} \pi \frac{l}{l+1} \left(\prod_{k=1}^{(l-1)/2} \frac{l/2-k}{(l+1)/2-k}\right)^{2} = \frac{(-1)^{l}-1}{2} \pi \frac{l}{l+1} \prod_{n=1}^{(l-1)/2} \left(\frac{n-1/2}{n}\right)^{2}$
+\form#33:$l$
+\form#34:$\int_{0}^{2\pi}\int_{0}^{\pi} Y_{l}^{1}(\vartheta, \varphi) \exp(-\mathrm{i}\varphi) \sin(\vartheta)\;\mathrm{d}\vartheta\,\mathrm{d}\varphi = \frac{(-1)^{l}-1}{2} \sqrt{\pi^{3} \frac{l(2l+1)}{(l+1)^{3}}} \prod_{n=1}^{(l-1)/2} \left(\frac{n-1/2}{n}\right)^{2}$
+\form#35:$\int_{0}^{\pi}\int_{0}^{2\pi} \mathrm{e}^{\pm\mathrm{i}\varphi} Y_{l_1}^{m_1}(\vartheta, \varphi) Y_{l_2}^{-(m_1\pm1)}(\vartheta, \varphi) \;\sin(\vartheta)\mathrm{d}\vartheta\,\mathrm{d}\varphi$
+\form#36:$G$
+\form#37:$\int_{0}^{\pi}\int_{0}^{2\pi} \mathrm{e}^{\pm\mathrm{i}\varphi} Y_{l_1}^{m_1}(\vartheta, \varphi) Y_{l_2}^{-(m_1\pm1)}(\vartheta, \varphi) \;\sin(\vartheta)\mathrm{d}\vartheta\,\mathrm{d}\varphi = \sum_{k=0}^{\min(l_1,l_2)} \pm G^{m_1,-(m_1\pm1),\pm1}_{l_1,l_2,|l_1-l_2|+2k} \int_{0}^{\pi}\int_{0}^{2\pi} Y^{1}_{|l_1-l_2|+2k}(\vartheta, \varphi) \exp(-\mathrm{i}\varphi) \;\sin{\vartheta}\mathrm{d}\vartheta\,\mathrm{d}\varphi$
+\form#38:$l_1<0$
+\form#39:$l_2<0$
+\form#40:$|m_1|>l_1$
+\form#41:$|m_1\pm1|>l_2$
+\form#42:$l_1+l_2$
+\form#43:$\int_{[0,\theta]\times[0,2\pi]} Y_{l}^{0} \;\mathrm{d}\lambda_{S^2}$
+\form#44:$P_{l+1}^{0'}-P_{l-1}^{0'} = (2l+1) P_{l}^{0}$
+\form#45:$\int_{[0,\theta]\times[0,2\pi]} Y_{l}^{0} \;\mathrm{d}\lambda_{S^2} = 2\pi ( \frac{1}{\sqrt{4\pi}}\delta_{l,0} - \frac{1}{\sqrt{(2l+1)(2l+3)}}Y_{l+1}^{0}(\theta, 0) + \frac{1}{\sqrt{(2l-1)(2l+1)}}Y_{l-1}^{0}(\theta, 0) )$
+\form#46:$\int_{[0,\theta]\times[0,2\pi]} \bar{Y}_{l_1}^{m} Y_{l_2}^{m} \;\mathrm{d}\lambda_{S^2}$
+\form#47:$\bar{Y}_{l_1}^{m}Y_{l_2}^{m}$
+\form#48:$\int_{[0,\theta]\times[0,2\pi]} \bar{Y}_{l_1}^{m} Y_{l_2}^{m} \;\mathrm{d}\lambda_{S^2} = (-1)^{m} \sum_{k=0}^{\min(l_1, l_2)} G_{l_1,l_2,|l_1-l_2|+|l_1-l_2|\%2+2k}^{-m,m,0} \int_{[0,\theta]\times[0,2\pi]} Y_{|l_1-l_2|+|l_1-l_2|\%2+2k}^{0} \;\mathrm{d}\lambda_{S^2}$
+\form#49:$\theta$
+\form#50:$\Vert\cdot\Vert_{C^{0}} \leq C \Vert\cdot\Vert_{H^{2}_{\mu}}$
+\form#51:$\sqrt{\frac{1}{4\pi}\sum_{l=0}^{\infty} (2l+1)\frac{l(l+1)-1}{(l(l+1))^{\mu+1}-1}}$
+\form#52:$\sum_{l=L}^{\infty} \sum_{m=-l}^{l} \frac{(l(l+1))^{\mu+1}-1}{(l(l+1))^{\mu^{'}+1}-1} \frac{1}{(2l+1)^{2}}$
+\form#53:$\int_{0}^{\pi}\int_{0}^{2\pi} Yre_{l_1}^{m_1}(\vartheta,\varphi) Yre_{l_2}^{m_2}(\vartheta,\varphi) \;\sin(\vartheta)\mathrm{d}\vartheta\,\mathrm{d}\varphi = \delta_{l_1, l_2}\delta_{m_1, m_2}$
+\form#54:$H_{\mu}^2$
+\form#55:$P Yre_{l}^{m} = (-1)^{l} Yre_{l}^{m}$
+\form#56:$\cos(\vartheta)$
+\form#57:$\cos(\vartheta)^2$
+\form#58:$\sin(\vartheta)^2$
+\form#59:$\partial_{\varphi} Yre_{l}^{m} = -m Yre_{l}^{-m}$
+\form#60:$\partial_{\varphi}\partial_{\varphi} Yre_{l}^{m} = -m^{2} Yre_{l}^{m}$
+\form#61:$\sin(\vartheta)\partial_{\vartheta}$
+\form#62:$\partial_{1}(\cdot)\circ(\arccos,\mathrm{id}))\circ(\cos,\mathrm{id})$
+\form#63:$x$
+\form#64:$x=\cos(\vartheta)$
+\form#65:$m\neq0$
+\form#66:$Yre_{l}^{m}$
+\form#67:$(\frac{1}{\sin(\vartheta)}\partial_{\vartheta}\sin(\vartheta)\partial_{\vartheta} + \frac{1}{\sin^{2}(\vartheta)}\partial_{\varphi}\partial_{\varphi}) Yre_{l}^{m} = -l(l+1) Yre_{l}^{m}$
+\form#68:$C^{0}$
+\form#69:$1 -$
+\form#70:$H_2^2$
+\form#71:$\Vert\cdot\Vert_{C^{0}} \leq C\Vert\cdot\Vert_{H_2^2}$
+\form#72:$\left<a, a\right>_{H_2^2}$
+\form#73:$a$
+\form#74:$\Vert1-a^{-1}A\Vert^2_{H_2^2}$
+\form#75:$A$
+\form#76:$a=\frac{\Vert A\Vert^{2}_{H_2^2}}{\sqrt{4\pi}|A_{0}^{0}|^{2}}A_{0}^{0}$
+\form#77:$H_{\mu}^{2}$
+\form#78:$H_{\mu'}^2$
+\form#79:$\bar{Y}_{l}^{m} = (-1)^{m} Y_{l}^{-m}$
+\form#80:$\int_{0}^{\pi}\int_{0}^{2\pi} \bar{Y_{l_1}^{m_1}(\vartheta,\varphi)} Y_{l_2}^{m_2}(\vartheta,\varphi) \;\sin(\vartheta)\mathrm{d}\vartheta\,\mathrm{d}\varphi = \delta_{l_1, l_2}\delta_{m_1, m_2}$
+\form#81:$L^2$
+\form#82:$[0,\theta]\times[0,2\pi]$
+\form#83:$P Y_{l}^{m} = (-1)^{l} Y_{l}^{m}$
+\form#84:$\mathrm{e}^{\mathrm{i}\varphi} (\partial_{\vartheta} + \cot(\vartheta)\mathrm{i}\partial_{\phi}) Y_{l}^{m} = \sqrt{l(l+1)-m(m+1)} Y_{l}^{m+1}$
+\form#85:$L_{+}$
+\form#86:$\mathrm{e}^{-\mathrm{i}\varphi} (-\partial_{\vartheta} + \cot(\vartheta)\mathrm{i}\partial_{\phi}) Y_{l}^{m} = \sqrt{l(l+1)-m(m-1)} Y_{l}^{m-1}$
+\form#87:$L_{-}$
+\form#88:$\cos(\vartheta) Y_{l}^{m} = \sqrt{\frac{(l-m)(l+m)}{(2l-1)(2l+1)}} Y_{l-1}^{m} + + \sqrt{\frac{(l+1-m)(l+1+m)}{(2l+1)(2l+3)}} Y_{l+1}^{m}$
+\form#89:$\cos(\vartheta)^{2} Y_{l}^{m} = \sqrt{\frac{(l-1-m)(l-m)(l-1+m)(l+m)} {(2l-3)(2l-1)(2l-1)(2l+1)}} Y_{l-2}^{m} + \left(\frac{(l-m)(l+m)}{(2l-1)(2l+1)}+\frac{(l+1-m)(l+1+m)}{(2l+1)(2l+3)}\right) Y_{l}^{m} + \sqrt{\frac{(l+1-m)(l+2-m)(l+1+m)(l+2+m)} {(2l+1)(2l+3)(2l+3)(2l+5)}} Y_{l+2}^{m}$
+\form#90:$\mathrm{e}^{\pm\mathrm{i}\varphi}$
+\form#91:$\partial_{\varphi} Y_{l}^{m} = \mathrm{i}m Y_{l}^{m}$
+\form#92:$\partial_{\varphi}\partial_{\varphi} Y_{l}^{m} = -m^{2} Y_{l}^{m}$
+\form#93:$-\sin(\vartheta)\partial_{\vartheta} Y_{l}^{m} = (l+1)\sqrt{\frac{(l-m)(l+m)}{(2l-1)(2l+1)}} Y_{l-1}^{m} - l\sqrt{\frac{(l+1-m)(l+1+m)}{(2l+1)(2l+3)}} Y_{l+1}^{m}$
+\form#94:$\partial_{\vartheta}$
+\form#95:$(\partial_{1}(\cdot)\circ(\arccos,\mathrm{id}))\circ(\cos,\mathrm{id})$
+\form#96:$P_{l}^{0'} = \sum_{k=0}^{(l-l\%2)/2-(1-l\%2)} (2(2k+(1-l\%2))+1) P_{2k+(1-l\%2)}^{0}$
+\form#97:$(\partial_{1} Y_{l}^{0}\circ(\arccos,\mathrm{id}))\circ(\cos,\mathrm{id}) = (\sqrt{2l+1} \sum_{k=0}^{(l-l\%2)/2-(1-l\%2)} \sqrt{2(2k+(1-l\%2))+1} Y_{2k+(1-l\%2)}^{0})$
+\form#98:$Y_{l}^{m}$
+\form#99:$(\frac{1}{\sin(\vartheta)}\partial_{\vartheta}\sin(\vartheta)\partial_{\vartheta} + \frac{1}{\sin^{2}(\vartheta)}\partial_{\varphi}\partial_{\varphi}) Y_{l}^{m} = -l(l+1) Y_{l}^{m}$
+\form#100:$\sum_{n=0}^{N} (I-A)^{n} A = I - (I-A)^{N+1}$
+\form#101:$I$
+\form#102:$Ran(A)\in Dom(A)$
+\form#103:$\Vert I-A\Vert<1$
+\form#104:$\Vert I - \sum_{n=0}^{N} (I-A)^{n} A\Vert \leq \Vert I-A\Vert^{N+1}$
+\form#105:$\Vert I-A\Vert^{N+1} = (\mathrm{ess-sup}|1-a|)^{N+1}$
+\form#106:$|1-a|$
+\form#107:$H_{\mu'}^{2}$
+\form#108:$l \mapsto K \cdot \sqrt{\frac{l(l+1)-1}{(l(l+1))^{\mu'+1}-1}}\frac{1}{2l+1}$
+\form#109:$K$
+\form#110:$\tau:=t$
+\form#111:$\rho:=\frac{\sqrt{\kappa^2 r^2+1}-1}{\kappa r}$
+\form#112:$t$
+\form#113:$r$
+\form#114:$\kappa$
+\form#115:$\tau:=\kappa t-\sqrt{\kappa^2 r^2+1}$
+\form#116:$\rho:=\frac{\sqrt{\kappa^2 r^2+1)-1}}{\kappa r}$
+\form#117:$\tau:=\frac{1}{\sqrt{X^2+1}-T}$
+\form#118:$\rho:=\frac{\sqrt{\kappa^2 X^2+1}-1}{\kappa X}$
+\form#119:$T$
+\form#120:$X$
+\form#121:$M$
+\form#122:$\phi$
+\form#123:$\left( g^{ab}\overline{\mathrm{i}D_{a}(\phi)}\mathrm{i}D_{b}(\phi) -V(\phi)\right)\mathrm{d}v_{g}$
+\form#124:$V(\phi):=\lambda(|\phi|^{2}-|\phi_{0}|^2)^{2}$
+\form#125:$D=\nabla-\mathrm{i}q A$
+\form#126:$g^{ab}\mathrm{i}D_{a}\mathrm{i}D_{b}\phi=V'(\phi)$
+\form#127:$V'(\phi)=2\lambda(|\phi|^2-|\phi_0|^2)\phi$
+\form#128:$\phi=\phi_0+\Delta\phi$
+\form#129:$\Delta\phi$
+\form#130:$\phi_0$
+\form#131:$2\sqrt{\lambda}\phi_0$
+\form#132:$T_{ab}=\mathrm{Re}(\overline{\mathrm{i}D_{a}(\phi)}\mathrm{i}D_{b}(\phi)) -\frac{1}{2}g_{ab}\left(g^{cd} \bar{\mathrm{i}D_{c}(\phi)}\mathrm{i}D_{d}(\phi)-V(\phi) \right)$
+\form#133:$g=\frac{\Delta-a^2\sin^{2}\vartheta}{\Sigma}dt\vee dt +frac{2a(r^2+a^2-\Delta)\sin^{2}\vartheta}{\Sigma}dt\vee d\varphi -\frac{\Sigma}{\Delta}dr\vee dr -\Sigma d\vartheta\vee d\vartheta -\frac{\Gamma\sin^{2}\vartheta}{\Sigma}d\varphi\vee d\varphi$
+\form#134:$A=-\frac{er}{\Sigma}dt+\frac{ear\sin^{2}\vartheta}{\Sigma}d\varphi)$
+\form#135:$\Delta:=r^2+a^2+e^2-2Mr$, $\Sigma=r^2+a^2\cos^2\vartheta$
+\form#136:$\Gamma=(r^2+a^2)^2-a^2\Delta\sin^{2}\vartheta$
+\form#137:$-g^{ab}D_{a}D_{b} = \frac{1}{\Sigma\Delta} \left(-\Gamma\partial_{t}\partial_{t} -2a(r^2+a^2-\Delta)\partial_{t}\partial_{\varphi} -2\mathrm{i}qer(r^2+a^2)\partial_{t} -2\mathrm{i}qear\partial_{\varphi} +(qer)^2 -a^2\partial_{\varphi}\partial_{\varphi} +\Delta\partial_{r}\Delta\partial_{r} + \Delta\Delta_{S^{2}}\right)$
+\form#138:$r\phi$
+\form#139:$M>0$
+\form#140:$\hat{r}:=r+h\ln((r-h)/h)$
+\form#141:$h:=M+\sqrt(M^{2}-a^{2}-e^{2})$
+\form#142:$\ln(1+r)$
+\form#143:$h\ln((r-h)/h)$
+\form#144:$(K-(L_{z}-aE)^{2})+(aE-L_{z})=0$
+\form#145:$dt/d\tau = (r^2+a^2)/\Delta E, dr/d\tau = \pm E, d\vartheta/d\tau = 0, d\varphi/d\tau = a/\Delta E$

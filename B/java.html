@@ -1,0 +1,79 @@
+<html>
+<head>
+<meta NAME="author" CONTENT="Peter Csizmadia">
+<title>Java</title>
+<script LANGUAGE="JavaScript">
+<!--
+jsver="1.0";
+//-->
+</script>
+<script LANGUAGE="JavaScript1.1">
+<!--
+jsver="1.1";
+grdigON = new Image();
+grdigON.src = "../img/grdig-mo.gif";
+marvinON = new Image();
+marvinON.src = "../img/msketch-mo.gif";
+Moffimg = new Image();
+//-->
+</script>
+<script LANGUAGE="JavaScript">
+<!--
+function Mon(img) {
+	if(jsver!="1.0") {
+		if(img) {
+			Moffimg.src = eval("document."+img.name+".src")
+			img.src = eval(img.name+"ON.src")
+		}
+	}
+}
+function Moff(img) {
+	if(jsver!="1.0") {
+		if(img) {
+			img.src = Moffimg.src
+		}
+	}
+}
+//-->
+</script>
+</head>
+<body BGCOLOR="#202040" TEXT="#c0c0ff" LINK="#8080ff" VLINK="#7820d8" ALINK="#c0c0ff">
+<font FACE="Helvetica, Arial">
+
+My Java programs
+<ul>
+<li>ChemAxon
+    <a HREF="http://www.chemaxon.com/marvin">MarvinSketch and MarvinView</a>:<br>
+    molecule sketcher and viewer applets, applications and beans.
+    </li>
+<li><a HREF="../grdig/index.html" onMouseOver="Mon(document.grdig)" onMouseOut="Moff(grdig)"><img SRC="../img/grdig.gif" ALT="Graph Redigitizer applet" NAME="grdig" WIDTH=44 HEIGHT=44 BORDER=0 ALIGN=CENTER>Graph Redigitizer</a><br>
+    Tool for reading coordinates of data points from linear and
+    logscaled graphs. (<font COLOR="#7fff7f">free source!</font>)
+    </li>
+<li><a HREF="../slideshow/index.html">Slide Show</a> (free source!)</li>
+<li><a HREF="mar/index.html">Marvin ARchiver (MAR)</a>:
+    A command line utility like JAR or TAR. Creates self extracting archives and
+    also makes it possible to compress a full application into one class
+    file. (<font COLOR="#7fff7f">free source!</font>)<br>
+    <a HREF="mar/index.html#mari">MARvInstall (MARI)</a>:
+    Application installer class maker, based on MAR.
+    Works in Unix, RedHat Linux and older Windows versions. Pre-alpha,
+    <b>discontinued</b> project.</li>
+</ul>
+
+<a HREF="jvm-bugs/index.html">My Bug Collection</a>:
+Java-related bugs in web browsers and operating systems, workarounds,
+bugware detection. (<font COLOR="#7fff7f">browse-freeze!</font>)
+<p>
+
+<hr WIDTH="90%">
+
+<font SIZE=-2>
+<p ALIGN=CENTER>
+&copy; 1998-2002 <a HREF="http://www.kfki.hu/~cspeter/">Peter Csizmadia</a>
+</p>
+</font>
+
+</font>
+</body>
+</html>

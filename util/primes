@@ -1,0 +1,56 @@
+#!/usr/bin/perl -w
+#
+# primes, 01/08/2009, Peter Csizmadia
+#
+
+use strict;
+
+if($#ARGV < 0) {
+	print <<EOF;
+primes min      - prints 100 primes starting from min
+primes min n    - prints n primes starting from min
+primes min-max  - prints primes from min to max
+EOF
+	exit 0;
+}
+
+my $n = 100;
+my $min;
+my $max;
+my @args = split(/-/, $ARGV[0]);
+$min = $args[0];
+if($min < 2) {
+	$min = 2;
+}
+if($#args==1) {
+	$max = $args[1];
+	$n = $max - $min;
+} else {
+	$max = -1;
+	if($#ARGV == 1) {
+		$n = $ARGV[1];
+	}
+}
+
+my $k = 0;
+my $oneline = 1;
+my $before_first = 1;
+for(my $i=$min; ($i<=$max || $max<0) && $k<$n; ++$i) {
+	my $m = int(sqrt($i) + 0.5);
+	my $p = 1;
+	for(my $j=2; $j<=$m && $p; ++$j) {
+		if($i % $j == 0) {
+			$p = 0;
+		}
+	}
+	if($p) {
+		if($before_first) {
+			$before_first = 0;
+		} else {
+			printf(" ");
+		}
+		printf("$i");
+		++$k;
+	}
+}
+printf("\n");

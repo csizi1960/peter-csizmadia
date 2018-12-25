@@ -1,0 +1,64 @@
+#!/bin/sh -e
+#
+# sreput, Thu Dec 19 2006, Peter Csizmadia
+#
+
+prog=`basename $0`
+
+if [ $# -lt 1 ]; then
+	cat << EOF
+$prog localfile [login@]host:directory
+EOF
+	exit 0
+fi
+
+argn() { shift $1 ; echo $1 ; }
+
+loginhost=""
+fpath=""
+setloginhostpath() {
+	if [ $# = 2 ]; then
+		h=`echo $2 | sed 's/:/ /'`
+		host=`argn 1 $h`
+		fpath=`argn 2 $h`
+		loginhost="-l $1 $host"
+	else
+		h=`echo $1 | sed 's/:/ /'`
+		loginhost=`argn 1 $h`
+		fpath=`argn 2 $h`
+	fi
+}
+localfile="$1"
+if [ -z "$localfile" ]; then
+	echo Local file not specified. >&2
+	exit 1
+fi
+
+setloginhostpath `echo $2 | sed 's/@/ /'`
+
+if [ -z "$fpath" ]; then
+	fpath="."
+fi
+ssh $loginhost "/bin/sh -e" <<EOF | sh | gzip -9 | ssh $loginhost "gzip -cdf >>\"$fpath/$localfile\""
+	argn() { shift \$1 ; echo \$1 ; }
+	if [ -d "$fpath" ]; then
+		if [ -f "$fpath/$localfile" ]; then
+			blocksize=1024
+			skip=0
+			remotesize=\`ls -l $fpath/$localfile\`
+			if [ "$?" = "0" ]; then
+				remotesize=\`argn 5 \$remotesize\`
+				if [ "\$remotesize" != "0" ]; then
+					blocksize=\$remotesize
+					skip=1
+				fi
+			fi
+			echo dd if=$localfile ibs=\$blocksize skip=\$skip
+			exit 0
+		fi
+		echo file $fpath/$localfile not found on remote host
+		exit 1
+	fi
+	echo directory $fpath not found on remote host
+	exit 1
+EOF

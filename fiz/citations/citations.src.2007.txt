@@ -1,0 +1,269 @@
+MY_SCI
+P. Csizmadia, T. Cs{\"o}rg{\H o}, B. Luk{\'a}cs
+New analytic solutions of the non-relativistic hydrodynamical equations
+PhysLett B443 1998 21-25	nucl-th/9805006
+3.567
+	CITATIONS_SCI
+* 2000	T.S. Bir{\'o}	PhysLett B474 2000 21-26	nucl-th/9911004
+* 2000	T.S. Bir{\'o}	PhysLett B487 2000 133-139	nucl-th/0003027
+* 2000	K. Morawetz, M. Ploszajczak, V.D. Toneev	PhysRev C62 2000 064602	nucl-th/0007026
+* 2002	Yu.M. Sinyukov, S.V. Akkelin, Y. Hama	PhysRevLett 89 2002 052301	nucl-th/0201015
+* 2004	S.V. Akkelin, Yu.M. Sinyukov	PhysRev C70 2004 064901	nucl-th/0310036
+* 2005	D. Moln{\'a}r, P. Huovinen	PhysRevLett 94 2005 012302	nucl-th/0404065
+* 2006	N.S. Amelin, R. Lednicky, L.V. Malinina, T.A. Pocheptsov, Yu.M. Sinyukov	PhysRev C73 2006 044909	nucl-th/0507040
+
+	CITATIONS_INDEP
+* 2002	Yu.M. Sinyukov, S.V. Akkelin, Y. Hama	ISMD 2002 p.133-136
+
+	CITATIONS_COAUTHOR_SCI
+* 2001	S.V. Akkelin, T. Cs{\"o}rg{\H o}, B. Lukacs, Yu.M. Sinyukov, M. Weiner	PhysLett B505 2001 64-70	hep-ph/0012127
+* 2002	T. Cs{\"o}rg{\H o}	HIP 15 2002 1-80	hep-ph/0001233
+* 2003	T. Cs{\"o}rg{\H o}, J. Zim{\'a}nyi	HIP 17 2003 281-293	nucl-th/0206051
+* 2003	T. Cs{\"o}rg{\H o}, A. Ster	HIP 17 2003 295-312	nucl-th/0207016
+* 2003	T. Cs{\"o}rg{\H o}, F. Grassi, Y. Hama, T. Kodama	PhysLett B565 2003 107-115	nucl-th/0305059
+* 2003	T. Cs{\"o}rg{\H o}, S.V. Akkelin, Y. Hama, B. Lukacs, Yu.M. Sinyukov	PhysRev C67 2003 034904	hep-ph/0108067
+* 2004	T. Cs{\"o}rg{\H o}, F. Grassi, Y. Hama, T. Kodama	ActaPhysHungNewHIP A21 2004 63-71	hep-ph/0204300
+* 2004	T. Cs{\"o}rg{\H o}, F. Grassi, Y. Hama, T. Kodama	ActaPhysHungNewHIP A21 2004 53-62	hep-ph/0203204
+* 2004	T. Cs{\"o}rg{\H o}, L.P. Csernai, Y. Hama, T. Kodama	HIP A21 2004 73-84	nucl-th/0306004
+* 2004	T. Cs{\"o}rg{\H o}	CentralEurJPhys 2 2004 556-565	nucl-th/9809011
+* 2006	S.S. Padula, G. Krein, T. Cs{\"o}rg{\H o}, Y. Hama, P.K. Panda	PhysRev C73 2006 044906	nucl-th/0512084
+* 2006	S.S. Padula, Y. Hama, G. Krein, P.K. Panda, T. Cs{\"o}rg{\H o}	NuclPhys A774 2006 615-618	nucl-th/0510064
+* 2006	T. Cs{\"o}rg{\H o}	ActaPhysPolon B37 2006 483-494	hep-ph/0111139
+
+	CITATIONS_COAUTHOR
+* 2006	S.S. Padula, Y. Hama, G. Krein, P.K. Panda, T. Cs{\"o}rg{\H o}	AIPConfProc 828 2006 645-650	nucl-th/0510068
+
+
+P. Csizmadia, P. L{\'e}vai, S.E. Vance, T.S. Bir{\'o}, M. Gyulassy, J. Zim{\'a}nyi
+Strange hyperon and antihyperon production from quark and string-rope matter
+JPhys G25 1999 321-330	hep-ph/9809456
+1.620
+	CITATIONS_SCI
+* 1999	F. Wang, H. Sorge	PhysRev C59 1999 1603-1608	nucl-th/9811006
+* 1999	J. Rafelski	JPhys G25 1999 451	hep-ph/9810330
+* 2002	Z.W. Lin, C.M. Ko	PhysRevLett 89 2002 202302	nucl-th/0207014
+* 2003	Z.W. Lin, D. Moln{\'a}r	PhysRev C68 2003 044901	nucl-th/0304045
+* 2004	J. Schaffner-Bielich	JPhys G30 2004 R245	nucl-th/0408012
+* 2006	D. Moln{\'a}r	NuclPhys A774 2006 257-266	nucl-th/0512001
+* 2006	D.M. Zhou, X.M. Li, B.G. Dong, B.H. Sa	PhysLett B638 2006 461-463	nucl-th/0602020
+* 2007	B.H. Sa, X.M. Li, S.Y. Hu, S.P. Li, J. Feng, D.M. Zhou	PhysRev C75 2007 054912
+
+	CITATIONS_INDEP
+* 2005	X. Sun, Z. Yang	nucl-th/0507074
+
+	CITATIONS_COAUTHOR_SCI
+* 2000	P. Csizmadia, P. L{\'e}vai	PhysRev C61 2000 031903	hep-ph/9909544
+* 2000	P. L{\'e}vai, T.S. Bir{\'o}, T. Cs{\"o}rg{\H o}, J. Zim{\'a}nyi	NewJPhys 2 2000 32	hep-ph/0007247
+* 2001	S.E. Vance	JPhys G27 2001 603-610	nucl-th/0012056
+* 2005	M. Gyulassy, L. McLerran	NuclPhys A750 2005 30-63	nucl-th/0405013
+* 2005	P. Csizmadia, P. L{\'e}vai	ActaPhysHung A22 2005 371-380	nucl-th/0407054
+
+	CITATIONS_COAUTHOR
+* 2000	T.S. Bir{\'o}	hep-ph/0005067
+* 2000	P. Csizmadia, P. L{\'e}vai	hep-ph/0008195
+* 2000	T. Cs{\"o}rg{\H o}, M. Gyulassy, D. Kharzeev	ISMD 2000 p.616-625, Talk given at 30th International Symposium on Multiparticle Dynamics, Tihany, Lake Balaton, Hungary, 9-15 Oct 2000, hep-ph/0102282
+* 2003	M. Gyulassy, Invited talk at NATO Advanced Study Institute: Structure and Dynamics of Elementary Matter, Kemer, Turkey, 22 Sep - 2 Oct 2003	nucl-th/0403032
+* 2007	G. Hamar, L.L. Zhu, P. Csizmadia, P. Levai	arXiv:0710.4730
+
+
+P. Csizmadia, P. L{\'e}vai
+$\phi$, $\Omega$ and $\rho$ production from deconfined matter in relativistic heavy ion collisions at CERN SPS
+PhysRev C61 2000 031903	hep-ph/9909544
+2.384
+	CITATIONS_SCI
+* 2000	R. Bellwied, H. Caines, T.J. Humanic	PhysRev C62 2000 054906	hep-ph/0003264
+* 2001	W. Cassing, E.L. Bratkovskaya, A. Sibirtsev	NuclPhys A691 2001 753-778	nucl-th/0010071
+* 2003	E.L. Bratkovskaya, W. Cassing, H. Stocker	PhysRev C67 2003 054905	nucl-th/0301083
+* 2004	C. Nonaka, R.J. Fries, S.A. Bass	PhysLett B583 2004 73-78	nucl-th/0308051
+* 2004	T. Hirano, Y. Nara	PhysRev C69 2004 034908	nucl-th/0307015
+* 2004	E.L. Bratkovskaya, A.P. Kostyuk, W. Cassing, H. Stoecker	PhysRev C69 2004 054903	nucl-th/0402042
+* 2004	L.W. Chen, V. Greco, C.M. Ko, S.H. Lee, W. Liu	PhysLett B601 2004 34-40	nucl-th/0308006
+* 2007	O. Linnyk, E.L. Bratkovskaya, W. Cassing, H. Stoecker	NuclPhys A786 2007 183-200	nucl-th/0612049
+* 2007	L.W. Chen, C.M. Ko, W. Liu, M. Nielsen	PhysRev C76 2007 014906	arXiv:0705.1697
+* 2007	O. Linnyk, E.L. Bratkovskaya, W. Cassing, H. Stoecker	PhysRev C76 2007 041901	arXiv:0705.4443
+
+	CITATIONS_INDEP
+* 2004	V. Greco, C.M. Ko, I. Vitev	nucl-th/0412043
+* 2007	L.W. Chen, C.M. Ko, W. Liu, M. Nielsen	arXiv:0705.1697
+* 2007	E. Bratkovskaya, O. Linnyk, W. Cassing, H. Stocker	arXiv:0709.2185
+* 2007	O. Linnyk, E.L. Bratkovskaya, W. Cassing, H. Stoecker	arXiv:0710.1535
+* 2007	E.L. Bratkovskaya	arXiv:0710.5756
+
+	CITATIONS_COAUTHOR_SCI
+* 2001	P. L{\'e}vai, T.S. Bir{\'o}, P. Csizmadia, T. Cs{\"o}rg{\H o}, J. Zim{\'a}nyi	JPhys G27 2001 703-706	nucl-th/0011023
+* 2002	T.S. Bir{\'o}, P. L{\'e}vai, J. Zim{\'a}nyi	JPhys G28 2002 1561-1566	hep-ph/0112137
+* 2003	V. Greco, C.M. Ko, P. L{\'e}vai	PhysRevLett 90 2003 202302	nucl-th/0301093
+* 2003	V. Greco, C.M. Ko, P. L{\'e}vai	PhysRev C68 2003 034904	nucl-th/0305024
+* 2005	P. Csizmadia, P. L{\'e}vai	ActaPhysHung A22 2005 371-380	nucl-th/0407054
+* 2006	B. Alessandro (ed.) et al. (ALICE)	JPhys G32 2006 1295-2040
+
+	CITATIONS_COAUTHOR
+* 2006	P. Csizmadia, P. L{\'e}vai	ActaPhysHung A27 2006 433-440	hep-ph/0008195
+* 2006	P. L{\'e}vai	AIPConfProc 802 2006 242-245	nucl-th/0601023
+* 2007	G. Hamar, L.L. Zhu, P. Csizmadia, P. L{\'e}vai	arXiv:0710.4730
+
+
+P. L{\'e}vai, T.S. Bir{\'o}, P. Csizmadia, T. Cs{\"o}rg{\H o}, J. Zim{\'a}nyi
+The production of charm mesons from quark matter at CERN SPS and RHIC
+JPhys G27 2001 703-706	nucl-th/0011023
+1.182
+	CITATIONS_SCI
+* 2001	M.I. Gorenstein, A.P. Kostyuk, H. Stocker, W. Greiner	PhysLett B509 2001 277-282	hep-ph/0010148
+* 2001	M.I. Gorenstein, A.P. Kostyuk, H. Stocker, W. Greiner	JPhys G27 2001 L47-L52	hep-ph/0012015
+* 2001	S. Kabana	EurPhysJ C21 2001 545-555	hep-ph/0104001
+* 2002	M.I. Gorenstein, A.P. Kostyuk, H. Stocker, W. Greiner	PhysLett B524 2002 265-272	hep-ph/0104071
+* 2002	A.P. Kostyuk, M.I. Gorenstein, H. Stocker, W. Greiner	PhysLett B531 2002 195-202	hep-ph/0110269
+* 2002	M.I. Gorenstein, A.P. Kostyuk, L. McLerran, H. Stocker, W. Greiner	JPhys G28 2002 2151-2167
+* 2002	A.P. Kostyuk, M.I. Gorenstein, H. Stocker, W. Greiner	JPhys G28 2002 2297-2306	hep-ph/0204180
+* 2002	B. Sheikholeslami-Sabzevari	PhysRev C65 2002 054904
+
+	CITATIONS_INDEP
+* 2000	M.I. Gorenstein, A.P. Kostyuk, L.D. McLerran, H. Stoecker, W. Greiner	hep-ph/0012292
+* 2001	E.G. Ferreiro, F. del Moral, C. Pajares, N. Armesto	hep-ph/0107319
+
+	CITATIONS_COAUTHOR_SCI
+* 2000	T. Cs{\"o}rg{\H o}	NPProc 92 2001 62-74	hep-ph/0011339
+* 2003	M. van Leeuwen, S.V. Afanasiev et al. (NA49)	NuclPhys A715 2003 161-170	nucl-ex/0208014
+* 2005	P. Csizmadia, P. L{\'e}vai	ActaPhysHung A22 2005 371-380	nucl-th/0407054
+* 2006	C. Alt et al. (NA49)	PhysRev C73 2006 034910	nucl-ex/0507031
+
+	CITATIONS_COAUTHOR
+
+
+S. Cheng, S. Pratt, P. Csizmadia, Y. Nara, D. Moln{\'a}r, M. Gyulassy, S.E. Vance, B. Zhang
+The effect of finite-range interactions in classical transport theory
+PhysRev C65 2002 024901	nucl-th/0107001
+2.848
+	CITATIONS_SCI
+* 2002	Z.W. Lin, C.M. Ko	PhysRev C65 2002 034904	nucl-th/0108039
+* 2005	Z. Xu, C. Greiner	PhysRev C71 2005 064901	hep-ph/0406278
+
+	CITATIONS_COAUTHOR_SCI
+* 2002	Y. Nara, S.E. Vance, P. Csizmadia	PhysLett B531 2002 209-215	nucl-th/0109018
+* 2003	D. Molnar, M. Gyulassy	ActaPhysHungNewHIP 18 2003 69-78	nucl-th/0204062
+* 2004	D. Molnar, M. Gyulassy	PhysRevLett 92 2004 052301	nucl-th/0211017
+* 2004	S. Pal, S. Pratt	PhysLett B578 2004 310-317	nucl-th/0308077
+* 2004	B. Zhang	PhysLett B580 2004 144-148	nucl-th/0309015
+* 2004	S. Cheng, S. Petriconi, S. Pratt, M. Skoby, C. Gale, S. Jeon, V.T. Pop, Q.H. Zhang	PhysRev C69 2004 054906	nucl-th/0401008
+* 2005	S. Pratt, S. Pal	NuclPhys A749 2005 268-274	PhysRev C71 2005 014905	nucl-th/0409038
+* 2005	P. Csizmadia, P. L{\'e}vai	ActaPhysHung A22 2005 371-380	nucl-th/0407054
+* 2005	Z.W. Lin, C.M. Ko, B.A. Li, B. Zhang, S. Pal	PhysRev C72 2005 064901	nucl-th/0411110
+* 2005	A. Dumitru, Y. Nara	PhysLett B621 2005 89-85	hep-ph/0503121
+* 2005	M.A. Lisa, S. Pratt, R. Soltz, U. Wiedemann	Ann.Rev.Nucl.Part.Sci.55 2005 357-402	nucl-ex/0505014
+* 2006	K. Paech, S. Pratt	PhysRev C74 2006 014901	nucl-th/0604008
+* 2006	S. Pratt	PhysRev C75 2007 024907	nucl-th/0612010
+
+	CITATIONS_COAUTHOR
+* 2006	S. Pratt, K. Paech	nucl-th/0604007
+
+
+P. Csizmadia and P. L{\'e}vai
+The MICOR hadronization model with final state interactions
+JPhys G28 2002 1997-2000
+1.399
+	CITATIONS_SCI
+* 2003	D. Moln{\'a}r, S.A. Voloshin	PhysRevLett 91 2003 092301	nucl-th/0302014
+* 2004	D. Moln{\'a}r	JPhys G30 2004 S235-S242	nucl-th/0305049
+* 2005	D. Moln{\'a}r	JPhys G31 2005 S421-S428	nucl-th/0410041
+* 2005	V. Greco, C.M. Ko, I. Vitev	PhysRev C71 2005 041901	nucl-th/0412043
+* 2006	B. Hong, C.R. Ji, D.P. Min	PhysRev C73 2006 054901	hep-ph/0510187
+
+	CITATIONS_INDEP
+
+	CITATIONS_COAUTHOR_SCI
+* 2003	V. Greco, C.M. Ko, P. L{\'e}vai	PhysRev C68 2003 034904	nucl-th/0305024
+* 2004	V. Greco, C.M. Ko, P. L{\'e}vai	PhysRevLett 90 2004 202302	nucl-th/0301093
+* 2005	P. Csizmadia, P. L{\'e}vai	ActaPhysHung A22 2005 371-380	nucl-th/0407054
+
+	CITATIONS_COAUTHOR
+* 2006	P. L{\'e}vai	AIPConfProc 802 2006 242-245	nucl-th/0601023
+
+
+Y. Nara, S.E. Vance, P. Csizmadia
+A study of parton energy loss in Au+Au collisions at RHIC using transport theory
+PhysLett B531 2002 209-215	nucl-th/0109018
+4.298
+	CITATIONS_SCI
+* 2002	G.R. Shin, B. Muller	JPhys G28 2002 2643-2656	nucl-th/0207041
+* 2003	S.A. Bass, B. Muller, D.K. Srivastava	PhysLett B551 2003 277-283	nucl-th/0207042
+* 2003	S.A. Bass	Pramana 60 2003 593-612	nucl-th/0202010
+
+	CITATIONS_INDEP
+* 2002	K. Gallmeister, C. Greiner, Z. Xu	Hirschegg 2002 p.320-325	nucl-th/0202051
+* 2003	E. Iancu, Raju Venugopalan	QGP3 (Eds. R.C. Hwa and X.N.Wang) p. 249-3363	hep-ph/0303204
+
+	CITATIONS_COAUTHOR_SCI
+* 2001	A. Krasnitz, Y. Nara, R. Venugopalan	PhysRevLett 87 2001 192302	hep-ph/0108092
+* 2002	A. Krasnitz, Y. Nara, R. Venugopalan	NuclPhys A702 2002 227-237
+* 2002	T. Hirano, Y. Nara	PhysRev C66 2002 041901	hep-ph/0208029
+* 2003	A. Krasnitz, Y. Nara, R. Venugopalan	BrazJPhys 33 2003 223-230
+* 2003	A. Krasnitz, Y. Nara, R. Venugopalan	NuclPhys A717 2003 268-290	hep-ph/0209269
+* 2005	A. Dumitru, Y. Nara	PhysLett B621 2005 89-95	hep-ph/0503121
+
+	CITATIONS_COAUTHOR
+* 2007	M. Isse, T. Hirano, R. Mizukawa, A. Ohnishi, K. Yoshino, Y. Nara	nucl-th/0702068
+
+
+P. Csizmadia, P. L{\'e}vai
+Energy dependence of transverse quark flow in heavy ion collisions
+ActaPhysHung A22 2005 371-380	nucl-th/0407054
+0.096 (? 2004)
+	CITATIONS_COAUTHOR
+* 2006	P. L{\'e}vai	AIPConfProc 802 2006 242-245	nucl-th/0601023
+* 2007	G. Hamar, L.L. Zhu, P. Csizmadia, P. L{\'e}vai	arXiv:0710.4730
+
+
+P. Csizmadia, P. L{\'e}vai
+D and J/$\psi$ production from deconfined matter in relativistic heavy ion collisions
+ActaPhysHung A27 2006 433-440	hep-ph/0008195
+0 (?)
+	CITATIONS_SCI
+* 2001	M.I. Gorenstein, A.P. Kostyuk, H. Stocker, W. Greiner	PhysLett B509 2001 277-282	hep-ph/0010148
+* 2001	T. Cs{\"o}rg{\H o}	NPProc 92 2001 62-74	hep-ph/0011339
+* 2001	K.A. Bugaev, M. Gazdzicki, M.I. Gorenstein	PhysLett B523 2001 255-259	hep-ph/0106342
+* 2001	M. Gazdzicki	JPhys G27 2001 685-690	hep-ph/0009221
+* 2001	M.I. Gorenstein, A.P. Kostyuk, H. Stocker, W. Greiner	JPhys G27 2001 L47-L52	hep-ph/0012015
+* 2001	S. Kabana	EurPhysJ C21 2001 545-555	hep-ph/0104001
+* 2002	M.I. Gorenstein, A.P. Kostyuk, H. Stocker, W. Greiner	PhysLett B524 2002 265-272	hep-ph/0104071
+* 2002	A.P. Kostyuk, M.I. Gorenstein	PhysLett B531 2002 195-202	hep-ph/0110269
+* 2002	A.P. Kostyuk, M.I. Gorenstein, H. Stocker, W. Greiner	JPhys G28 2002 2297-2306	hep-ph/0204180
+* 2002	M.I. Gorenstein, A.P. Kostyuk, L. McLerran, H. Stocker, W. Greiner	JPhys G28 2002 2151-2167
+* 2002	B. Sheikholeslami-Sabzevari	PhysRev C65 2002 054904
+
+	CITATIONS_INDEP
+* 2000	M.I. Gorenstein, A.P. Kostyuk, L.D. McLerran, H. Stoecker, W. Greiner	hep-ph/0012292
+
+	CITATIONS_COAUTHOR_SCI
+* 2001	P. L{\'e}vai, T.S. Bir{\'o}, P. Csizmadia, T. Cs{\"o}rg{\H o}, J. Zim{\'a}nyi	JPhys G27 2001 703-706	nucl-th/0011023
+
+	CITATIONS_COAUTHOR
+* 2007	G. Hamar, L.L. Zhu, P. Csizmadia, P. L{\'e}vai	arXiv:0710.4730
+
+
+P. Csizmadia
+Testing a new mesh refinement code in the evolution of a spherically symmetric Klein-Gordon field
+IJMP D15 2006 107-119	hep-th/0505036
+1.500 (2004)
+	CITATIONS_SCI
+* 2006	L. Lehner, S.L. Liebling, O. Reula	ClassQuantGrav 23 2006 S421-S446	gr-qc/0510111
+
+	CITATIONS_INDEP
+* 2006	B. Bruegmann, J.A. Gonzalez, M. Hannam, S. Husa, U. Sperhake, W. Tichy	gr-qc/0610128
+* 2006	Gyula Fodor, Istvan Racz	hep-th/0609110
+* 2007	S. Husa, J.A. Gonzalez, M. Hannam, B. Bruegmann, U. Sperhake	arXiv:0706.0740v1
+
+
+
+%MY_EPRINT
+%
+%
+%
+MY_PROC
+P. Csizmadia, P. L{\'e}vai, J. Zim{\'a}nyi
+Pion Momentum Distribution from a Microscopical Hadronization Model
+Proc. of Int. Workshop on Gross Properties of Nuclei and Nuclear Excitations XXV, January 13-17, 1997, Hirschegg, Austria, (TH Darmstadt, 1997) Ed. by H. Feldmeier, p. 117.
+
+P. Csizmadia, P. L{\'e}vai
+Hadron production in the MICOR model
+Proc. of Int. Workshop on Understanding Deconfinement in QCD, ECT* Trento, Italy, March 1 - 13, 1999
+

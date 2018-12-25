@@ -1,0 +1,45 @@
+#!/bin/sh
+#
+# dvdburn, 10/14/2005-12/23/2007 Peter Csizmadia
+#
+
+iso="$1"
+if [ -z "$iso" ]; then
+	echo "Usage: `basename $0` diskimage.iso"
+	exit 0
+fi
+
+DVDDEV="/dev/dvdrecorder"
+if [ ! -e "$DVDDEV" -a -e "/dev/dvdrw" ]; then
+	DVDDEV="/dev/dvdrw"
+fi
+GROWISOFS=""
+CDRECORD=""
+if type growisofs >/dev/null 2>/dev/null; then
+	GROWISOFS="growisofs"
+elif type cdrecord-dvd >/dev/null 2>/dev/null; then
+	CDRECORD="cdrecord-dvd"
+elif type cdrecord >/dev/null 2>/dev/null; then
+	CDRECORD="cdrecord"
+	echo WARNING! cdrecord works only if it is the patched version with DVD support
+else
+	echo Neither growisofs, nor cdrecord-dvd or cdrecord found >&2
+	exit 1
+fi
+
+cmd=""
+if [ -n "$GROWISOFS" ]; then
+	cmd="$GROWISOFS -dvd-compat -Z $DVDDEV=$iso"
+else
+	cmd="$CDRECORD -v -dao speed=2 dev=$DVDDEV driveropts=burnfree -isosize $iso"
+fi
+
+echo $cmd
+answer="";
+while [ "$answer" != "yes" -a "$answer" != "no" ]; do
+	printf "Proceed? (yes/no) "
+	read answer
+done
+if [ "$answer" = "yes" ]; then
+	exec $cmd
+fi

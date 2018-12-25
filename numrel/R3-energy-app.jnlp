@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp codebase="http://www.kfki.hu/~cspeter/numrel/" href="R3-energy-app.jnlp">
+  <information>
+    <title>Kodama Energy - R3 EKG</title>
+    <vendor>Peter Csizmadia</vendor>
+    <offline-allowed/>
+  </information>
+
+  <resources>
+    <j2se href="http://java.sun.com/products/autodl/j2se" version="1.5+"/>
+    <property name="sun.java2d.noddraw" value="true"/>
+    <jar href="xgridsurf.jar" main="true"/>
+    <extension name="jogl-all-awt"
+href="http://download.java.net/media/jogl/jsr-231-2.x-webstart/jogl-all-awt.jnlp"/>
+  </resources>
+
+  <application-desc main-class="gridsurf.XGridSurf">
+    <argument>-u</argument><argument>rho,tau_c,energy</argument>
+    <argument>-x</argument><argument>rho,0,25</argument>
+    <argument>-y</argument><argument>tau_c,0,35</argument>
+    <argument>-z</argument><argument>ℰ_{GM},-0.6,0.6</argument>
+    <argument>--xtics</argument><argument>%.0f,5</argument>
+    <argument>--ytics</argument><argument>%.0f,5</argument>
+    <argument>--ztics</argument><argument>%.1f,0.5</argument>
+    <argument>--font-scale</argument><argument>0.01</argument>
+    <argument>--base-surface</argument><argument>--top-surface</argument>
+    <argument>--axis-label-size</argument><argument>1.1</argument>
+    <argument>--tic-label-size</argument><argument>0.7</argument>
+    <argument>-C</argument><argument>R3-3d-energy.mts1.curve,using=1:2:3,rgb=000000</argument>
+    <argument>R3-3d.applet.bdata</argument>
+  </application-desc>
+</jnlp>

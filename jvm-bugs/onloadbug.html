@@ -1,0 +1,35 @@
+<html>
+<head>
+<title>onLoad bug in Netscape 4.x</title>
+</head>
+<body onLoad="document.myform.elements[0];confirm(document.myapplet.getAppletInfo())">
+<!body onLoad="confirm(document.myapplet.getAppletInfo())">
+
+Instead of displaying the applet info, Netscape 4.x says:
+"document.myapplet has no properties".
+<p>
+<a HREF="javascript:">Show the error message in Netscape 4.06 and later</a>
+
+<center>
+<applet CODE="Onloadbug" NAME="myapplet" WIDTH=500 HEIGHT=200>
+<strong>(YOU CANNOT SEE A JAVA APPLET HERE)</strong>
+</applet>
+<p>
+<form NAME="myform">
+<input type=checkbox NAME="mycb">
+</form>
+<p>
+<a HREF="Onloadbug.java">Onloadbug.java</a>
+</center>
+<p>
+This document has the following &lt;body&gt; tag:
+<pre>
+&lt;body onLoad="document.myform.elements[0];confirm(document.myapplet.getAppletInfo())"&gt;
+</pre>
+The bug disappears if the HTML form access is removed from <tt>onLoad</tt>:
+<pre>
+&lt;body onLoad="confirm(document.myapplet.getAppletInfo())"&gt;
+</pre>
+
+</body>
+</html>

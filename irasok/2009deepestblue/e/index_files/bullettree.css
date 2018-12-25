@@ -1,0 +1,80 @@
+/********************************************************************
+ * JOOMLA 1.0.X TEMPLATE CSS FILE
+ * ----------------------------------------------------------------
+ * Copyright (C) 2007 JoomlaShine.com. All Rights Reserved.
+ * @license - Copyrighted Commercial Software
+ * Author: JoomlaShine.com
+ * Websites:  http://www.joomlashine.com
+ * ----------------------------------------------------------------
+ * 
+ * EXTENDED MENU SETTINGS:
+ * CSS settings for extended menu
+ *
+*********************************************************************/
+
+/*** DOT LIST ***/
+
+/* main level */
+ul.level0-bullettree,
+ul.level0-bullettree ul {
+	background: none;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+ul.level0-bullettree li {
+	background: none;
+	padding: 0;
+	margin: 0;
+}
+
+ul.level0-bullettree {
+	border-top: 1px dotted #BABABA;
+}
+
+
+ul.level0-bullettree ul li {
+	margin-left: 1em;
+}
+
+ul.level0-bullettree a:link,
+ul.level0-bullettree a:visited {
+	display: block;
+	background: transparent url(../images/bullet-level0.png) no-repeat 5px 10px;
+	border-bottom: 1px dotted #BABABA;
+	padding: 3px 5px 3px 15px;
+	color: #353535;
+	text-decoration: none;
+}
+
+ul.level0-bullettree a:hover {
+	background-color: #d9d9d9;
+	color: #000000;
+}
+
+ul.level1-bullettree a:link,
+ul.level1-bullettree a:visited {
+	background-image: url(../images/bullet-level1.png);
+	border-bottom: none;
+}
+
+ul.level2-bullettree a:link,
+ul.level2-bullettree a:visited {
+	background-image: url(../images/bullet-level2.png);
+}
+
+ul.level3-bullettree a:link,
+ul.level3-bullettree a:visited {
+	background-image: url(../images/bullet-level3.png);
+}
+
+ul.level4-bullettree a:link,
+ul.level4-bullettree a:visited {
+	background-image: url(../images/bullet-level4.png);
+}
+
+a#active_menu-bullettree {
+	background-image: url(../images/bullet-current.png);
+	font-weight: bold;
+}

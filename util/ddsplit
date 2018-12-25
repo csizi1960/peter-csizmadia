@@ -1,0 +1,39 @@
+#!/bin/sh
+#
+# ddsplit, Wed Jun 30 1999, Peter Csizmadia
+# (first version: 1996.03.18)
+#
+
+if [ $# -lt 3 ]; then
+	cat << END
+usage: ddsplit infile <kilobytes> outfile
+magic numbers: 1185 (=1213440 bytes), 1423 (=1457152 bytes)
+END
+	exit
+fi
+
+ifname="$1"
+ofsize="$2"
+ofname="$3"
+ls -l $ifname | awk " \
+BEGIN{i=0; ifbytes=0; ofbytes=1024*$ofsize}
+{
+    	if(i==0)
+		ifbytes = \$5
+    	++i
+}
+END{
+    	n = (ifbytes+ofbytes-1-((ifbytes+ofbytes-1) % ofbytes)) / ofbytes
+    	seek=0
+    	for(k=0; k<n-1; ++k) {
+		ofsize=$ofsize
+		s = sprintf(\"dd if=$ifname of=$ofname.%03d \
+bs=1024 count=%d skip=%d\", k, $ofsize, seek)
+		print s | \"cat 1>&2\"
+		system(s);
+		seek += ofsize;
+    	}
+    	s = sprintf(\"dd if=$ifname of=$ofname.%03d bs=1024 skip=%d\", k, seek)
+	print s | \"cat 1>&2\"
+	system(s);
+}"

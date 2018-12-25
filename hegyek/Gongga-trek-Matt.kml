@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+<Document>
+	<name>Gongga.kml</name>
+	<open>1</open>
+	<LookAt>
+		<longitude>101.8299177309359</longitude>
+		<latitude>29.52022320701944</latitude>
+		<altitude>0</altitude>
+		<range>29177.18342343422</range>
+		<tilt>45.00383094874762</tilt>
+		<heading>0.008612680532377284</heading>
+		<altitudeMode>relativeToGround</altitudeMode>
+	</LookAt>
+	<StyleMap id="msn_ranger_station1">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_ranger_station1</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_ranger_station</styleUrl>
+		</Pair>
+	</StyleMap>
+	<StyleMap id="msn_campground">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_campground</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_campground</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sn_dining">
+		<IconStyle>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/dining.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<StyleMap id="msn_dining">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_dining</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_dining</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sh_dining">
+		<IconStyle>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/dining.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sn_ranger_station">
+		<IconStyle>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/ranger_station.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sn_icon61">
+		<IconStyle>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pal4/icon61.png</href>
+			</Icon>
+		</IconStyle>
+		<ListStyle>
+		</ListStyle>
+	</Style>
+	<StyleMap id="waypoint">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#waypoint_n</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#waypoint_h</styleUrl>
+		</Pair>
+	</StyleMap>
+	<StyleMap id="msn_ranger_station">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_ranger_station2</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_ranger_station2</styleUrl>
+		</Pair>
+	</StyleMap>
+	<StyleMap id="msn_ranger_station0">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_ranger_station</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_ranger_station1</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="waypoint_n">
+		<IconStyle>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pal4/icon61.png</href>
+			</Icon>
+		</IconStyle>
+	</Style>
+	<Style id="sh_ranger_station">
+		<IconStyle>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/ranger_station.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sh_ranger_station1">
+		<IconStyle>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/ranger_station.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sn_campground">
+		<IconStyle>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/campground.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+		<ListStyle>
+		</ListStyle>
+	</Style>
+	<Style id="sn_ranger_station0">
+		<IconStyle>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/ranger_station.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sn_ranger_station1">
+		<IconStyle>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/ranger_station.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sn_ranger_station2">
+		<IconStyle>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/ranger_station.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+		<ListStyle>
+		</ListStyle>
+	</Style>
+	<Style id="sh_ranger_station0">
+		<IconStyle>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/ranger_station.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+	</Style>
+	<Style id="sn_ylw-pushpin">
+		<LineStyle>
+			<color>ffff0000</color>
+			<width>3</width>
+		</LineStyle>
+	</Style>
+	<StyleMap id="msn_ranger_station00">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_ranger_station0</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_ranger_station0</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sh_campground">
+		<IconStyle>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/campground.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+		<ListStyle>
+		</ListStyle>
+	</Style>
+	<Style id="sh_ranger_station2">
+		<IconStyle>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/ranger_station.png</href>
+			</Icon>
+			<hotSpot x="0.5" y="0" xunits="fraction" yunits="fraction"/>
+		</IconStyle>
+		<ListStyle>
+		</ListStyle>
+	</Style>
+	<StyleMap id="msn_icon61">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_icon61</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_icon61</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="sh_icon61">
+		<IconStyle>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pal4/icon61.png</href>
+			</Icon>
+		</IconStyle>
+		<ListStyle>
+		</ListStyle>
+	</Style>
+	<Style id="waypoint_h">
+		<IconStyle>
+			<scale>1.2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/pal4/icon61.png</href>
+			</Icon>
+		</IconStyle>
+	</Style>
+	<Folder>
+		<name>Gongga Trek</name>
+		<open>1</open>
+		<LookAt>
+			<longitude>101.8299177309359</longitude>
+			<latitude>29.52022320701944</latitude>
+			<altitude>0</altitude>
+			<range>29177.18342343422</range>
+			<tilt>45.00383094874762</tilt>
+			<heading>0.008612680532377284</heading>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<Placemark>
+			<name>Dragon Expeditions Office</name>
+			<description>Our offices are located on the edge of the Tibetan quarter of Chengdu in a quite residential area just outside the first ring road.</description>
+			<styleUrl>#msn_ranger_station1</styleUrl>
+			<Point>
+				<coordinates>104.0351682698644,30.64042732171148,492.797852</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Senhua Hotel</name>
+			<description>Our prefered hotel in Chengdu. Clean, cheap, convenient and close to our offices.</description>
+			<LookAt>
+				<longitude>104.025567374468</longitude>
+				<latitude>30.65088342855641</latitude>
+				<altitude>0</altitude>
+				<range>485.6306738307202</range>
+				<tilt>0</tilt>
+				<heading>-0.003223364982128476</heading>
+				<altitudeMode>relativeToGround</altitudeMode>
+			</LookAt>
+			<styleUrl>#msn_ranger_station0</styleUrl>
+			<Point>
+				<coordinates>104.0255673744679,30.65088342855641,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Luding</name>
+			<LookAt>
+				<longitude>102.230941157323</longitude>
+				<latitude>29.91531448068372</latitude>
+				<altitude>0</altitude>
+				<range>1530.442589282223</range>
+				<tilt>35.03710480038919</tilt>
+				<heading>-0.002158842040786215</heading>
+				<altitudeMode>relativeToGround</altitudeMode>
+			</LookAt>
+			<styleUrl>#msn_dining</styleUrl>
+			<Point>
+				<coordinates>102.230941157323,29.91531448068372,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Kangding</name>
+			<LookAt>
+				<longitude>101.9636158055395</longitude>
+				<latitude>30.05621010599078</latitude>
+				<altitude>0</altitude>
+				<range>5198.467932047425</range>
+				<tilt>45.00000000902016</tilt>
+				<heading>-2.028774468984666e-09</heading>
+				<altitudeMode>relativeToGround</altitudeMode>
+			</LookAt>
+			<styleUrl>#msn_ranger_station00</styleUrl>
+			<Point>
+				<coordinates>101.9636158055395,30.05621010599079,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Mugou Cuo</name>
+			<LookAt>
+				<longitude>101.8627332516638</longitude>
+				<latitude>30.13908753341984</latitude>
+				<altitude>0</altitude>
+				<range>20671.50983637209</range>
+				<tilt>45.00000010200804</tilt>
+				<heading>5.757284290396295e-09</heading>
+				<altitudeMode>relativeToGround</altitudeMode>
+			</LookAt>
+			<styleUrl>#msn_campground</styleUrl>
+			<Point>
+				<coordinates>101.8627332516638,30.13908753341984,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Tagong</name>
+			<LookAt>
+				<longitude>101.5217805174937</longitude>
+				<latitude>30.31980785034854</latitude>
+				<altitude>0</altitude>
+				<range>8780.734987283606</range>
+				<tilt>13.34549935212516</tilt>
+				<heading>0</heading>
+				<altitudeMode>relativeToGround</altitudeMode>
+			</LookAt>
+			<styleUrl>#msn_ranger_station</styleUrl>
+			<Point>
+				<coordinates>101.5217805174936,30.31980785034854,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>006</name>
+			<styleUrl>#waypoint</styleUrl>
+			<Point>
+				<coordinates>101.693549,29.611007,3934.291504</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>007</name>
+			<styleUrl>#waypoint</styleUrl>
+			<Point>
+				<coordinates>101.71602,29.604845,4278.200195</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>008</name>
+			<styleUrl>#waypoint</styleUrl>
+			<Point>
+				<coordinates>101.723711,29.599275,4572.602051</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>009</name>
+			<styleUrl>#waypoint</styleUrl>
+			<Point>
+				<coordinates>101.73165,29.59203400000001,4039.795410000002</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>010</name>
+			<styleUrl>#waypoint</styleUrl>
+			<Point>
+				<coordinates>101.763258,29.551724,3718.958008000001</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>011</name>
+			<styleUrl>#waypoint</styleUrl>
+			<Point>
+				<coordinates>101.768084,29.528683,3300.306641</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>012</name>
+			<styleUrl>#waypoint</styleUrl>
+			<Point>
+				<coordinates>101.793107,29.51157600000001,3231.573242</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>013</name>
+			<styleUrl>#waypoint</styleUrl>
+			<Point>
+				<coordinates>101.848117,29.467721,3178.700684</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>014</name>
+			<styleUrl>#waypoint</styleUrl>
+			<Point>
+				<coordinates>101.849429,29.467734,3174.134766</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>015</name>
+			<styleUrl>#waypoint</styleUrl>
+			<Point>
+				<coordinates>101.849314,29.466919,3159.234375</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>016</name>
+			<styleUrl>#waypoint</styleUrl>
+			<Point>
+				<coordinates>101.882437,29.448762,2960.483398</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Nochma</name>
+			<LookAt>
+				<longitude>101.8005008923983</longitude>
+				<latitude>29.61790900005765</latitude>
+				<altitude>0</altitude>
+				<range>9098.034872759525</range>
+				<tilt>44.71608445313898</tilt>
+				<heading>0.009458275367541038</heading>
+				<altitudeMode>relativeToGround</altitudeMode>
+			</LookAt>
+			<styleUrl>#msn_icon61</styleUrl>
+			<Point>
+				<coordinates>101.8005008923983,29.61790900005765,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Trekking Route</name>
+			<LookAt>
+				<longitude>101.8123654912655</longitude>
+				<latitude>29.53626657623299</latitude>
+				<altitude>0</altitude>
+				<range>28574.31903455386</range>
+				<tilt>45</tilt>
+				<heading>0</heading>
+				<altitudeMode>relativeToGround</altitudeMode>
+			</LookAt>
+			<styleUrl>#sn_ylw-pushpin</styleUrl>
+			<LineString>
+				<tessellate>1</tessellate>
+				<coordinates>
+101.6966009177969,29.61240746849906,0 101.6996498988722,29.61313936545272,0 101.7021942824645,29.61277105127855,0 101.7058003825359,29.61176304839976,0 101.7087380604414,29.61075599212005,0 101.7119845321367,29.60952435205082,0 101.7142391669289,29.60759575544807,0 101.7159460251545,29.60487136668183,0 101.7188007499455,29.60349290303119,0 101.7208119828672,29.60153415446449,0 101.7231211722053,29.59978097014203,0 101.7252032136145,29.5979813534468,0 101.7263086728732,29.59569228714372,0 101.727418895682,29.59338701376087,0 101.729141756913,29.59182486471546,0 101.7318749125505,29.59172431691371,0 101.7346658569569,29.59159285861494,0 101.7374777139117,29.59197149087745,0 101.7403122871235,29.59208425882129,0 101.7439803502391,29.59225890264333,0 101.7465494118206,29.59132528534897,0 101.7500246814105,29.59039261096721,0 101.7516195018303,29.58970505815164,0 101.7517512100836,29.58773709846405,0 101.7534293273826,29.58403669446147,0 101.7540337715362,29.58141845594889,0 101.7549388110008,29.57880087951055,0 101.755196982159,29.5762134363987,0 101.7561211702619,29.5735812122169,0 101.7563988072069,29.57097675287761,0 101.7574302895289,29.56828288018041,0 101.757780831772,29.56564126272559,0 101.7581316664891,29.56326476044705,0 101.7579930962577,29.56043873104904,0 101.7588152849363,29.55800936887938,0 101.7594249439187,29.55554327154782,0 101.7594339927067,29.55226709003741,0 101.7597735798679,29.54905057622427,0 101.7617917355766,29.54948795166258,0 101.7632446308372,29.55188642935883,0 101.7648313828889,29.55592161170066,0 101.7670557213406,29.55884057818864,0 101.7688714728114,29.56202237879583,0 101.7697848958408,29.56267823113758,0 101.7706955432949,29.56560907841964,0 101.7697848958408,29.56267823113758,0 101.7682498968399,29.56106348065608,0 101.764367111955,29.55501631569345,0 101.76342844441,29.5515298545579,0 101.7632786274211,29.54853046853639,0 101.7633545014791,29.54575851399314,0 101.7634360278729,29.54343326129793,0 101.7625614869335,29.5387222156011,0 101.7619562569516,29.53629794171131,0 101.7624802798816,29.53343170050973,0 101.7606480851801,29.53087726701258,0 101.7629121274351,29.52925485045113,0 101.7678363725868,29.52867372731826,0 101.7691247019961,29.52712484338974,0 101.7715087210545,29.52490097450185,0 101.7725265421273,29.52349355920053,0 101.7723886059284,29.52146204997299,0 101.7756949138253,29.5164251180409,0 101.7785083289597,29.515656171151,0 101.7823707705872,29.51603372276617,0 101.7853958656204,29.51500228307615,0 101.7885578631896,29.5141182179778,0 101.7903168056642,29.51201629491466,0 101.7933544911209,29.5106843927551,0 101.7955396326488,29.50812209913805,0 101.7990468427556,29.50622076030333,0 101.8017358922217,29.50586156485779,0 101.8049346452936,29.50541610998436,0 101.8090359611675,29.5059241564282,0 101.8114253923491,29.50499764894096,0 101.8125435239409,29.50163146358329,0 101.8143760847732,29.49974605751395,0 101.8165120932592,29.49711062298891,0 101.8195679011416,29.49549331192756,0 101.8226271290795,29.49414059238897,0 101.8253748585732,29.49255288614372,0 101.8281224160395,29.49122895888971,0 101.8302360919535,29.4891690312665,0 101.8324107966994,29.48694994146617,0 101.8345466485779,29.48509744841767,0 101.8366989531417,29.48267652587819,0 101.8382305868694,29.4802774212911,0 101.8393644199045,29.47853148918723,0 101.8402770958499,29.47589953320357,0 101.8404440090342,29.47373185814365,0 101.8415144062726,29.470355609395,0 101.8422674801264,29.46850110585855,0 101.8438636973078,29.46727584861117,0 101.8452542141204,29.46746870170432,0 101.846847023486,29.46766323306148,0 101.849574525716,29.46798427577508,0 101.852640675768,29.46699864576914,0 101.8543821371503,29.46693266901838,0 101.8569157912378,29.46533217695871,0 101.8620558124466,29.4635216968115,0 101.8668079378433,29.46086314637955,0 101.8708639985693,29.45875549362601,0 101.8743859508787,29.45715449636038,0 101.8769763116802,29.45536161283192,0 101.8791908404426,29.45334983977525,0 101.8814814591074,29.45089854113083,0 101.8829116280414,29.45056056951609,0 101.8840665666835,29.44830695619361,0 101.8858957568793,29.44447172297107,0 101.887527088389,29.44178351510188,0 101.8896292610854,29.44046184068598,0 101.8926094014423,29.43912857793161,0 101.8941723809071,29.43843623870658,0 </coordinates>
+			</LineString>
+		</Placemark>
+	</Folder>
+</Document>
+</kml>

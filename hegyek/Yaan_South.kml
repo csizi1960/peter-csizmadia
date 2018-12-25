@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<GroundOverlay>
+	<name>Ya&apos;an South</name>
+	<color>c2ffffff</color>
+	<Icon>
+		<href>Yaan_South.jpg</href>
+		<viewBoundScale>0.75</viewBoundScale>
+	</Icon>
+	<gx:LatLonQuad>
+		<coordinates>
+101.8479591785646,28.82965889209416,0 102.6609381458017,28.85570719020123,0 102.7051095795919,29.72186608011683,0 101.6827135849976,29.95233110782953,0 </coordinates>
+	</gx:LatLonQuad>
+</GroundOverlay>
+</kml>
