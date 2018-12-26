@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0"
+     xmlns:media="http://search.yahoo.com/mrss/"
+     xmlns:jalbum="http://jalbum.net/jalbumrss">
+
+    <channel>
+        <title>Alpok 2000m</title>
+   	<link>.</link>
+   	
+        
+    	<jalbum:link rel="sub" href="Triglav Prusik-Szalay 2008.09.20./album.rss" />   	
+    	
+        
+    </channel>
+</rss>

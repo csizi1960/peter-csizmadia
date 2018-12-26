@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0"
+     xmlns:media="http://search.yahoo.com/mrss/"
+     xmlns:jalbum="http://jalbum.net/jalbumrss">
+
+    <channel>
+        <title>Alpok 4000m</title>
+   	<link>.</link>
+        <generator>Jalbum 8.3</generator>
+   		<description></description>
+        
+    	<jalbum:link rel="sub" href="Breithorn 2007.12.31./album.rss" />   	
+    	
+    	<jalbum:link rel="sub" href="Dent Blanche d. gerinc 2008.10.25./album.rss" />   	
+    	
+    	<jalbum:link rel="sub" href="Matterhorn Hornligrat 2006.08.10./album.rss" />   	
+    	
+    	<jalbum:link rel="sub" href="Matterhorn Lion-Hornli Traverz 2008.09.29./album.rss" />   	
+    	
+    	<jalbum:link rel="sub" href="Matterhorn Liongrat 2008.08.21./album.rss" />   	
+    	
+    	<jalbum:link rel="sub" href="Mont Blanc 2006.08.08./album.rss" />   	
+    	
+    	<jalbum:link rel="sub" href="Mont Blanc Freney Pillar 2009.08.19./album.rss" />   	
+    	
+    	<jalbum:link rel="sub" href="Monte Rosa Dufourspitze 2001.08.01./album.rss" />   	
+    	
+    	<jalbum:link rel="sub" href="Weisshorn Ostgrat 2008.08.05./album.rss" />   	
+    	
+        
+    </channel>
+</rss>

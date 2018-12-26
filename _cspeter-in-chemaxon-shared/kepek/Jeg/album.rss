@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0"
+     xmlns:media="http://search.yahoo.com/mrss/"
+     xmlns:jalbum="http://jalbum.net/jalbumrss">
+
+    <channel>
+        <title>Jeg</title>
+   	<link>.</link>
+        <generator>Jalbum 8.1</generator>
+   		<description></description>
+        
+    	<jalbum:link rel="sub" href="Lysa Polana, 2005. februar/album.rss" />   	
+    	<jalbum:link rel="sub" href="Lysa Polana, 2005. februar/album.rss" />   	
+    	
+    	<jalbum:link rel="sub" href="Malaval - Caturgeas, 2009.01.03./album.rss" />   	
+    	<jalbum:link rel="sub" href="Malaval - Caturgeas, 2009.01.03./album.rss" />   	
+    	
+    	<jalbum:link rel="sub" href="Maltatal, 2008.02.02-03./album.rss" />   	
+    	<jalbum:link rel="sub" href="Maltatal, 2008.02.02-03./album.rss" />   	
+    	
+    	<jalbum:link rel="sub" href="Vallon du Diable, 2008.12.30-31./album.rss" />   	
+    	<jalbum:link rel="sub" href="Vallon du Diable, 2008.12.30-31./album.rss" />   	
+    	
+    	<jalbum:link rel="sub" href="Zold to, 2008.01.20./album.rss" />   	
+    	<jalbum:link rel="sub" href="Zold to, 2008.01.20./album.rss" />   	
+    	
+    	<jalbum:link rel="sub" href="Erlaufboden - Deepest Blue (Blaubart), 2009.01.24./album.rss" />   	
+    	<jalbum:link rel="sub" href="Erlaufboden - Deepest Blue (Blaubart), 2009.01.24./album.rss" />   	
+    	
+        
+    </channel>
+</rss>

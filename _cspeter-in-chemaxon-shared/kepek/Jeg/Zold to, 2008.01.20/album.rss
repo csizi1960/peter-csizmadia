@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0"
+     xmlns:media="http://search.yahoo.com/mrss/"
+     xmlns:jalbum="http://jalbum.net/jalbumrss">
+
+    <channel>
+        <title>Zold to, 2008.01.20.</title>
+   	<link>..</link>
+        <generator>Jalbum 8.1</generator>
+   		<description></description>
+        
+        
+        <item>
+            <title>01-p1030977-crop</title>
+            <link>slides/01-p1030977-crop.html</link>
+            <pubDate>Fri, 30 Jan 2009 14:09:17 +0100</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/01-p1030977-crop.jpg" width="120" height="90"/>
+            <media:content url="slides/01-p1030977-crop.jpg" width="799" height="600"/>
+            
+            <jalbum:exif originalDate="1/19/08 3:49 PM" cameraMake="Panasonic" cameraModel="DMC-LX2"/>
+            <guid isPermaLink="false">slides/01-p1030977-crop.jpg</guid>
+        </item>
+        
+        <item>
+            <title>02-p1030986</title>
+            <link>slides/02-p1030986.html</link>
+            <pubDate>Fri, 30 Jan 2009 14:09:17 +0100</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/02-p1030986.jpg" width="90" height="120"/>
+            <media:content url="slides/02-p1030986.jpg" width="450" height="600"/>
+            
+            <jalbum:exif originalDate="1/20/08 9:47 AM" cameraMake="Panasonic" cameraModel="DMC-LX2"/>
+            <guid isPermaLink="false">slides/02-p1030986.jpg</guid>
+        </item>
+        
+        <item>
+            <title>03-p1030988</title>
+            <link>slides/03-p1030988.html</link>
+            <pubDate>Fri, 30 Jan 2009 14:09:17 +0100</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/03-p1030988.jpg" width="67" height="120"/>
+            <media:content url="slides/03-p1030988.jpg" width="337" height="600"/>
+            
+            <jalbum:exif originalDate="1/20/08 11:16 AM" cameraMake="Panasonic" cameraModel="DMC-LX2"/>
+            <guid isPermaLink="false">slides/03-p1030988.jpg</guid>
+        </item>
+        
+        <item>
+            <title>04-p1040011</title>
+            <link>slides/04-p1040011.html</link>
+            <pubDate>Fri, 30 Jan 2009 14:09:17 +0100</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/04-p1040011.jpg" width="90" height="120"/>
+            <media:content url="slides/04-p1040011.jpg" width="450" height="600"/>
+            
+            <jalbum:exif originalDate="1/20/08 11:22 AM" cameraMake="Panasonic" cameraModel="DMC-LX2"/>
+            <guid isPermaLink="false">slides/04-p1040011.jpg</guid>
+        </item>
+        
+        <item>
+            <title>05-p1040063</title>
+            <link>slides/05-p1040063.html</link>
+            <pubDate>Fri, 30 Jan 2009 14:09:17 +0100</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/05-p1040063.jpg" width="67" height="120"/>
+            <media:content url="slides/05-p1040063.jpg" width="337" height="600"/>
+            
+            <jalbum:exif originalDate="1/20/08 12:08 PM" cameraMake="Panasonic" cameraModel="DMC-LX2"/>
+            <guid isPermaLink="false">slides/05-p1040063.jpg</guid>
+        </item>
+        
+        <item>
+            <title>06-p1040039</title>
+            <link>slides/06-p1040039.html</link>
+            <pubDate>Fri, 30 Jan 2009 14:09:17 +0100</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/06-p1040039.jpg" width="79" height="120"/>
+            <media:content url="slides/06-p1040039.jpg" width="399" height="600"/>
+            
+            <jalbum:exif originalDate="1/20/08 12:00 PM" cameraMake="Panasonic" cameraModel="DMC-LX2"/>
+            <guid isPermaLink="false">slides/06-p1040039.jpg</guid>
+        </item>
+        
+    </channel>
+</rss>

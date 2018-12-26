@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0"
+     xmlns:media="http://search.yahoo.com/mrss/"
+     xmlns:jalbum="http://jalbum.net/jalbumrss">
+
+    <channel>
+        <title>Tatra</title>
+   	<link>.</link>
+   	
+        
+    	<jalbum:link rel="sub" href="Sarkany-fal Plsek, Okor-hat-torony Stanislawski, Staflova, 2006.09.23-25./album.rss" />   	
+    	
+    	<jalbum:link rel="sub" href="Weber Direkt, Stanislawski, 2008.09.06-07./album.rss" />   	
+    	
+        
+    </channel>
+</rss>
